@@ -1,5 +1,6 @@
 import { spawnSync } from "node:child_process";
-import { randomBytes } from "crypto";
+import { randomBytes } from "node:crypto";
+
 export default function (
   projectPath: string,
   from: string,
