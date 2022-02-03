@@ -20,10 +20,10 @@
     "@types/conventional-commits-parser": "^3.0.2",
     "@types/git-raw-commits": "^2.0.1",
     "@types/semver": "^7.3.9",
+    "prettier": "^2.5.1",
     "ts-node": "^10.4.0"
   },
   "dependencies": {
-    "conventional-changelog-angular": "^5.0.13",
     "conventional-changelog-writer": "^5.0.1",
     "conventional-commits-parser": "^3.2.4",
     "git-raw-commits": "^2.0.11",
