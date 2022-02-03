@@ -5,7 +5,8 @@
     "target": "ESNext",
     "moduleResolution": "node",
     "esModuleInterop": true,
-    "sourceMap": true
+    "sourceMap": false,
+    "declaration": true,
   },
   "exclude": ["node_modules"]
 }
