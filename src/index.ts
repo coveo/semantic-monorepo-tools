@@ -1,6 +1,7 @@
 export { default as getCommits } from "./git/getCommits";
 export { default as getLastTag } from "./git/getLastGitTag";
 export { default as gitPush } from "./git/doGitPush";
+export { default as gitPushTags } from "./git/doGitPushTags";
 export { default as gitCommit } from "./git/doGitCommit";
 export { default as gitTag } from "./git/doGitTag";
 export { default as npmBumpVersion } from "./npm/doNpmBumpVersion";
