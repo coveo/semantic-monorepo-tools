@@ -1,6 +1,3 @@
 export default function (key: string, value?: string): string[] {
-  if (value !== undefined) {
-    return [key, value];
-  }
-  return [];
+  return value ?? [key, value]  : [];
 }
