@@ -4,3 +4,4 @@ runs:
   using: composite
   steps:
     - run: npm run prettier:check && npm run eslint:check
+      shell: bash
