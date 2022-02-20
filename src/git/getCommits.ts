@@ -1,11 +1,7 @@
 import { spawnSync } from "node:child_process";
 import { randomBytes } from "node:crypto";
 
-export default function (
-  projectPath: string,
-  from: string,
-  to: string = "HEAD"
-) {
+export default function (projectPath: string, from: string, to = "HEAD") {
   const delimiter = `<--- ${randomBytes(64).toString("hex")} --->`;
   const gitParams = [
     "log",
