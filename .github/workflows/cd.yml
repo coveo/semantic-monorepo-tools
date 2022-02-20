@@ -7,4 +7,4 @@ jobs:
     runs-on: ubuntu-latest
     name: CD
     steps:
-      - uses: /.github/actions/lint
+      - uses: ./.github/actions/lint

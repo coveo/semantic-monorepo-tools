@@ -8,4 +8,4 @@ jobs:
     runs-on: ubuntu-latest
     name: CI
     steps:
-      - uses: /.github/actions/lint
+      - uses: ./.github/actions/lint
