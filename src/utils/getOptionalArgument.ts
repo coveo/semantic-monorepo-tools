@@ -1,3 +1,3 @@
 export default function (key: string, value?: string): string[] {
-  return value ? [key, value]  : [];
+  return value ? [key, value] : [];
 }
