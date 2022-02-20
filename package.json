@@ -1,7 +1,7 @@
 {
   "name": "@coveo/semantic-monorepo-tools",
   "version": "0.1.0",
-  "description": "A library of helper functions to do [SemVer2](https://semver.org/) compliant releases from [Conventional Commits](https://www.conventionalcommits.org/) in monorepos",
+  "description": "A library of helper functions to do SemVer2 compliant releases from Conventional Commits in monorepos",
   "readme": "README.md",
   "repository": {
     "type": "git",
