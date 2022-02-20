@@ -1,0 +1,11 @@
+name: CI
+on:
+  pull_request:
+    branches: [main]
+    types: [opened, edited, synchronize, reopened]
+jobs:
+  CI:
+    runs-on: ubuntu-latest
+    name: CI
+    steps:
+      - uses: /.github/actions/lint
