@@ -101,6 +101,12 @@ import retry from "async-retry";
     // `chore(release): ${newVersion}`,
   ]);
 
+  spawnSync("git", [
+    "update-ref",
+    `refs/heads/${tempBranchName}`,
+    commitTree.stdout.toString().trim(),
+  ]);
+
   console.log(commitTree.stdout.toString());
   console.log(commitTree.stderr.toString());
 
