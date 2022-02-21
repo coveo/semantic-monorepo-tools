@@ -88,8 +88,14 @@ import { homedir } from "os";
 
   //#region Commit changelog, tag version and push.
   // gitCommit(PATH, `chore(release): ${newVersion}`);
-  gitCommit(PATH, `beep boop I'm a bot [ci skip]`);
+  // gitCommit(PATH, `beep boop I'm a bot [ci skip]`);
   // gitTag(newVersionTag);
+  spawnSync("git", [
+    "commit",
+    "-m",
+    "beep boop I'm a bot [ci skip]",
+    "--allow-empty",
+  ]);
   gitPush();
   // gitPushTags();
   //#endregion
