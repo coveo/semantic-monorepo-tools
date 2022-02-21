@@ -47,8 +47,8 @@ import retry from "async-retry";
   });
 
   const octokit = new Octokit({
-    authStrategy,
-    auth: { ...authSecrets, type: "installation" },
+    authStrategy: createAppAuth,
+    auth: authSecrets,
   });
 
   setupGitCredentials(REPO_OWNER, REPO_NAME, installationToken.token);
