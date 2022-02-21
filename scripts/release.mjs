@@ -91,20 +91,26 @@ import { homedir } from "os";
   // gitCommit(PATH, `beep boop I'm a bot [ci skip]`);
   // gitTag(newVersionTag);
 
-  spawnSync("git", ["branch", "cd-test", "--set-upstream-to"]);
+  spawnSync("git", [
+    "branch",
+    "cd-test",
+    "--set-upstream-to",
+    "origin/cd-test",
+  ]);
   spawnSync("git", ["checkout", "cd-test"]);
   const uhoh = spawnSync("git", [
     "commit",
     "-m",
     "beep boop I'm a bot [ci skip]",
-    "-S",
     "--allow-empty",
   ]);
   console.log(uhoh.stdout.toString());
   console.log(uhoh.stderr.toString());
-  spawnSync("git", ["push", "-u"]);
+  const push = spawnSync("git", ["push", "-u"]);
+  console.log(push.stdout.toString());
+  console.log(push.stderr.toString());
   spawnSync("git", ["checkout", "cd"]);
-  spawnSync("git", ["merge", "cd-test", "-ff-only"]);
+  // spawnSync("git", ["merge", "cd-test", "-ff-only"]);
   // spawnSync("git", [
   //   "remote",
   //   "set-url",
