@@ -81,7 +81,9 @@ import retry from "async-retry";
   // gitCommit(PATH, `chore(release): ${newVersion}`);
   // gitCommit(PATH, `beep boop I'm a bot [ci skip]`);
   // gitTag(newVersionTag);
-
+  const previousCommitSHA = spawnSync("git", ["rev-parse", "HEAD"])
+    .stdout.toString()
+    .trim();
   const branching = spawnSync("git", ["branch", "cd-test"]);
   spawnSync("git", ["checkout", "cd-test"]);
   const uhoh = spawnSync("git", [
@@ -108,9 +110,6 @@ import retry from "async-retry";
     repo: REPO_NAME,
     commit_sha: tmpCommitSHA,
   });
-  const previousCommitSHA = spawnSync("git", ["rev-parse", "HEAD"])
-    .stdout.toString()
-    .trim();
 
   console.log(`previouscommitSHA: ${previousCommitSHA} end`);
   const commit = await octokit.rest.git.createCommit({
