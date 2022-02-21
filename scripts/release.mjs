@@ -91,15 +91,18 @@ import retry from "async-retry";
   writeFileSync("some-file.txt", "some content");
   spawnSync("git", ["add", "."]);
   const treeSHA = spawnSync("git", ["write-tree"]).stdout.toString().trim();
-  spawnSync("git", [
+  const commitTree = spawnSync("git", [
     "commit-tree",
     treeSHA,
     "-p",
-    mainBranchCurrentSHA,
+    tempBranchName,
     "-m",
     "temp commit",
     // `chore(release): ${newVersion}`,
   ]);
+
+  console.log(commitTree.stdout.toString());
+  console.log(commitTree.stderr.toString());
 
   const push = spawnSync("git", ["push", "-u", "origin", tempBranchName]);
   spawnSync("git", ["config", "--global", "--unset", "user.name"]);
