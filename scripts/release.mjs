@@ -7,7 +7,6 @@ import {
   npmBumpVersion,
   generateChangelog,
   writeChangelog,
-  gitCommit,
   gitPush,
   gitPushTags,
   gitTag,
@@ -20,7 +19,6 @@ import { spawnSync } from "child_process";
 import { chmodSync, mkdirSync, writeFileSync } from "fs";
 import { join } from "path";
 import { homedir } from "os";
-import retry from "async-retry";
 
 // Get all commits since last release bump the root package.json version.
 (async () => {
@@ -62,7 +60,6 @@ import retry from "async-retry";
   npmBumpVersion(newVersion, PATH);
 
   //#region Generate changelog if needed.
-  /*
   let changelog = "";
   if (parseCommits.length > 0) {
     changelog = await generateChangelog(
@@ -80,7 +77,6 @@ import retry from "async-retry";
     );
     await writeChangelog(PATH, changelog);
   }
-  */
   //#endregion
 
   //#region Commit changelog, tag version and push.
@@ -128,19 +124,17 @@ import retry from "async-retry";
   console.log(push.stdout.toString());
   console.log(push.stderr.toString());
   spawnSync("git", ["push", "deploy", "--delete", tempBranchName]);
-
   //#endregion
 
   //#region Create & push tag.
-  // gitTag(newVersionTag);
-  // gitPushTags();
+  gitTag(newVersionTag);
+  gitPushTags();
   //#endregion
 
   // Publish the new version on NPM.
   // npmPublish(PATH);
 
   //#region Create GitHub Release on last tag.
-  /*
   const [, ...bodyArray] = changelog.split("\n");
   await octokit.rest.repos.createRelease({
     owner: REPO_OWNER,
@@ -149,7 +143,6 @@ import retry from "async-retry";
     name: `Release ${newVersionTag}`,
     body: bodyArray.join("\n"),
   });
-  */
   //#endregion
 })();
 
