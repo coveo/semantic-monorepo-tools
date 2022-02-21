@@ -93,8 +93,6 @@ import retry from "async-retry";
   // gitTag(newVersionTag);
 
   const branching = spawnSync("git", ["branch", "cd-test"]);
-  console.log(branching.stdout.toString());
-  console.log(branching.stderr.toString());
   spawnSync("git", ["checkout", "cd-test"]);
   const uhoh = spawnSync("git", [
     "commit",
@@ -108,17 +106,17 @@ import retry from "async-retry";
   const commitSHA = spawnSync("git", ["rev-parse", "HEAD"])
     .stdout.toString()
     .trim();
-  const commitObject = await retry(() =>
-    octokit.rest.git.getCommit({
-      owner: REPO_OWNER,
-      repo: REPO_NAME,
-      commit_sha: commitSHA,
-    })
-  );
-  const previousCommitSHA = spawnSync("git", [
-    "rev-parse",
-    "HEAD",
-  ]).stdout.toString();
+  console.log(`commitSHA: ${commitSHA} end`);
+  const commitObject = await octokit.rest.git.getCommit({
+    owner: REPO_OWNER,
+    repo: REPO_NAME,
+    commit_sha: commitSHA,
+  });
+  const previousCommitSHA = spawnSync("git", ["rev-parse", "HEAD"])
+    .stdout.toString()
+    .trim();
+
+  console.log(`previouscommitSHA: ${previousCommitSHA} end`);
   await octokit.rest.git.createCommit({
     message: "beep boop I'm a bot [ci skip]",
     owner: REPO_OWNER,
@@ -126,21 +124,15 @@ import retry from "async-retry";
     tree: commitObject.data.tree.sha,
     parents: [previousCommitSHA],
   });
+  await octokit.rest.git.updateRef({
+    owner: REPO_OWNER,
+    repo: REPO_NAME,
+    ref: "refs/heads/cd",
+    sha: commitSHA,
+  });
   console.log(push.stdout.toString());
   console.log(push.stderr.toString());
   spawnSync("git", ["checkout", "cd"]);
-  // spawnSync("git", ["merge", "cd-test", "-ff-only"]);
-  // spawnSync("git", [
-  //   "remote",
-  //   "set-url",
-  //   "origin",
-  //   `git@deploy:${REPO_OWNER}/${REPO_NAME}.git`,
-  // ]);
-  spawnSync("git", ["push"]);
-  // spawnSync("git", ["push", "-d", "origin", "cd-test"]);
-  // console.log(gitCommit.stdout.toString());
-  // console.log(gitCommit.stderr.toString());
-  //log gitPush.stdout and gitPush.stderr
   //#endregion
 
   //#region Publish to NPM.
