@@ -102,12 +102,12 @@ import { homedir } from "os";
   spawnSync("git", ["push", "-u"]);
   spawnSync("git", ["checkout", "cd"]);
   spawnSync("git", ["merge", "cd-test", "-ff-only"]);
-  spawnSync("git", [
-    "remote",
-    "set-url",
-    "origin",
-    `git@deploy:${REPO_OWNER}/${REPO_NAME}.git`,
-  ]);
+  // spawnSync("git", [
+  //   "remote",
+  //   "set-url",
+  //   "origin",
+  //   `git@deploy:${REPO_OWNER}/${REPO_NAME}.git`,
+  // ]);
   spawnSync("git", ["push"]);
   // spawnSync("git", ["push", "-d", "origin", "cd-test"]);
   // console.log(gitCommit.stdout.toString());
