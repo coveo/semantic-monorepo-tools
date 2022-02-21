@@ -20,6 +20,7 @@ import { spawnSync } from "child_process";
 import { chmodSync, mkdirSync, writeFileSync } from "fs";
 import { join } from "path";
 import { homedir } from "os";
+import retry from "async-retry";
 
 // Get all commits since last release bump the root package.json version.
 (async () => {
@@ -105,11 +106,13 @@ import { homedir } from "os";
   console.log(uhoh.stderr.toString());
   const push = spawnSync("git", ["push", "-u", "origin", "cd-test"]);
   const commitSHA = spawnSync("git", ["rev-parse", "HEAD"]).stdout.toString();
-  const commitObject = await octokit.rest.git.getCommit({
-    owner: REPO_OWNER,
-    repo: REPO_NAME,
-    commit_sha: commitSHA,
-  });
+  const commitObject = await retry(() =>
+    octokit.rest.git.getCommit({
+      owner: REPO_OWNER,
+      repo: REPO_NAME,
+      commit_sha: commitSHA,
+    })
+  );
   const previousCommitSHA = spawnSync("git", [
     "rev-parse",
     "HEAD",
