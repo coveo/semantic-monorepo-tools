@@ -93,12 +93,15 @@ import { homedir } from "os";
 
   spawnSync("git", ["branch", "cd-test", "--set-upstream-to"]);
   spawnSync("git", ["checkout", "cd-test"]);
-  spawnSync("git", [
+  const uhoh = spawnSync("git", [
     "commit",
     "-m",
     "beep boop I'm a bot [ci skip]",
+    "-S",
     "--allow-empty",
   ]);
+  console.log(uhoh.stdout.toString());
+  console.log(uhoh.stderr.toString());
   spawnSync("git", ["push", "-u"]);
   spawnSync("git", ["checkout", "cd"]);
   spawnSync("git", ["merge", "cd-test", "-ff-only"]);
