@@ -1,8 +1,12 @@
 name: CI
 on:
-  pull_request:
-    branches: [main]
-    types: [opened, edited, synchronize, reopened]
+  push:
+    branches:
+      - cd
+
+  # pull_request:
+  #   branches: [main]
+  #   types: [opened, edited, synchronize, reopened]
 jobs:
   CI:
     runs-on: ubuntu-latest
