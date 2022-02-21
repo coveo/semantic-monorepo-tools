@@ -114,7 +114,7 @@ import retry from "async-retry";
 
   console.log(`previouscommitSHA: ${previousCommitSHA} end`);
   await octokit.rest.git.createCommit({
-    message: "beep boop I'm a bot [ci skip]",
+    message: "beep boop I'm almost a bot [ci skip]",
     owner: REPO_OWNER,
     repo: REPO_NAME,
     tree: commitObject.data.tree.sha,
