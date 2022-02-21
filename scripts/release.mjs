@@ -103,6 +103,8 @@ import retry from "async-retry";
   console.log(uhoh.stdout.toString());
   console.log(uhoh.stderr.toString());
   const push = spawnSync("git", ["push", "-u", "origin", "cd-test"]);
+  spawnSync("git", ["config", "--global", "--unset", "user.name"]);
+  spawnSync("git", ["config", "--global", "--unset", "user.email"]);
   const commitSHA = spawnSync("git", ["rev-parse", "HEAD"])
     .stdout.toString()
     .trim();
@@ -138,6 +140,7 @@ import retry from "async-retry";
 
   console.log(push.stdout.toString());
   console.log(push.stderr.toString());
+
   spawnSync("git", ["checkout", "cd"]);
   //#endregion
 
