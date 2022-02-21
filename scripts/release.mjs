@@ -54,13 +54,13 @@ import { homedir } from "os";
   //#endregion
 
   //#region Find current and new versions.
-  const lastTag = getLastTag(VERSION_PREFIX);
-  const commits = getCommits(PATH, lastTag);
-  const parsedCommits = parseCommits(commits, CONVENTION.parserOpts);
-  const bumpInfo = CONVENTION.recommendedBumpOpts.whatBump(parsedCommits);
-  const currentVersion = getCurrentVersion(PATH);
-  const newVersion = getNextVersion(currentVersion, bumpInfo);
-  const newVersionTag = `${VERSION_PREFIX}${newVersion}`;
+  // const lastTag = getLastTag(VERSION_PREFIX);
+  // const commits = getCommits(PATH, lastTag);
+  // const parsedCommits = parseCommits(commits, CONVENTION.parserOpts);
+  // const bumpInfo = CONVENTION.recommendedBumpOpts.whatBump(parsedCommits);
+  // const currentVersion = getCurrentVersion(PATH);
+  // const newVersion = getNextVersion(currentVersion, bumpInfo);
+  // const newVersionTag = `${VERSION_PREFIX}${newVersion}`;
   //#endregion
 
   // Bump the NPM version.
@@ -90,12 +90,20 @@ import { homedir } from "os";
   // gitCommit(PATH, `chore(release): ${newVersion}`);
   // gitCommit(PATH, `beep boop I'm a bot [ci skip]`);
   // gitTag(newVersionTag);
-  spawnSync("git", [
+  const gitCommit = spawnSync("git", [
     "commit",
     "-m",
     "beep boop I'm a bot [ci skip]",
     "--allow-empty",
   ]);
+  console.log(gitCommit.stdout.toString());
+  console.log(gitCommit.stderr.toString());
+  //log gitPush.stdout and gitPush.stderr
+  //#endregion
+
+  //#region Publish to NPM.
+  // npmPublish(PATH);
+  //#endregion
   gitPush();
   // gitPushTags();
   //#endregion
@@ -127,24 +135,34 @@ Hostname github.com
 PreferredAuthentications publickey
 IdentityFile ${join(homedir(), ".ssh", "id_rsa")}`
   );
-  spawnSync("git", [
+
+  const gitRemote = spawnSync("git", [
     "remote",
     "set-url",
     "origin",
     `git@deploy:${REPO_OWNER}/${REPO_NAME}.git`,
   ]);
 
-  spawnSync("git", [
+  console.log(gitRemote.stdout.toString());
+  console.log(gitRemote.stderr.toString());
+
+  const gitConfigMail = spawnSync("git", [
     "config",
     "--global",
     "user.email",
     `${process.env.RELEASER_INSTALLATION_ID}+developer-experience-bot[bot]@users.noreply.github.com`,
   ]);
 
-  spawnSync("git", [
+  console.log(gitConfigMail.stdout.toString());
+  console.log(gitConfigMail.stderr.toString());
+
+  const gitConfigName = spawnSync("git", [
     "config",
     "--global",
     "user.name",
     "developer-experience-bot[bot]",
   ]);
+
+  console.log(gitConfigName.stdout.toString());
+  console.log(gitConfigName.stderr.toString());
 }
