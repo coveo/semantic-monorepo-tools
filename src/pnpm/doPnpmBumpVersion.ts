@@ -12,8 +12,8 @@ export default function (
   since: string,
   forcePackages: string[] = [],
   excludePackages: string[] = []
-): void {
-  runOnChanged(
+) {
+  return runOnChanged(
     `pnpm version ${newVersion} --no-git-tag-version`,
     since,
     forcePackages,

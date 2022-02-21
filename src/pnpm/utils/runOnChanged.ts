@@ -7,7 +7,7 @@ export const runOnChanged = (
   since: string,
   forcePackages: string[],
   excludePackages: string[]
-): string[] => {
+) => {
   const pnpmArgs = [
     "--recursive",
     `--filter="...[${since}]"`,
@@ -17,18 +17,8 @@ export const runOnChanged = (
     "--",
     cmd,
   ];
-
-  try {
-    const out = spawnSync("pnpm", pnpmArgs, {
-      encoding: "utf-8",
-      shell: true,
-    }).stdout.trim();
-    if (out.includes("No projects matched the filters in")) {
-      return [];
-    }
-    return out.split("\n");
-  } catch (e) {
-    // pnpm throws an error if no packages changed.
-    return [];
-  }
+  return spawnSync("pnpm", pnpmArgs, {
+    encoding: "utf-8",
+    shell: true,
+  });
 };

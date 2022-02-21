@@ -1,5 +1,5 @@
 import { spawnSync } from "node:child_process";
 
 export default function () {
-  spawnSync("git", ["push"]);
+  return spawnSync("git", ["push"], { encoding: "utf-8" });
 }
