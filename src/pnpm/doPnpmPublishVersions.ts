@@ -1,7 +1,7 @@
 import { spawnSync } from "node:child_process";
-import getOptionalArgument from "../utils/getOptionalArgument";
-import getExclusionFilters from "./utils/getExclusionFilters";
-import getIncludeFilters from "./utils/getIncludeFilters";
+import getOptionalArgument from "../utils/getOptionalArgument.js";
+import getExclusionFilters from "./utils/getExclusionFilters.js";
+import getIncludeFilters from "./utils/getIncludeFilters.js";
 
 /**
  * Bump all changed packages to version {newVersion}

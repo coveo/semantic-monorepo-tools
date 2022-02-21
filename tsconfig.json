@@ -1,9 +1,9 @@
 {
   "compilerOptions": {
     "outDir": "dist",
-    "module": "ESNext",
+    "module": "Node12",
     "target": "ESNext",
-    "moduleResolution": "node",
+    "moduleResolution": "Node12",
     "esModuleInterop": true,
     "sourceMap": false,
     "declaration": true

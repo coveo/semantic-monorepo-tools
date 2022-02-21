@@ -1,6 +1,6 @@
 import { spawnSync } from "node:child_process";
-import getExclusionFilters from "./getExclusionFilters";
-import getIncludeFilters from "./getIncludeFilters";
+import getExclusionFilters from "./getExclusionFilters.js";
+import getIncludeFilters from "./getIncludeFilters.js";
 
 export const runOnChanged = (
   cmd: string,

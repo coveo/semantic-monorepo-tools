@@ -1,5 +1,5 @@
 import { spawnSync } from "node:child_process";
-import { appendCmdIfWindows } from "./utils/appendCmdIfWindows";
+import { appendCmdIfWindows } from "./utils/appendCmdIfWindows.js";
 export default function (newVersion: string, PATH: string) {
   spawnSync(
     appendCmdIfWindows`npm`,

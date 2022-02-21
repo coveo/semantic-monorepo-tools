@@ -1,4 +1,4 @@
-import { runOnChanged } from "./utils/runOnChanged";
+import { runOnChanged } from "./utils/runOnChanged.js";
 
 /**
  * Bump all changed packages to version {newVersion}
