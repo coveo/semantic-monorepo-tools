@@ -105,7 +105,9 @@ import retry from "async-retry";
   console.log(uhoh.stdout.toString());
   console.log(uhoh.stderr.toString());
   const push = spawnSync("git", ["push", "-u", "origin", "cd-test"]);
-  const commitSHA = spawnSync("git", ["rev-parse", "HEAD"]).stdout.toString();
+  const commitSHA = spawnSync("git", ["rev-parse", "HEAD"])
+    .stdout.toString()
+    .trim();
   const commitObject = await retry(() =>
     octokit.rest.git.getCommit({
       owner: REPO_OWNER,
