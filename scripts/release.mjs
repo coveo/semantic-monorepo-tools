@@ -33,7 +33,7 @@ import retry from "async-retry";
   //#endregion
 
   //#region GitHub authentication
-  setupGitCredentials();
+  setupGitCredentials(REPO_OWNER, REPO_NAME);
   const authSecrets = {
     appId: process.env.RELEASER_APP_ID,
     privateKey: process.env.RELEASER_PRIVATE_KEY,
@@ -118,19 +118,16 @@ import retry from "async-retry";
     tree: treeSHA,
     parents: [mainBranchCurrentSHA],
   });
-
+  spawnSync("git", [
+    "fetch",
+    "deploy",
+    `${commit.data.sha}:refs/heads/${mainBranchName}`,
+  ]);
   spawnSync("git", ["checkout", mainBranchName]);
-  const fetch = spawnSync("git", ["fetch", mainBranchName]);
-  console.log(fetch.stdout.toString());
-  console.log(fetch.stderr.toString());
-  const updateRef = spawnSync("git", ["update-ref", "HEAD", commit.data.sha]);
-  console.log(updateRef.stdout.toString());
-  console.log(updateRef.stderr.toString());
-  const push = spawnSync("git", ["push", "origin", mainBranchName]);
+  const push = spawnSync("git", ["push", "deploy", mainBranchName]);
   console.log(push.stdout.toString());
   console.log(push.stderr.toString());
-
-  spawnSync("git", ["push", "origin", "--delete", tempBranchName]);
+  spawnSync("git", ["push", "deploy", "--delete", tempBranchName]);
 
   //#endregion
 
@@ -156,7 +153,7 @@ import retry from "async-retry";
   //#endregion
 })();
 
-function setupGitCredentials() {
+function setupGitCredentials(REPO_OWNER, REPO_NAME) {
   mkdirSync(join(homedir(), ".ssh"), { recursive: true });
   writeFileSync(join(homedir(), ".ssh", "id_rsa"), process.env.DEPLOY_KEY);
   chmodSync(join(homedir(), ".ssh", "id_rsa"), 0o400);
@@ -167,6 +164,13 @@ Hostname github.com
 PreferredAuthentications publickey
 IdentityFile ${join(homedir(), ".ssh", "id_rsa")}`
   );
+
+  spawnSync("git", [
+    "remote",
+    "add",
+    "deploy",
+    `git@deploy:${REPO_OWNER}/${REPO_NAME}.git`,
+  ]);
 
   const gitConfigMail = spawnSync("git", [
     "config",
