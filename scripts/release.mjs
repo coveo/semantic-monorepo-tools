@@ -7,7 +7,6 @@ import {
   npmBumpVersion,
   generateChangelog,
   writeChangelog,
-  gitPush,
   gitPushTags,
   gitTag,
   npmPublish,
@@ -31,7 +30,7 @@ import { homedir } from "os";
   //#endregion
 
   //#region GitHub authentication
-  setupGitCredentials(REPO_OWNER, REPO_NAME);
+  setupGitCredentials(REPO_OWNER, REPO_NAME, process.env.DEPLOY_KEY, "deploy");
   const authSecrets = {
     appId: process.env.RELEASER_APP_ID,
     privateKey: process.env.RELEASER_PRIVATE_KEY,
@@ -80,17 +79,21 @@ import { homedir } from "os";
   //#endregion
 
   //#region Commit changelog, tag version and push.
-  gitTag(newVersionTag);
-  const tempBranchName = "cd-test";
-  const mainBranchName = "cd";
+  const tempBranchName = `release/${newVersion}`;
+  const mainBranchName = spawnSync("git", [
+    "rev-parse",
+    "--abbrev-ref",
+    "HEAD",
+  ]); //TODO: `getCurrentBranch()`
   const mainBranchCurrentSHA = spawnSync("git", ["rev-parse", mainBranchName])
     .stdout.toString()
     .trim();
-  spawnSync("git", ["branch", tempBranchName]);
-  spawnSync("git", ["checkout", tempBranchName]);
-  writeFileSync("some-file.txt", "some awesome content to commit and push");
-  spawnSync("git", ["add", "."]);
-  const treeSHA = spawnSync("git", ["write-tree"]).stdout.toString().trim();
+
+  spawnSync("git", ["branch", tempBranchName]); //TODO: `gitCreateBranch(branch)`
+  spawnSync("git", ["checkout", tempBranchName]); //TODO: `gitCheckoutBranch(branch)`
+
+  spawnSync("git", ["add", "."]); //TODO: `gitAdd(PATH)`
+  const treeSHA = spawnSync("git", ["write-tree"]).stdout.toString().trim(); //TODO: `gitWriteTree()`
   const commitTree = spawnSync("git", [
     "commit-tree",
     treeSHA,
@@ -98,17 +101,13 @@ import { homedir } from "os";
     tempBranchName,
     "-m",
     "temp commit",
-    // `chore(release): ${newVersion}`,
-  ]);
+  ]); //TODO: `gitCommitTree(tree, parent, message)`
 
-  console.log(commitTree.stdout.toString());
-  console.log(commitTree.stderr.toString());
-
-  spawnSync("git", ["update-ref", "HEAD", commitTree.stdout.toString().trim()]);
-  spawnSync("git", ["push", "-u", "origin", tempBranchName]);
+  spawnSync("git", ["update-ref", "HEAD", commitTree.stdout.toString().trim()]); //TODO: `gitUpdateRef(ref, commit)`
+  spawnSync("git", ["push", "-u", "origin", tempBranchName]); //TODO: `gitPublishBranch(branch, remote=origin)`
 
   const commit = await octokit.rest.git.createCommit({
-    message: "beep boop I'm almost a bot [ci skip]",
+    message: `chore(release): ${newVersion} [skip ci]`,
     owner: REPO_OWNER,
     repo: REPO_NAME,
     tree: treeSHA,
@@ -118,12 +117,10 @@ import { homedir } from "os";
     "fetch",
     "deploy",
     `${commit.data.sha}:refs/heads/${mainBranchName}`,
-  ]);
-  spawnSync("git", ["checkout", mainBranchName]);
-  const push = spawnSync("git", ["push", "deploy", mainBranchName]);
-  console.log(push.stdout.toString());
-  console.log(push.stderr.toString());
-  spawnSync("git", ["push", "deploy", "--delete", tempBranchName]);
+  ]); //TODO: `gitResetBranchOnCommit(branch, commit)`
+  spawnSync("git", ["checkout", mainBranchName]); //TODO: `gitCheckoutBranch(branch)`
+  spawnSync("git", ["push", "deploy", mainBranchName]); //TODO: `gitPush(branch,remote=origin)`
+  spawnSync("git", ["push", "deploy", "--delete", tempBranchName]); //TODO: `gitDeleteBranch(branch, remote=origin)`
   //#endregion
 
   //#region Create & push tag.
@@ -132,7 +129,7 @@ import { homedir } from "os";
   //#endregion
 
   // Publish the new version on NPM.
-  // npmPublish(PATH);
+  npmPublish(PATH);
 
   //#region Create GitHub Release on last tag.
   const [, ...bodyArray] = changelog.split("\n");
@@ -146,13 +143,17 @@ import { homedir } from "os";
   //#endregion
 })();
 
-function setupGitCredentials(REPO_OWNER, REPO_NAME) {
-  mkdirSync(join(homedir(), ".ssh"), { recursive: true });
-  writeFileSync(join(homedir(), ".ssh", "id_rsa"), process.env.DEPLOY_KEY);
-  chmodSync(join(homedir(), ".ssh", "id_rsa"), 0o400);
+function setupGitCredentials(REPO_OWNER, REPO_NAME, DEPLOY_KEY, remoteName) {
+  //#region TODO: `doConfigureGitSSHRemote(REPO_OWNER,REPO_NAME,DEPLOY_KEY,remoteName)`
+  const sshDirPath = join(homedir(), ".ssh");
+  const pemPath = join(sshDirPath, "id_rsa");
+  const sshConfigPath = join(sshDirPath, "config");
+  mkdirSync(sshDirPath, { recursive: true });
+  writeFileSync(pemPath, DEPLOY_KEY);
+  chmodSync(pemPath, 0o400);
   writeFileSync(
-    join(homedir(), ".ssh", "config"),
-    `Host deploy
+    sshConfigPath,
+    `Host ${remoteName}
 Hostname github.com
 PreferredAuthentications publickey
 IdentityFile ${join(homedir(), ".ssh", "id_rsa")}`
@@ -161,21 +162,23 @@ IdentityFile ${join(homedir(), ".ssh", "id_rsa")}`
   spawnSync("git", [
     "remote",
     "add",
-    "deploy",
-    `git@deploy:${REPO_OWNER}/${REPO_NAME}.git`,
+    remoteName,
+    `git@${remoteName}:${REPO_OWNER}/${REPO_NAME}.git`,
   ]);
+  //#endregion
 
-  const gitConfigMail = spawnSync("git", [
+  //#region TODO: `doConfigureGitUser(name, email)`
+  spawnSync("git", [
     "config",
     "--global",
     "user.email",
-    `91079284+developer-experience-bot[bot]@users.noreply.github.com`,
+    "91079284+developer-experience-bot[bot]@users.noreply.github.com",
   ]);
-
-  const gitConfigName = spawnSync("git", [
+  spawnSync("git", [
     "config",
     "--global",
     "user.name",
     "developer-experience-bot[bot]",
   ]);
+  //#endregion
 }
