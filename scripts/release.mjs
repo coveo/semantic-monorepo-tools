@@ -127,9 +127,15 @@ import retry from "async-retry";
   await octokit.rest.git.updateRef({
     owner: REPO_OWNER,
     repo: REPO_NAME,
-    ref: "refs/heads/cd",
+    ref: "heads/cd",
     sha: commitSHA,
   });
+  await octokit.rest.git.deleteRef({
+    owner: REPO_OWNER,
+    repo: REPO_NAME,
+    ref: "heads/cd-test",
+  });
+
   console.log(push.stdout.toString());
   console.log(push.stderr.toString());
   spawnSync("git", ["checkout", "cd"]);
