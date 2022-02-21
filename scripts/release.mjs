@@ -63,47 +63,48 @@ import { homedir } from "os";
   //#endregion
 
   // Bump the NPM version.
-  npmBumpVersion(newVersion, PATH);
+  // npmBumpVersion(newVersion, PATH);
 
   //#region Generate changelog if needed.
-  let changelog = "";
-  if (parseCommits.length > 0) {
-    let changelog = await generateChangelog(
-      parsedCommits,
-      newVersion,
-      {
-        host: "https://github.com",
-        owner: "coveo",
-        repository: "cli",
-        linkReferences: true,
-        currentTag: newVersionTag,
-        previousTag: lastTag,
-      },
-      CONVENTION.writerOpts
-    );
-    await writeChangelog(PATH, changelog);
-  }
+  // let changelog = "";
+  // if (parseCommits.length > 0) {
+  //   let changelog = await generateChangelog(
+  //     parsedCommits,
+  //     newVersion,
+  //     {
+  //       host: "https://github.com",
+  //       owner: "coveo",
+  //       repository: "cli",
+  //       linkReferences: true,
+  //       currentTag: newVersionTag,
+  //       previousTag: lastTag,
+  //     },
+  //     CONVENTION.writerOpts
+  //   );
+  //   await writeChangelog(PATH, changelog);
+  // }
   //#endregion
 
   //#region Commit changelog, tag version and push.
-  gitCommit(PATH, `chore(release): ${newVersion}`);
-  gitTag(newVersionTag);
+  // gitCommit(PATH, `chore(release): ${newVersion}`);
+  gitCommit(PATH, `beep boop I'm a bot [ci skip]`);
+  // gitTag(newVersionTag);
   gitPush();
-  gitPushTags();
+  // gitPushTags();
   //#endregion
 
   // Publish the new version on NPM.
-  npmPublish(PATH);
+  // npmPublish(PATH);
 
   //#region Create GitHub Release on last tag.
-  const [, ...bodyArray] = changelog.split("\n");
-  await octokit.rest.repos.createRelease({
-    owner: REPO_OWNER,
-    repo: REPO_NAME,
-    tag_name: newVersionTag,
-    name: `Release ${newVersionTag}`,
-    body: bodyArray.join("\n"),
-  });
+  // const [, ...bodyArray] = changelog.split("\n");
+  // await octokit.rest.repos.createRelease({
+  //   owner: REPO_OWNER,
+  //   repo: REPO_NAME,
+  //   tag_name: newVersionTag,
+  //   name: `Release ${newVersionTag}`,
+  //   body: bodyArray.join("\n"),
+  // });
 
   //#endregion
 })();
