@@ -91,12 +91,14 @@ import { homedir } from "os";
   // gitCommit(PATH, `beep boop I'm a bot [ci skip]`);
   // gitTag(newVersionTag);
 
-  spawnSync("git", [
+  const branching = spawnSync("git", [
     "branch",
     "cd-test",
     "--set-upstream-to",
     "origin/cd-test",
   ]);
+  console.log(branching.stdout.toString());
+  console.log(branching.stderr.toString());
   spawnSync("git", ["checkout", "cd-test"]);
   const uhoh = spawnSync("git", [
     "commit",
