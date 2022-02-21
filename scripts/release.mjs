@@ -104,6 +104,23 @@ import { homedir } from "os";
   console.log(uhoh.stdout.toString());
   console.log(uhoh.stderr.toString());
   const push = spawnSync("git", ["push", "-u", "origin", "cd-test"]);
+  const commitSHA = spawnSync("git", ["rev-parse", "HEAD"]).stdout.toString();
+  const commitObject = await octokit.rest.git.getCommit({
+    owner: REPO_OWNER,
+    repo: REPO_NAME,
+    commit_sha: commitSHA,
+  });
+  const previousCommitSHA = spawnSync("git", [
+    "rev-parse",
+    "HEAD",
+  ]).stdout.toString();
+  await octokit.rest.git.createCommit({
+    message: "beep boop I'm a bot [ci skip]",
+    owner: REPO_OWNER,
+    repo: REPO_NAME,
+    tree: commitObject.data.tree.sha,
+    parents: [previousCommitSHA],
+  });
   console.log(push.stdout.toString());
   console.log(push.stderr.toString());
   spawnSync("git", ["checkout", "cd"]);
