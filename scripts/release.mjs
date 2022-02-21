@@ -47,6 +47,7 @@ import { homedir } from "os";
 
   const octokit = new Octokit({
     authStrategy,
+    auth: { ...authSecrets, type: "installation" },
   });
 
   setupGitCredentials(REPO_OWNER, REPO_NAME);
