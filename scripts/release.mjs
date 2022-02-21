@@ -91,12 +91,7 @@ import { homedir } from "os";
   // gitCommit(PATH, `beep boop I'm a bot [ci skip]`);
   // gitTag(newVersionTag);
 
-  const branching = spawnSync("git", [
-    "branch",
-    "cd-test",
-    "--set-upstream-to",
-    "origin/cd-test",
-  ]);
+  const branching = spawnSync("git", ["branch", "cd-test"]);
   console.log(branching.stdout.toString());
   console.log(branching.stderr.toString());
   spawnSync("git", ["checkout", "cd-test"]);
@@ -108,7 +103,7 @@ import { homedir } from "os";
   ]);
   console.log(uhoh.stdout.toString());
   console.log(uhoh.stderr.toString());
-  const push = spawnSync("git", ["push", "-u"]);
+  const push = spawnSync("git", ["push", "-u", "origin", "cd-test"]);
   console.log(push.stdout.toString());
   console.log(push.stderr.toString());
   spawnSync("git", ["checkout", "cd"]);
