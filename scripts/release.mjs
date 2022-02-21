@@ -33,6 +33,7 @@ import retry from "async-retry";
   //#endregion
 
   //#region GitHub authentication
+  setupGitCredentials();
   const authSecrets = {
     appId: process.env.RELEASER_APP_ID,
     privateKey: process.env.RELEASER_PRIVATE_KEY,
@@ -41,54 +42,57 @@ import retry from "async-retry";
     installationId: process.env.RELEASER_INSTALLATION_ID,
   };
 
-  setupGitCredentials(REPO_OWNER, REPO_NAME);
+  const octokit = new Octokit({
+    authStrategy: createAppAuth,
+    auth: authSecrets,
+  });
   //#endregion
 
   //#region Find current and new versions.
-  // const lastTag = getLastTag(VERSION_PREFIX);
-  // const commits = getCommits(PATH, lastTag);
-  // const parsedCommits = parseCommits(commits, CONVENTION.parserOpts);
-  // const bumpInfo = CONVENTION.recommendedBumpOpts.whatBump(parsedCommits);
-  // const currentVersion = getCurrentVersion(PATH);
-  // const newVersion = getNextVersion(currentVersion, bumpInfo);
-  // const newVersionTag = `${VERSION_PREFIX}${newVersion}`;
+  const lastTag = getLastTag(VERSION_PREFIX);
+  const commits = getCommits(PATH, lastTag);
+  const parsedCommits = parseCommits(commits, CONVENTION.parserOpts);
+  const bumpInfo = CONVENTION.recommendedBumpOpts.whatBump(parsedCommits);
+  const currentVersion = getCurrentVersion(PATH);
+  const newVersion = getNextVersion(currentVersion, bumpInfo);
+  const newVersionTag = `${VERSION_PREFIX}${newVersion}`;
   //#endregion
 
   // Bump the NPM version.
-  // npmBumpVersion(newVersion, PATH);
+  npmBumpVersion(newVersion, PATH);
 
   //#region Generate changelog if needed.
-  // let changelog = "";
-  // if (parseCommits.length > 0) {
-  //   let changelog = await generateChangelog(
-  //     parsedCommits,
-  //     newVersion,
-  //     {
-  //       host: "https://github.com",
-  //       owner: "coveo",
-  //       repository: "cli",
-  //       linkReferences: true,
-  //       currentTag: newVersionTag,
-  //       previousTag: lastTag,
-  //     },
-  //     CONVENTION.writerOpts
-  //   );
-  //   await writeChangelog(PATH, changelog);
-  // }
+  /*
+  let changelog = "";
+  if (parseCommits.length > 0) {
+    changelog = await generateChangelog(
+      parsedCommits,
+      newVersion,
+      {
+        host: "https://github.com",
+        owner: "coveo",
+        repository: "cli",
+        linkReferences: true,
+        currentTag: newVersionTag,
+        previousTag: lastTag,
+      },
+      CONVENTION.writerOpts
+    );
+    await writeChangelog(PATH, changelog);
+  }
+  */
   //#endregion
 
   //#region Commit changelog, tag version and push.
-  // gitCommit(PATH, `chore(release): ${newVersion}`);
-  // gitCommit(PATH, `beep boop I'm a bot [ci skip]`);
-  // gitTag(newVersionTag);
-  const mainBranchCurrentSHA = spawnSync("git", ["rev-parse", "cd"])
+  gitTag(newVersionTag);
+  const tempBranchName = "cd-test";
+  const mainBranchName = "cd";
+  const mainBranchCurrentSHA = spawnSync("git", ["rev-parse", mainBranchName])
     .stdout.toString()
     .trim();
-  const tempBranchName = "cd-test";
-  // const tempBranchName = `release/${newVersionTag}`;
   spawnSync("git", ["branch", tempBranchName]);
   spawnSync("git", ["checkout", tempBranchName]);
-  writeFileSync("some-file.txt", "some awesome content");
+  writeFileSync("some-file.txt", "some awesome content to commit and push");
   spawnSync("git", ["add", "."]);
   const treeSHA = spawnSync("git", ["write-tree"]).stdout.toString().trim();
   const commitTree = spawnSync("git", [
@@ -105,17 +109,7 @@ import retry from "async-retry";
   console.log(commitTree.stderr.toString());
 
   spawnSync("git", ["update-ref", "HEAD", commitTree.stdout.toString().trim()]);
-  const push = spawnSync("git", ["push", "-u", "origin", tempBranchName]);
-
-  console.log(push.stdout.toString());
-  console.log(push.stderr.toString());
-  spawnSync("git", ["config", "--global", "--unset", "user.name"]);
-  spawnSync("git", ["config", "--global", "--unset", "user.email"]);
-
-  const octokit = new Octokit({
-    authStrategy: createAppAuth,
-    auth: authSecrets,
-  });
+  spawnSync("git", ["push", "-u", "origin", tempBranchName]);
 
   const commit = await octokit.rest.git.createCommit({
     message: "beep boop I'm almost a bot [ci skip]",
@@ -125,26 +119,23 @@ import retry from "async-retry";
     parents: [mainBranchCurrentSHA],
   });
 
-  await octokit.rest.git.updateRef({
-    owner: REPO_OWNER,
-    repo: REPO_NAME,
-    ref: "heads/cd",
-    sha: commit.data.sha,
-  });
+  spawnSync("git", ["checkout", mainBranchName]);
+  const fetch = spawnSync("git", ["fetch", mainBranchName]);
+  console.log(fetch.stdout.toString());
+  console.log(fetch.stderr.toString());
+  const updateRef = spawnSync("git", ["update-ref", "HEAD", commit.data.sha]);
+  console.log(updateRef.stdout.toString());
+  console.log(updateRef.stderr.toString());
+  const push = spawnSync("git", ["push", "origin", mainBranchName]);
+  console.log(push.stdout.toString());
+  console.log(push.stderr.toString());
 
-  await octokit.rest.git.deleteRef({
-    owner: REPO_OWNER,
-    repo: REPO_NAME,
-    ref: "heads/cd-test",
-  });
+  spawnSync("git", ["push", "origin", "--delete", tempBranchName]);
 
-  spawnSync("git", ["checkout", "cd"]);
   //#endregion
 
-  //#region Publish to NPM.
-  // npmPublish(PATH);
-  //#endregion
-  // gitPush();
+  //#region Create & push tag.
+  // gitTag(newVersionTag);
   // gitPushTags();
   //#endregion
 
@@ -152,19 +143,20 @@ import retry from "async-retry";
   // npmPublish(PATH);
 
   //#region Create GitHub Release on last tag.
-  // const [, ...bodyArray] = changelog.split("\n");
-  // await octokit.rest.repos.createRelease({
-  //   owner: REPO_OWNER,
-  //   repo: REPO_NAME,
-  //   tag_name: newVersionTag,
-  //   name: `Release ${newVersionTag}`,
-  //   body: bodyArray.join("\n"),
-  // });
-
+  /*
+  const [, ...bodyArray] = changelog.split("\n");
+  await octokit.rest.repos.createRelease({
+    owner: REPO_OWNER,
+    repo: REPO_NAME,
+    tag_name: newVersionTag,
+    name: `Release ${newVersionTag}`,
+    body: bodyArray.join("\n"),
+  });
+  */
   //#endregion
 })();
 
-function setupGitCredentials(REPO_OWNER, REPO_NAME, installationToken) {
+function setupGitCredentials() {
   mkdirSync(join(homedir(), ".ssh"), { recursive: true });
   writeFileSync(join(homedir(), ".ssh", "id_rsa"), process.env.DEPLOY_KEY);
   chmodSync(join(homedir(), ".ssh", "id_rsa"), 0o400);
@@ -176,16 +168,6 @@ PreferredAuthentications publickey
 IdentityFile ${join(homedir(), ".ssh", "id_rsa")}`
   );
 
-  // const gitRemote = spawnSync("git", [
-  //   "remote",
-  //   "set-url",
-  //   "origin",
-  //   `https://x-access-token:${installationToken}@github.com/${REPO_OWNER}/${REPO_NAME}.git`,
-  // ]);
-
-  // console.log(gitRemote.stdout.toString());
-  // console.log(gitRemote.stderr.toString());
-
   const gitConfigMail = spawnSync("git", [
     "config",
     "--global",
@@ -193,16 +175,10 @@ IdentityFile ${join(homedir(), ".ssh", "id_rsa")}`
     `91079284+developer-experience-bot[bot]@users.noreply.github.com`,
   ]);
 
-  console.log(gitConfigMail.stdout.toString());
-  console.log(gitConfigMail.stderr.toString());
-
   const gitConfigName = spawnSync("git", [
     "config",
     "--global",
     "user.name",
     "developer-experience-bot[bot]",
   ]);
-
-  console.log(gitConfigName.stdout.toString());
-  console.log(gitConfigName.stderr.toString());
 }
