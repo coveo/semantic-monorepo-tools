@@ -1,4 +1,4 @@
-import { runOnChanged } from "./utils/runOnChanged";
+import { runOnChanged } from "./utils/runOnChanged.js";
 
 /**
  * Get the name of every package that changed
