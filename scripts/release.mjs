@@ -81,7 +81,7 @@ import retry from "async-retry";
   // gitCommit(PATH, `chore(release): ${newVersion}`);
   // gitCommit(PATH, `beep boop I'm a bot [ci skip]`);
   // gitTag(newVersionTag);
-  const mainBranchCurrentSHA = spawnSync("git", ["rev-parse", "main"])
+  const mainBranchCurrentSHA = spawnSync("git", ["rev-parse", "cd"])
     .stdout.toString()
     .trim();
   const tempBranchName = "cd-test";
@@ -101,16 +101,18 @@ import retry from "async-retry";
     // `chore(release): ${newVersion}`,
   ]);
 
-  spawnSync("git", [
-    "update-ref",
-    `refs/heads/${tempBranchName}`,
-    commitTree.stdout.toString().trim(),
-  ]);
-
   console.log(commitTree.stdout.toString());
   console.log(commitTree.stderr.toString());
 
-  const push = spawnSync("git", ["push", "-u", "origin", tempBranchName]);
+  spawnSync("git", ["push", "-u", "origin", tempBranchName]);
+  const push = spawnSync("git", [
+    "push",
+    "origin",
+    `${commitTree.stdout.toString().trim()}:${tempBranchName}`,
+  ]);
+
+  console.log(push.stdout.toString());
+  console.log(push.stderr.toString());
   spawnSync("git", ["config", "--global", "--unset", "user.name"]);
   spawnSync("git", ["config", "--global", "--unset", "user.email"]);
 
