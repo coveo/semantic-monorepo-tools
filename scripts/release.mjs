@@ -150,15 +150,15 @@ PreferredAuthentications publickey
 IdentityFile ${join(homedir(), ".ssh", "id_rsa")}`
   );
 
-  const gitRemote = spawnSync("git", [
-    "remote",
-    "set-url",
-    "origin",
-    `https://x-access-token:${installationToken}@github.com/${REPO_OWNER}/${REPO_NAME}.git`,
-  ]);
+  // const gitRemote = spawnSync("git", [
+  //   "remote",
+  //   "set-url",
+  //   "origin",
+  //   `https://x-access-token:${installationToken}@github.com/${REPO_OWNER}/${REPO_NAME}.git`,
+  // ]);
 
-  console.log(gitRemote.stdout.toString());
-  console.log(gitRemote.stderr.toString());
+  // console.log(gitRemote.stdout.toString());
+  // console.log(gitRemote.stderr.toString());
 
   const gitConfigMail = spawnSync("git", [
     "config",
