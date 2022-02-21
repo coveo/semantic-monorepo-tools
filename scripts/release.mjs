@@ -40,18 +40,8 @@ import retry from "async-retry";
     clientSecret: process.env.RELEASER_CLIENT_SECRET,
     installationId: process.env.RELEASER_INSTALLATION_ID,
   };
-  const authStrategy = createAppAuth(authSecrets);
 
-  const installationToken = await authStrategy({
-    type: "installation",
-  });
-
-  const octokit = new Octokit({
-    authStrategy: createAppAuth,
-    auth: authSecrets,
-  });
-
-  setupGitCredentials(REPO_OWNER, REPO_NAME, installationToken.token);
+  setupGitCredentials(REPO_OWNER, REPO_NAME);
   //#endregion
 
   //#region Find current and new versions.
@@ -109,6 +99,10 @@ import retry from "async-retry";
     .stdout.toString()
     .trim();
   console.log(`commitSHA: ${commitSHA} end`);
+  const octokit = new Octokit({
+    authStrategy: createAppAuth,
+    auth: authSecrets,
+  });
   const commitObject = await octokit.rest.git.getCommit({
     owner: REPO_OWNER,
     repo: REPO_NAME,
