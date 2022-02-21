@@ -81,58 +81,55 @@ import retry from "async-retry";
   // gitCommit(PATH, `chore(release): ${newVersion}`);
   // gitCommit(PATH, `beep boop I'm a bot [ci skip]`);
   // gitTag(newVersionTag);
-  const previousCommitSHA = spawnSync("git", ["rev-parse", "HEAD"])
+  const mainBranchCurrentSHA = spawnSync("git", ["rev-parse", "main"])
     .stdout.toString()
     .trim();
-  const branching = spawnSync("git", ["branch", "cd-test"]);
-  spawnSync("git", ["checkout", "cd-test"]);
-  const uhoh = spawnSync("git", [
-    "commit",
+  const tempBranchName = "cd-test";
+  // const tempBranchName = `release/${newVersionTag}`;
+  spawnSync("git", ["branch", tempBranchName]);
+  spawnSync("git", ["checkout", tempBranchName]);
+  writeFileSync("some-file.txt", "some content");
+  spawnSync("git", ["add", "."]);
+  const treeSHA = spawnSync("git", ["write-tree"]).stdout.toString().trim();
+  spawnSync("git", [
+    "commit-tree",
+    treeSHA,
+    "-p",
+    mainBranchCurrentSHA,
     "-m",
-    "beep boop I'm a bot [ci skip]",
-    "--allow-empty",
+    "temp commit",
+    // `chore(release): ${newVersion}`,
   ]);
-  console.log(uhoh.stdout.toString());
-  console.log(uhoh.stderr.toString());
-  const push = spawnSync("git", ["push", "-u", "origin", "cd-test"]);
+
+  const push = spawnSync("git", ["push", "-u", "origin", tempBranchName]);
   spawnSync("git", ["config", "--global", "--unset", "user.name"]);
   spawnSync("git", ["config", "--global", "--unset", "user.email"]);
-  const tmpCommitSHA = spawnSync("git", ["rev-parse", "HEAD"])
-    .stdout.toString()
-    .trim();
-  console.log(`commitSHA: ${tmpCommitSHA} end`);
+
   const octokit = new Octokit({
     authStrategy: createAppAuth,
     auth: authSecrets,
   });
-  const commitObject = await octokit.rest.git.getCommit({
-    owner: REPO_OWNER,
-    repo: REPO_NAME,
-    commit_sha: tmpCommitSHA,
-  });
 
-  console.log(`previouscommitSHA: ${previousCommitSHA} end`);
   const commit = await octokit.rest.git.createCommit({
     message: "beep boop I'm almost a bot [ci skip]",
     owner: REPO_OWNER,
     repo: REPO_NAME,
-    tree: commitObject.data.tree.sha,
-    parents: [previousCommitSHA],
+    tree: treeSHA,
+    parents: [mainBranchCurrentSHA],
   });
+
   await octokit.rest.git.updateRef({
     owner: REPO_OWNER,
     repo: REPO_NAME,
     ref: "heads/cd",
     sha: commit.data.sha,
   });
+
   await octokit.rest.git.deleteRef({
     owner: REPO_OWNER,
     repo: REPO_NAME,
     ref: "heads/cd-test",
   });
-
-  console.log(push.stdout.toString());
-  console.log(push.stderr.toString());
 
   spawnSync("git", ["checkout", "cd"]);
   //#endregion
