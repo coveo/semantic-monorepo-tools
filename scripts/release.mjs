@@ -41,7 +41,7 @@ import { homedir } from "os";
   };
   const authStrategy = createAppAuth(authSecrets);
 
-  await authStrategy({
+  const installationToken = await authStrategy({
     type: "installation",
   });
 
@@ -50,7 +50,7 @@ import { homedir } from "os";
     auth: { ...authSecrets, type: "installation" },
   });
 
-  setupGitCredentials(REPO_OWNER, REPO_NAME);
+  setupGitCredentials(REPO_OWNER, REPO_NAME, installationToken.token);
   //#endregion
 
   //#region Find current and new versions.
@@ -90,14 +90,28 @@ import { homedir } from "os";
   // gitCommit(PATH, `chore(release): ${newVersion}`);
   // gitCommit(PATH, `beep boop I'm a bot [ci skip]`);
   // gitTag(newVersionTag);
-  const gitCommit = spawnSync("git", [
+
+  spawnSync("git", ["branch", "cd-test", "--set-upstream-to"]);
+  spawnSync("git", ["checkout", "cd-test"]);
+  spawnSync("git", [
     "commit",
     "-m",
     "beep boop I'm a bot [ci skip]",
     "--allow-empty",
   ]);
-  console.log(gitCommit.stdout.toString());
-  console.log(gitCommit.stderr.toString());
+  spawnSync("git", ["push", "-u"]);
+  spawnSync("git", ["checkout", "cd"]);
+  spawnSync("git", ["merge", "cd-test", "-ff-only"]);
+  spawnSync("git", [
+    "remote",
+    "set-url",
+    "origin",
+    `git@deploy:${REPO_OWNER}/${REPO_NAME}.git`,
+  ]);
+  spawnSync("git", ["push"]);
+  // spawnSync("git", ["push", "-d", "origin", "cd-test"]);
+  // console.log(gitCommit.stdout.toString());
+  // console.log(gitCommit.stderr.toString());
   //log gitPush.stdout and gitPush.stderr
   //#endregion
 
@@ -124,7 +138,7 @@ import { homedir } from "os";
   //#endregion
 })();
 
-function setupGitCredentials(REPO_OWNER, REPO_NAME) {
+function setupGitCredentials(REPO_OWNER, REPO_NAME, installationToken) {
   mkdirSync(join(homedir(), ".ssh"), { recursive: true });
   writeFileSync(join(homedir(), ".ssh", "id_rsa"), process.env.DEPLOY_KEY);
   chmodSync(join(homedir(), ".ssh", "id_rsa"), 0o400);
@@ -140,7 +154,7 @@ IdentityFile ${join(homedir(), ".ssh", "id_rsa")}`
     "remote",
     "set-url",
     "origin",
-    `git@deploy:${REPO_OWNER}/${REPO_NAME}.git`,
+    `https://x-access-token:${installationToken}@github.com/${REPO_OWNER}/${REPO_NAME}.git`,
   ]);
 
   console.log(gitRemote.stdout.toString());
@@ -150,7 +164,7 @@ IdentityFile ${join(homedir(), ".ssh", "id_rsa")}`
     "config",
     "--global",
     "user.email",
-    `${process.env.RELEASER_INSTALLATION_ID}+developer-experience-bot[bot]@users.noreply.github.com`,
+    `91079284+developer-experience-bot[bot]@users.noreply.github.com`,
   ]);
 
   console.log(gitConfigMail.stdout.toString());
