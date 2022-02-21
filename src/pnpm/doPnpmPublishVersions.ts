@@ -25,8 +25,8 @@ export default function (
     ...getExclusionFilters(excludePackages),
     "publish",
   ].concat(
-      getOptionalArgument('--tag', tag),
-      getOptionalArgument('--publish-branch', branch)
+    getOptionalArgument("--tag", tag),
+    getOptionalArgument("--publish-branch", branch)
   );
 
   spawnSync("pnpm", pnpmArgs);

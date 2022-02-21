@@ -1,0 +1,12 @@
+name: CD
+on:
+  push:
+    branches: [main]
+jobs:
+  CI:
+    runs-on: ubuntu-latest
+    name: CD
+    steps:
+      - uses: actions/checkout@v2
+      - uses: ./.github/actions/setup
+      - uses: ./.github/actions/lint
