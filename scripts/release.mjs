@@ -95,10 +95,10 @@ import retry from "async-retry";
   const push = spawnSync("git", ["push", "-u", "origin", "cd-test"]);
   spawnSync("git", ["config", "--global", "--unset", "user.name"]);
   spawnSync("git", ["config", "--global", "--unset", "user.email"]);
-  const commitSHA = spawnSync("git", ["rev-parse", "HEAD"])
+  const tmpCommitSHA = spawnSync("git", ["rev-parse", "HEAD"])
     .stdout.toString()
     .trim();
-  console.log(`commitSHA: ${commitSHA} end`);
+  console.log(`commitSHA: ${tmpCommitSHA} end`);
   const octokit = new Octokit({
     authStrategy: createAppAuth,
     auth: authSecrets,
@@ -106,14 +106,14 @@ import retry from "async-retry";
   const commitObject = await octokit.rest.git.getCommit({
     owner: REPO_OWNER,
     repo: REPO_NAME,
-    commit_sha: commitSHA,
+    commit_sha: tmpCommitSHA,
   });
   const previousCommitSHA = spawnSync("git", ["rev-parse", "HEAD"])
     .stdout.toString()
     .trim();
 
   console.log(`previouscommitSHA: ${previousCommitSHA} end`);
-  await octokit.rest.git.createCommit({
+  const commit = await octokit.rest.git.createCommit({
     message: "beep boop I'm almost a bot [ci skip]",
     owner: REPO_OWNER,
     repo: REPO_NAME,
@@ -124,7 +124,7 @@ import retry from "async-retry";
     owner: REPO_OWNER,
     repo: REPO_NAME,
     ref: "heads/cd",
-    sha: commitSHA,
+    sha: commit.data.sha,
   });
   await octokit.rest.git.deleteRef({
     owner: REPO_OWNER,
@@ -141,7 +141,7 @@ import retry from "async-retry";
   //#region Publish to NPM.
   // npmPublish(PATH);
   //#endregion
-  gitPush();
+  // gitPush();
   // gitPushTags();
   //#endregion
 
