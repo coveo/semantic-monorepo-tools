@@ -88,7 +88,7 @@ import retry from "async-retry";
   // const tempBranchName = `release/${newVersionTag}`;
   spawnSync("git", ["branch", tempBranchName]);
   spawnSync("git", ["checkout", tempBranchName]);
-  writeFileSync("some-file.txt", "some content");
+  writeFileSync("some-file.txt", "some awesome content");
   spawnSync("git", ["add", "."]);
   const treeSHA = spawnSync("git", ["write-tree"]).stdout.toString().trim();
   const commitTree = spawnSync("git", [
@@ -104,12 +104,8 @@ import retry from "async-retry";
   console.log(commitTree.stdout.toString());
   console.log(commitTree.stderr.toString());
 
-  spawnSync("git", ["push", "-u", "origin", tempBranchName]);
-  const push = spawnSync("git", [
-    "push",
-    "origin",
-    `${commitTree.stdout.toString().trim()}:${tempBranchName}`,
-  ]);
+  spawnSync("git", ["update-ref", "HEAD", commitTree.stdout.toString().trim()]);
+  const push = spawnSync("git", ["push", "-u", "origin", tempBranchName]);
 
   console.log(push.stdout.toString());
   console.log(push.stderr.toString());
