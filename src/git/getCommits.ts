@@ -1,6 +1,13 @@
 import { spawnSync } from "node:child_process";
 import { randomBytes } from "node:crypto";
 
+/**
+ * Get the commits for a specific path between from and to
+ * @param projectPath only consider tag that has this prefix. Will return the last tag of the current branch by default.
+ * @param from initial commit to consider
+ * @param to last commit to consider, defaults to HEAD
+ * @return an array containing the commits and the process that was spawned
+ */
 export default function (projectPath: string, from: string, to = "HEAD") {
   const delimiter = `<--- ${randomBytes(64).toString("hex")} --->`;
   const gitParams = [
@@ -11,8 +18,10 @@ export default function (projectPath: string, from: string, to = "HEAD") {
     projectPath,
   ];
   const gitPs = spawnSync("git", gitParams, { encoding: "ascii" });
-  return gitPs.stdout
+  const commits = gitPs.stdout
     .split(delimiter)
     .map((str) => str.trim())
     .filter((str) => Boolean(str));
+
+  return [commits, gitPs];
 }
