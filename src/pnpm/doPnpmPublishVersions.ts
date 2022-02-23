@@ -17,7 +17,7 @@ export default function (
   branch?: string,
   forcePackages: string[] = [],
   excludePackages: string[] = []
-): void {
+) {
   const pnpmArgs = [
     "--recursive",
     `--filter="...[${since}]"`,
@@ -29,5 +29,5 @@ export default function (
     getOptionalArgument("--publish-branch", branch)
   );
 
-  spawnSync("pnpm", pnpmArgs);
+  return spawnSync("pnpm", pnpmArgs, { encoding: "utf-8" });
 }
