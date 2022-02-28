@@ -1,7 +1,12 @@
 {
   "name": "@coveo/semantic-monorepo-tools",
   "version": "0.1.0",
-  "description": "",
+  "description": "A library of helper functions to do SemVer2 compliant releases from Conventional Commits in monorepos",
+  "homepage": "https://github.com/coveo/semantic-monorepo-tools#readme",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:coveo/semantic-monorepo-tools.git"
+  },
   "main": "dist/index.js",
   "type": "module",
   "scripts": {
@@ -18,7 +23,14 @@
     "prepare": "husky install",
     "pre-commit": "lint-staged"
   },
-  "keywords": [],
+  "keywords": [
+    "monorepo",
+    "semantic-release",
+    "ci",
+    "conventional-commits",
+    "cd",
+    "semver"
+  ],
   "author": "Coveo",
   "license": "Apache-2.0",
   "devDependencies": {
