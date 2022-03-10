@@ -1,4 +1,5 @@
-import { spawnSync } from "node:child_process";
+import spawnSync from "../utils/spawnSync.js";
+import gitLogger from "./utils/gitLogger.js";
 
 /**
  * Get the tag of the last release
@@ -10,7 +11,7 @@ export default function (prefix?: string) {
   if (prefix) {
     gitParams.push(`--match=${prefix}*`);
   }
-  const gitPs = spawnSync("git", gitParams, { encoding: "utf-8" });
+  const gitPs = spawnSync("git", gitParams, gitLogger);
 
   return [gitPs.stdout.trim(), gitPs];
 }

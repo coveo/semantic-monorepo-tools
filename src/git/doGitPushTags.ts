@@ -1,5 +1,6 @@
-import { spawnSync } from "node:child_process";
+import spawnSync from "../utils/spawnSync.js";
+import gitLogger from "./utils/gitLogger.js";
 
 export default function () {
-  return spawnSync("git", ["push", "--tags"], { encoding: "utf-8" });
+  return spawnSync("git", ["push", "--tags"], gitLogger);
 }
