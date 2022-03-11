@@ -8,7 +8,7 @@ jest.mock("node:child_process", () => ({
 describe("doPnpmPublishVersions", () => {
   it.each(["v1.0.0", "release-42"])(
     `publishes recursively with the since %s filter`,
-    ([since]) => {
+    (since) => {
       publish(since);
 
       expect(spawnSync).toHaveBeenCalledWith(
@@ -19,7 +19,7 @@ describe("doPnpmPublishVersions", () => {
     }
   );
 
-  it.each(["next", "alpha", "latest"])("publishes with the %s tag", ([tag]) => {
+  it.each(["next", "alpha", "latest"])("publishes with the %s tag", (tag) => {
     publish("v1.0.0", tag);
 
     expect(spawnSync).toHaveBeenCalledWith(
@@ -31,7 +31,7 @@ describe("doPnpmPublishVersions", () => {
 
   it.each(["main", "master", "release-1.0"])(
     "publishes on the %s branch",
-    ([branch]) => {
+    (branch) => {
       publish("v1.0.0", "", branch);
 
       expect(spawnSync).toHaveBeenCalledWith(

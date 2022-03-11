@@ -1,5 +1,6 @@
-import { spawnSync } from "node:child_process";
+import spawnSync from "../utils/spawnSync.js";
+import gitLogger from "./utils/gitLogger.js";
 
 export default function () {
-  return spawnSync("git", ["remote"], { encoding: "utf-8" }).stdout.trim();
+  return spawnSync("git", ["remote"], gitLogger).stdout.trim();
 }

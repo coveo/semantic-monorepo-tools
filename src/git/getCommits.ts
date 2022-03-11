@@ -1,5 +1,6 @@
-import { spawnSync } from "node:child_process";
 import { randomBytes } from "node:crypto";
+import spawnSync from "../utils/spawnSync.js";
+import gitLogger from "./utils/gitLogger.js";
 
 /**
  * Get the commits for a specific path between from and to
@@ -17,7 +18,7 @@ export default function (projectPath: string, from: string, to = "HEAD") {
     `${from}..${to}`,
     projectPath,
   ];
-  const gitPs = spawnSync("git", gitParams, { encoding: "ascii" });
+  const gitPs = spawnSync("git", gitParams, gitLogger, { encoding: "ascii" });
   const commits = gitPs.stdout
     .split(delimiter)
     .map((str) => str.trim())
