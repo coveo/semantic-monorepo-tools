@@ -1,7 +1,8 @@
-import { spawnSync } from "node:child_process";
+import spawnSync from "../utils/spawnSync.js";
 import getOptionalArgument from "../utils/getOptionalArgument.js";
 import getExclusionFilters from "./utils/getExclusionFilters.js";
 import getIncludeFilters from "./utils/getIncludeFilters.js";
+import pnpmLogger from "./utils/pnpmLogger.js";
 
 /**
  * Bump all changed packages to version {newVersion}
@@ -17,7 +18,7 @@ export default function (
   branch?: string,
   forcePackages: string[] = [],
   excludePackages: string[] = []
-): void {
+) {
   const pnpmArgs = [
     "--recursive",
     `--filter="...[${since}]"`,
@@ -28,6 +29,5 @@ export default function (
     getOptionalArgument("--tag", tag),
     getOptionalArgument("--publish-branch", branch)
   );
-
-  spawnSync("pnpm", pnpmArgs);
+  spawnSync("pnpm", pnpmArgs, pnpmLogger);
 }

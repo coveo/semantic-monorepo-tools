@@ -1,12 +1,17 @@
 {
   "name": "@coveo/semantic-monorepo-tools",
   "version": "0.1.1",
-  "description": "",
+  "description": "A library of helper functions to do SemVer2 compliant releases from Conventional Commits in monorepos",
+  "homepage": "https://github.com/coveo/semantic-monorepo-tools#readme",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:coveo/semantic-monorepo-tools.git"
+  },
   "main": "dist/index.js",
   "type": "module",
   "scripts": {
     "build": "tsc -b",
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jest",
     "prestart": "npm run build",
     "start": "node --experimental-specifier-resolution=node dist",
     "predebug": "npm run build",
@@ -18,7 +23,14 @@
     "prepare": "husky install",
     "pre-commit": "lint-staged"
   },
-  "keywords": [],
+  "keywords": [
+    "monorepo",
+    "semantic-release",
+    "ci",
+    "conventional-commits",
+    "cd",
+    "semver"
+  ],
   "author": "Coveo",
   "license": "Apache-2.0",
   "devDependencies": {
@@ -26,21 +38,26 @@
     "@octokit/auth-app": "^3.6.1",
     "@types/conventional-changelog-writer": "^4.0.1",
     "@types/conventional-commits-parser": "^3.0.2",
+    "@types/debug": "^4.1.7",
     "@types/git-raw-commits": "^2.0.1",
+    "@types/jest": "^27.4.1",
     "@types/semver": "^7.3.9",
     "@typescript-eslint/eslint-plugin": "^5.12.0",
     "@typescript-eslint/parser": "^5.12.0",
     "eslint": "^8.9.0",
     "husky": "^7.0.4",
+    "jest": "^27.5.1",
     "lint-staged": "^12.3.4",
     "octokit": "^1.7.1",
     "prettier": "^2.5.1",
+    "ts-jest": "^27.1.3",
     "ts-node": "^10.4.0",
     "typescript": "^4.5.5"
   },
   "dependencies": {
     "conventional-changelog-writer": "^5.0.1",
     "conventional-commits-parser": "^3.2.4",
+    "debug": "^4.3.3",
     "git-raw-commits": "^2.0.11",
     "semver": "^7.3.5",
     "tempfile": "^4.0.0"

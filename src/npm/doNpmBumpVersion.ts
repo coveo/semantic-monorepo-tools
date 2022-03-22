@@ -1,11 +1,11 @@
-import { spawnSync } from "node:child_process";
+import spawnSync from "../utils/spawnSync.js";
 import { appendCmdIfWindows } from "./utils/appendCmdIfWindows.js";
+import npmLogger from "./utils/npmLogger.js";
+
 export default function (newVersion: string, PATH: string) {
-  spawnSync(
-    appendCmdIfWindows`npm`,
-    ["version", newVersion, "--git-tag-version=false"],
-    {
-      cwd: PATH,
-    }
-  );
+  const npmArgs = ["version", newVersion, "--git-tag-version=false"];
+
+  return spawnSync(appendCmdIfWindows`npm`, npmArgs, npmLogger, {
+    cwd: PATH,
+  });
 }

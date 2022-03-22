@@ -10,5 +10,14 @@ export default function (
   since: string,
   excludePackages: string[] = []
 ): string[] {
-  return runOnChanged("printenv PNPM_PACKAGE_NAME", since, [], excludePackages);
+  const out = runOnChanged(
+    "printenv PNPM_PACKAGE_NAME",
+    since,
+    [],
+    excludePackages
+  ).stdout.trim();
+  if (out.includes("No projects matched the filters in")) {
+    return [];
+  }
+  return out.split("\n");
 }

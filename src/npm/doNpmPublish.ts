@@ -1,6 +1,9 @@
-import { spawnSync } from "node:child_process";
+import spawnSync from "../utils/spawnSync.js";
 import { appendCmdIfWindows } from "./utils/appendCmdIfWindows.js";
+import npmLogger from "./utils/npmLogger.js";
 
 export default function (PATH: string) {
-  spawnSync(appendCmdIfWindows`npm`, ["publish"], { cwd: PATH });
+  return spawnSync(appendCmdIfWindows`npm`, ["publish"], npmLogger, {
+    cwd: PATH,
+  });
 }
