@@ -37,17 +37,20 @@ import { createAppAuth } from "@octokit/auth-app";
   const CONVENTION = await angularChangelogConvention;
   const REPO_OWNER = "coveo";
   const REPO_NAME = "semantic-monorepo-tools";
-  const GIT_USERNAME= "developer-experience-bot[bot]";
-  const GIT_EMAIL = "91079284+developer-experience-bot[bot]@users.noreply.github.com"
-  const GIT_SSH_REMOTE = "deploy"
+  const GIT_USERNAME = "developer-experience-bot[bot]";
+  const GIT_EMAIL =
+    "91079284+developer-experience-bot[bot]@users.noreply.github.com";
+  const GIT_SSH_REMOTE = "deploy";
   //#endregion
 
   //#region GitHub authentication
-  gitSetupSshRemote(REPO_OWNER, REPO_NAME, process.env.DEPLOY_KEY, GIT_SSH_REMOTE);
-  gitSetupUser(
-    GIT_USERNAME,
-    GIT_EMAIL
+  gitSetupSshRemote(
+    REPO_OWNER,
+    REPO_NAME,
+    process.env.DEPLOY_KEY,
+    GIT_SSH_REMOTE
   );
+  gitSetupUser(GIT_USERNAME, GIT_EMAIL);
 
   const authSecrets = {
     appId: process.env.RELEASER_APP_ID,
@@ -120,7 +123,11 @@ import { createAppAuth } from "@octokit/auth-app";
     parents: [mainBranchCurrentSHA],
   });
 
-  gitSetRefOnCommit(GIT_SSH_REMOTE, `refs/heads/${mainBranchName}`, commit.data.sha);
+  gitSetRefOnCommit(
+    GIT_SSH_REMOTE,
+    `refs/heads/${mainBranchName}`,
+    commit.data.sha
+  );
 
   gitCheckoutBranch(mainBranchName);
   gitPush(GIT_SSH_REMOTE, mainBranchName);
