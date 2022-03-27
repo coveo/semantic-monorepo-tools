@@ -37,13 +37,16 @@ import { createAppAuth } from "@octokit/auth-app";
   const CONVENTION = await angularChangelogConvention;
   const REPO_OWNER = "coveo";
   const REPO_NAME = "semantic-monorepo-tools";
+  const GIT_USERNAME= "developer-experience-bot[bot]";
+  const GIT_EMAIL = "91079284+developer-experience-bot[bot]@users.noreply.github.com"
+  const GIT_SSH_REMOTE = "deploy"
   //#endregion
 
   //#region GitHub authentication
-  gitSetupSshRemote(REPO_OWNER, REPO_NAME, process.env.DEPLOY_KEY, "deploy");
+  gitSetupSshRemote(REPO_OWNER, REPO_NAME, process.env.DEPLOY_KEY, GIT_SSH_REMOTE);
   gitSetupUser(
-    "developer-experience-bot[bot]",
-    "91079284+developer-experience-bot[bot]@users.noreply.github.com"
+    GIT_USERNAME,
+    GIT_EMAIL
   );
 
   const authSecrets = {
@@ -81,8 +84,8 @@ import { createAppAuth } from "@octokit/auth-app";
       newVersion,
       {
         host: "https://github.com",
-        owner: "coveo",
-        repository: "cli",
+        owner: REPO_OWNER,
+        repository: REPO_NAME,
         linkReferences: true,
         currentTag: newVersionTag,
         previousTag: lastTag,
@@ -117,11 +120,11 @@ import { createAppAuth } from "@octokit/auth-app";
     parents: [mainBranchCurrentSHA],
   });
 
-  gitSetRefOnCommit("deploy", `refs/heads/${mainBranchName}`, commit.data.sha);
+  gitSetRefOnCommit(GIT_SSH_REMOTE, `refs/heads/${mainBranchName}`, commit.data.sha);
 
   gitCheckoutBranch(mainBranchName);
-  gitPush("deploy", mainBranchName);
-  gitDeleteRemoteBranch("deploy", tempBranchName);
+  gitPush(GIT_SSH_REMOTE, mainBranchName);
+  gitDeleteRemoteBranch(GIT_SSH_REMOTE, tempBranchName);
   //#endregion
 
   //#region Create & push tag.
