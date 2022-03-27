@@ -1,5 +1,5 @@
 name: "Lint"
-description: "Check files respect ESLint & Prettier rules"
+description: "Build the project"
 runs:
   using: composite
   steps:
