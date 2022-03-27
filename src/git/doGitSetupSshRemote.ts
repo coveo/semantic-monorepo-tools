@@ -11,7 +11,6 @@ export default function (
   sshKey: string,
   remoteName: string
 ) {
-  //#region TODO: `doConfigureGitSSHRemote(REPO_OWNER,REPO_NAME,DEPLOY_KEY,remoteName)`
   const sshDirPath = join(homedir(), ".ssh");
   const pemPath = join(sshDirPath, "id_rsa");
   const sshConfigPath = join(sshDirPath, "config");
@@ -36,20 +35,4 @@ export default function (
     ],
     gitLogger
   );
-  //#endregion
-
-  //#region TODO: `doConfigureGitUser(name, email)`
-  spawnSync("git", [
-    "config",
-    "--global",
-    "user.email",
-    "91079284+developer-experience-bot[bot]@users.noreply.github.com",
-  ]);
-  spawnSync("git", [
-    "config",
-    "--global",
-    "user.name",
-    "developer-experience-bot[bot]",
-  ]);
-  //#endregion
 }

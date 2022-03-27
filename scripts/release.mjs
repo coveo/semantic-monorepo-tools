@@ -43,7 +43,7 @@ import { createAppAuth } from "@octokit/auth-app";
   const GIT_SSH_REMOTE = "deploy";
   //#endregion
 
-  //#region GitHub authentication
+  // #region Setup Git
   gitSetupSshRemote(
     REPO_OWNER,
     REPO_NAME,
@@ -51,7 +51,9 @@ import { createAppAuth } from "@octokit/auth-app";
     GIT_SSH_REMOTE
   );
   gitSetupUser(GIT_USERNAME, GIT_EMAIL);
+  // #endregion
 
+  //#region GitHub authentication
   const authSecrets = {
     appId: process.env.RELEASER_APP_ID,
     privateKey: process.env.RELEASER_PRIVATE_KEY,
@@ -66,7 +68,7 @@ import { createAppAuth } from "@octokit/auth-app";
   });
   //#endregion
 
-  //#region Find current and new versions.
+  //#region Find current and new versions
   const lastTag = getLastTag(VERSION_PREFIX);
   const commits = getCommits(PATH, lastTag);
   const parsedCommits = parseCommits(commits, CONVENTION.parserOpts);
@@ -79,7 +81,7 @@ import { createAppAuth } from "@octokit/auth-app";
   // Bump the NPM version.
   npmBumpVersion(newVersion, PATH);
 
-  //#region Generate changelog if needed.
+  //#region Generate changelog if needed
   let changelog = "";
   if (parseCommits.length > 0) {
     changelog = await generateChangelog(
@@ -99,7 +101,7 @@ import { createAppAuth } from "@octokit/auth-app";
   }
   //#endregion
 
-  //#region Commit changelog, tag version and push.
+  //#region Commit changelog, tag version and push
   const tempBranchName = `release/${newVersion}`;
   const mainBranchName = getCurrentBranch();
   const mainBranchCurrentSHA = getSHA1fromRef(mainBranchName);
@@ -134,15 +136,15 @@ import { createAppAuth } from "@octokit/auth-app";
   gitDeleteRemoteBranch(GIT_SSH_REMOTE, tempBranchName);
   //#endregion
 
-  //#region Create & push tag.
+  //#region Create & push tag
   gitTag(newVersionTag);
   gitPushTags();
   //#endregion
 
-  // Publish the new version on NPM.
+  // Publish the new version on NPM
   npmPublish(PATH);
 
-  //#region Create GitHub Release on last tag.
+  //#region Create GitHub Release on last tag
   const [, ...bodyArray] = changelog.split("\n");
   await octokit.rest.repos.createRelease({
     owner: REPO_OWNER,
