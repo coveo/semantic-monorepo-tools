@@ -5,6 +5,7 @@ on:
 jobs:
   CI:
     runs-on: ubuntu-latest
+    environment: Release
     name: CD
     steps:
       - uses: actions/checkout@v2
