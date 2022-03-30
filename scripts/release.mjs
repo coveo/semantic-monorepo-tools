@@ -69,8 +69,8 @@ import { createAppAuth } from "@octokit/auth-app";
   //#endregion
 
   //#region Find current and new versions
-  const lastTag = getLastTag(VERSION_PREFIX);
-  const commits = getCommits(PATH, lastTag);
+  const lastTag = getLastTag(VERSION_PREFIX)[0];
+  const commits = getCommits(PATH, lastTag)[0];
   const parsedCommits = parseCommits(commits, CONVENTION.parserOpts);
   const bumpInfo = CONVENTION.recommendedBumpOpts.whatBump(parsedCommits);
   const currentVersion = getCurrentVersion(PATH);
