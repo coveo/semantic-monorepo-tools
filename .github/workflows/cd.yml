@@ -10,3 +10,12 @@ jobs:
       - uses: actions/checkout@v2
       - uses: ./.github/actions/setup
       - uses: ./.github/actions/lint
+      - uses: ./.github/actions/build
+      - uses: ./.github/actions/publish
+        env:
+          RELEASER_APP_ID: ${{ secrets.RELEASER_APP_ID }}
+          RELEASER_PRIVATE_KEY: ${{ secrets.RELEASER_PRIVATE_KEY }}
+          RELEASER_CLIENT_ID: ${{ secrets.RELEASER_CLIENT_ID }}
+          RELEASER_CLIENT_SECRET: ${{ secrets.RELEASER_CLIENT_SECRET }}
+          RELEASER_INSTALLATION_ID: ${{ secrets.RELEASER_INSTALLATION_ID }}
+          DEPLOY_KEY: ${{ secrets.DEPLOY_KEY }}

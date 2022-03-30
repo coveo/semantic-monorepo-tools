@@ -1,0 +1,7 @@
+name: "Publish"
+description: "Publish a new version of the project"
+runs:
+  using: composite
+  steps:
+    - run: node ./scripts/release.mjs
+      shell: bash
