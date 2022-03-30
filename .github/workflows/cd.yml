@@ -22,3 +22,4 @@ jobs:
           RELEASER_INSTALLATION_ID: ${{ secrets.RELEASER_INSTALLATION_ID }}
           DEPLOY_KEY: ${{ secrets.DEPLOY_KEY }}
           DEBUG: "*"
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
