@@ -106,17 +106,27 @@ import { createAppAuth } from "@octokit/auth-app";
   const mainBranchName = getCurrentBranch();
   const mainBranchCurrentSHA = getSHA1fromRef(mainBranchName);
 
+  // Create a temporary branch and check it out.
   gitCreateBranch(tempBranchName);
   gitCheckoutBranch(tempBranchName);
-
+  // Stage all the changes (mainly the changelog)...
   gitAdd(".");
 
+  //... and create a Git tree object with the changes).
   const treeSHA = gitWriteTree();
+  // Create a new commit that references the Git tree object.
   const commitTree = gitCommitTree(treeSHA, tempBranchName, "tempcommit");
 
+  // Update the HEAD of the temp branch to point to the new commit, then publish the temp branch.
   gitUpdateRef("HEAD", commitTree);
   gitPublishBranch("origin", tempBranchName);
 
+  /**
+   * Once we pushed the temp branch, the tree object is then known to the remote repository.
+   * We can now create a new commit that references the tree object using the GitHub API.
+   * The fact that we use the API makes the commit 'verified'.
+   * The commit is directly created on the GitHub repository, not on the local repository.
+   */
   const commit = await octokit.rest.git.createCommit({
     message: `chore(release): ${newVersion} [skip ci]`,
     owner: REPO_OWNER,
@@ -124,15 +134,17 @@ import { createAppAuth } from "@octokit/auth-app";
     tree: treeSHA,
     parents: [mainBranchCurrentSHA],
   });
-
+  // Forcefully reset `main` to the commit we just created with the GitHub API.
   gitSetRefOnCommit(
     GIT_SSH_REMOTE,
     `refs/heads/${mainBranchName}`,
     commit.data.sha
   );
 
+  // Push the branch using the SSH remote to bypass any GitHub checks.
   gitCheckoutBranch(mainBranchName);
   gitPush(GIT_SSH_REMOTE, mainBranchName);
+  // Finally, delete the temp branch.
   gitDeleteRemoteBranch(GIT_SSH_REMOTE, tempBranchName);
   //#endregion
 
