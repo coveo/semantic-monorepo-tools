@@ -15,7 +15,7 @@ import {
   gitAdd,
   gitSetupSshRemote,
   gitSetupUser,
-  getCurrentBranch,
+  getCurrentBranchName,
   getSHA1fromRef,
   gitWriteTree,
   gitCommitTree,
@@ -103,7 +103,7 @@ import { createAppAuth } from "@octokit/auth-app";
 
   //#region Commit changelog, tag version and push
   const tempBranchName = `release/${newVersion}`;
-  const mainBranchName = getCurrentBranch();
+  const mainBranchName = getCurrentBranchName();
   const mainBranchCurrentSHA = getSHA1fromRef(mainBranchName);
 
   // Create a temporary branch and check it out.
