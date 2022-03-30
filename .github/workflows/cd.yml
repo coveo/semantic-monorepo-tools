@@ -8,6 +8,8 @@ jobs:
     name: CD
     steps:
       - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
       - uses: ./.github/actions/setup
       - uses: ./.github/actions/lint
       - uses: ./.github/actions/build
