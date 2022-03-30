@@ -2,6 +2,10 @@
 
 A library of helper functions to do [SemVer2](https://semver.org/) compliant releases from [Conventional Commits](https://www.conventionalcommits.org/) in monorepos.
 
+## Install
+
+`npm install @coveo/semantic-monorepo-tools`
+
 ## Why?
 
 Before, one would use `lerna version` to make semantic releases in a monorepo, but [lerna is dead](https://github.com/lerna/lerna/issues/3062).
@@ -17,6 +21,8 @@ The goal is to make abstractions of the inner working of the tools (e.g. `git`, 
 
 ## Examples
 
-`semantic-monorepo-tools` is used for the release processes of monorepo at Coveo, you can find implementations examples on some of our repository:
+`semantic-monorepo-tools` use itself for its release process, you can see the 'meat of it' [here](/scripts/release.mjs).
+It is also used for the release processes of several monorepos at Coveo, you can find implementations examples on some of our repository:
  - [`coveo/cli`](https://github.com/coveo/cli/blob/master/scripts/releaseV2)
  - [`coveo/plasma`](https://github.com/coveo/plasma/blob/master/build/publishNewVersion.mjs)
+
