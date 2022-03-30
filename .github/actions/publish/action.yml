@@ -1,4 +1,4 @@
-name: "Lint"
+name: "Publish"
 description: "Publish a new version of the project"
 runs:
   using: composite
