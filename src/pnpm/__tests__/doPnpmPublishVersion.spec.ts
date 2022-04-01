@@ -16,7 +16,7 @@ describe("doPnpmPublishVersions", () => {
 
       expect(mockedSpawnSync).toHaveBeenCalledWith(
         "pnpm",
-        ["--recursive", `--filter="...[${since}]"`, "publish"],
+        ["--recursive", "--filter", `...[${since}]`, "publish"],
         { encoding: "utf-8" }
       );
     }
@@ -27,7 +27,7 @@ describe("doPnpmPublishVersions", () => {
 
     expect(mockedSpawnSync).toHaveBeenCalledWith(
       "pnpm",
-      ["--recursive", '--filter="...[v1.0.0]"', "publish", "--tag", tag],
+      ["--recursive", "--filter", "...[v1.0.0]", "publish", "--tag", tag],
       { encoding: "utf-8" }
     );
   });
@@ -41,7 +41,8 @@ describe("doPnpmPublishVersions", () => {
         "pnpm",
         [
           "--recursive",
-          '--filter="...[v1.0.0]"',
+          "--filter",
+          "...[v1.0.0]",
           "publish",
           "--publish-branch",
           branch,
@@ -58,7 +59,8 @@ describe("doPnpmPublishVersions", () => {
       "pnpm",
       [
         "--recursive",
-        '--filter="...[v1.0.0]"',
+        "--filter",
+        "...[v1.0.0]",
         '--filter="@org/package-a"',
         '--filter="@org/package-b"',
         "publish",
@@ -74,7 +76,8 @@ describe("doPnpmPublishVersions", () => {
       "pnpm",
       [
         "--recursive",
-        '--filter="...[v1.0.0]"',
+        "--filter",
+        "...[v1.0.0]",
         '--filter="!@org/package-a"',
         '--filter="!@org/package-b"',
         "publish",
@@ -96,7 +99,8 @@ describe("doPnpmPublishVersions", () => {
       "pnpm",
       [
         "--recursive",
-        '--filter="...[v1.0.0-next.1]"',
+        "--filter",
+        "...[v1.0.0-next.1]",
         // include
         '--filter="package-a"',
         '--filter="package-b"',

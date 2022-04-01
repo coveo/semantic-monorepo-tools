@@ -21,7 +21,8 @@ export default function (
 ) {
   const pnpmArgs = [
     "--recursive",
-    `--filter="...[${since}]"`,
+    "--filter",
+    `...[${since}]`,
     ...getIncludeFilters(forcePackages),
     ...getExclusionFilters(excludePackages),
     "publish",
