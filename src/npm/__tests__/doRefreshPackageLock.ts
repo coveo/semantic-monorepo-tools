@@ -6,7 +6,7 @@ jest.mock("node:child_process", () => ({
   spawnSync: jest.fn(),
 }));
 
-describe("#refreshPackageLock", () => {
+describe("refreshPackageLock()", () => {
   it("do call `npm i --package-lock-only`", () => {
     refreshPackageLock("somepath");
 
