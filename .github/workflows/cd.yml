@@ -2,8 +2,13 @@ name: CD
 on:
   push:
     branches: [main]
+
+concurrency:
+  group: Release
+  cancel-in-progress: true
+
 jobs:
-  CI:
+  CD:
     runs-on: ubuntu-latest
     environment: Release
     name: CD
