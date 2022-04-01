@@ -1,17 +1,20 @@
 import { spawnSync } from "node:child_process";
 import publish from "../doPnpmPublishVersions.js";
 
-jest.mock("node:child_process", () => ({
-  spawnSync: jest.fn(),
-}));
+jest.mock("node:child_process");
+const mockedSpawnSync = jest.mocked(spawnSync, true);
 
 describe("doPnpmPublishVersions", () => {
+  beforeEach(() => {
+    jest.resetAllMocks();
+  });
+
   it.each(["v1.0.0", "release-42"])(
     `publishes recursively with the since %s filter`,
     (since) => {
       publish(since);
 
-      expect(spawnSync).toHaveBeenCalledWith(
+      expect(mockedSpawnSync).toHaveBeenCalledWith(
         "pnpm",
         ["--recursive", `--filter="...[${since}]"`, "publish"],
         { encoding: "utf-8" }
@@ -22,7 +25,7 @@ describe("doPnpmPublishVersions", () => {
   it.each(["next", "alpha", "latest"])("publishes with the %s tag", (tag) => {
     publish("v1.0.0", tag);
 
-    expect(spawnSync).toHaveBeenCalledWith(
+    expect(mockedSpawnSync).toHaveBeenCalledWith(
       "pnpm",
       ["--recursive", '--filter="...[v1.0.0]"', "publish", "--tag", tag],
       { encoding: "utf-8" }
@@ -34,7 +37,7 @@ describe("doPnpmPublishVersions", () => {
     (branch) => {
       publish("v1.0.0", "", branch);
 
-      expect(spawnSync).toHaveBeenCalledWith(
+      expect(mockedSpawnSync).toHaveBeenCalledWith(
         "pnpm",
         [
           "--recursive",
@@ -51,7 +54,7 @@ describe("doPnpmPublishVersions", () => {
   it("filters in the forced packages", () => {
     publish("v1.0.0", "", "", ["@org/package-a", "@org/package-b"]);
 
-    expect(spawnSync).toHaveBeenCalledWith(
+    expect(mockedSpawnSync).toHaveBeenCalledWith(
       "pnpm",
       [
         "--recursive",
@@ -67,7 +70,7 @@ describe("doPnpmPublishVersions", () => {
   it("filters out the excluded packages", () => {
     publish("v1.0.0", "", "", [], ["@org/package-a", "@org/package-b"]);
 
-    expect(spawnSync).toHaveBeenCalledWith(
+    expect(mockedSpawnSync).toHaveBeenCalledWith(
       "pnpm",
       [
         "--recursive",
@@ -89,7 +92,7 @@ describe("doPnpmPublishVersions", () => {
       ["package-c", "package-d"]
     );
 
-    expect(spawnSync).toHaveBeenCalledWith(
+    expect(mockedSpawnSync).toHaveBeenCalledWith(
       "pnpm",
       [
         "--recursive",
@@ -108,5 +111,10 @@ describe("doPnpmPublishVersions", () => {
       ],
       { encoding: "utf-8" }
     );
+  });
+
+  it("returns the spawned process", () => {
+    const returned = publish("v1.0.0");
+    expect(returned).toBe(mockedSpawnSync.mock.results[0].value);
   });
 });

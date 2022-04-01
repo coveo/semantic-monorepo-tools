@@ -29,5 +29,5 @@ export default function (
     getOptionalArgument("--tag", tag),
     getOptionalArgument("--publish-branch", branch)
   );
-  spawnSync("pnpm", pnpmArgs, pnpmLogger);
+  return spawnSync("pnpm", pnpmArgs, pnpmLogger);
 }
