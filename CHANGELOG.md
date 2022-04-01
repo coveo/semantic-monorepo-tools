@@ -1,3 +1,12 @@
+## 0.3.1 (2022-04-01)
+
+
+### Bug Fixes
+
+* **pnpm, publish:** return the spawned process ([#15](https://github.com/coveo/semantic-monorepo-tools/issues/15)) ([887b670](https://github.com/coveo/semantic-monorepo-tools/commits/887b67045fcb6b2dbcf21b7961156fd2b820b0c7)), closes [#16](https://github.com/coveo/semantic-monorepo-tools/issues/16)
+
+
+
 # 0.3.0 (2022-04-01)
 
 
