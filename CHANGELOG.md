@@ -1,3 +1,12 @@
+# 0.3.0 (2022-04-01)
+
+
+### Features
+
+* **npm:** add package-lock refresher ([#13](https://github.com/coveo/semantic-monorepo-tools/issues/13)) ([c05b700](https://github.com/coveo/semantic-monorepo-tools/commits/c05b70014e93daf174c34f190ea9a195f3ce3800))
+
+
+
 ## 0.2.1 (2022-03-31)
 
 
