@@ -22,6 +22,7 @@ export { default as gitPublishBranch } from "./git/doGitPublishBranch.js";
 
 export { default as npmBumpVersion } from "./npm/doNpmBumpVersion.js";
 export { default as npmPublish } from "./npm/doNpmPublish.js";
+export { default as refreshPackageLock } from "./npm/doRefreshPackageLock.js";
 
 export { default as pnpmBumpVersion } from "./pnpm/doPnpmBumpVersion.js";
 export { default as pnpmPublish } from "./pnpm/doPnpmPublishVersions.js";
