@@ -1,5 +1,16 @@
 {
-  "extends": [
-    "config:base"
-  ]
+  "enabled": true,
+  "extends": [":semanticPrefixFixDepsChoreOthers", "schedule:earlyMondays"],
+  "packageRules": [
+    {
+      "matchPackagePatterns": ["*"],
+      "groupName": "all dependencies",
+      "groupSlug": "all"
+    }
+  ],
+  "rangeStrategy": "auto",
+  "lockFileMaintenance": {
+    "enabled": true
+  },
+  "automerge": true
 }
