@@ -109,4 +109,11 @@ describe("doPnpmPublishVersions", () => {
       { encoding: "utf-8" }
     );
   });
+
+  it("returns the spawned process", () => {
+    (spawnSync as any as jest.SpyInstance).mockReturnValue("returned value");
+    const returned = publish("v1.0.0");
+
+    expect(returned).toBe("returned value");
+  });
 });
