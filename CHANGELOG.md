@@ -1,3 +1,16 @@
+## 0.3.4 (2022-04-01)
+
+
+### Bug Fixes
+
+* **pnpm, publish:** split parameter and value ([#22](https://github.com/coveo/semantic-monorepo-tools/issues/22)) ([67e7113](https://github.com/coveo/semantic-monorepo-tools/commits/67e7113e0656bad7a8577397c130e13479b9d033))
+
+
+
+## 0.3.3 (2022-04-01)
+
+
+
 ## 0.3.2 (2022-04-01)
 
 
