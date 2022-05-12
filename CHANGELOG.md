@@ -1,3 +1,12 @@
+# 0.4.0 (2022-05-12)
+
+
+### Features
+
+* **pnpm:** add support for pnpm 7 ([#29](https://github.com/coveo/semantic-monorepo-tools/issues/29)) ([85f65df](https://github.com/coveo/semantic-monorepo-tools/commits/85f65dff0cbcfedcf417eaabb42f59e8e05824af))
+
+
+
 ## 0.3.7 (2022-04-11)
 
 
