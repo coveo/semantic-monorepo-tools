@@ -13,7 +13,6 @@ import {
   gitCreateBranch,
   gitCheckoutBranch,
   gitAdd,
-  gitSetupSshRemote,
   gitSetupUser,
   getCurrentBranchName,
   getSHA1fromRef,
@@ -40,16 +39,9 @@ import { createAppAuth } from "@octokit/auth-app";
   const GIT_USERNAME = "developer-experience-bot[bot]";
   const GIT_EMAIL =
     "91079284+developer-experience-bot[bot]@users.noreply.github.com";
-  const GIT_SSH_REMOTE = "deploy";
   //#endregion
 
   // #region Setup Git
-  gitSetupSshRemote(
-    REPO_OWNER,
-    REPO_NAME,
-    process.env.DEPLOY_KEY,
-    GIT_SSH_REMOTE
-  );
   gitSetupUser(GIT_USERNAME, GIT_EMAIL);
   // #endregion
 
@@ -135,17 +127,13 @@ import { createAppAuth } from "@octokit/auth-app";
     parents: [mainBranchCurrentSHA],
   });
   // Forcefully reset `main` to the commit we just created with the GitHub API.
-  gitSetRefOnCommit(
-    GIT_SSH_REMOTE,
-    `refs/heads/${mainBranchName}`,
-    commit.data.sha
-  );
+  gitSetRefOnCommit("origin", `refs/heads/${mainBranchName}`, commit.data.sha);
 
-  // Push the branch using the SSH remote to bypass any GitHub checks.
+  // Push the branch. The app does need to be included in the 'Allow specified actors to bypass required pull requests' list of the protected branch.
   gitCheckoutBranch(mainBranchName);
-  gitPush(GIT_SSH_REMOTE, mainBranchName);
+  gitPush();
   // Finally, delete the temp branch.
-  gitDeleteRemoteBranch(GIT_SSH_REMOTE, tempBranchName);
+  gitDeleteRemoteBranch("origin", tempBranchName);
   //#endregion
 
   //#region Create & push tag
