@@ -27,6 +27,7 @@ import {
 import angularChangelogConvention from "conventional-changelog-angular";
 import { Octokit } from "octokit";
 import { createAppAuth } from "@octokit/auth-app";
+import retry from "async-retry";
 
 // Get all commits since last release bump the root package.json version.
 (async () => {
@@ -126,14 +127,9 @@ import { createAppAuth } from "@octokit/auth-app";
     tree: treeSHA,
     parents: [mainBranchCurrentSHA],
   });
-  // Forcefully reset `main` to the commit we just created with the GitHub API.
-  gitSetRefOnCommit("origin", `refs/heads/${mainBranchName}`, commit.data.sha);
 
-  // Push the branch. The app does need to be included in the 'Allow specified actors to bypass required pull requests' list of the protected branch.
-  gitCheckoutBranch(mainBranchName);
-  gitPush();
-  // Finally, delete the temp branch.
-  gitDeleteRemoteBranch("origin", tempBranchName);
+  // Forcefully reset our local `main` to the commit we just created with the GitHub API.
+  gitSetRefOnCommit("origin", `refs/heads/${mainBranchName}`, commit.data.sha);
   //#endregion
 
   //#region Create & push tag
@@ -153,5 +149,34 @@ import { createAppAuth } from "@octokit/auth-app";
     name: `Release ${newVersionTag}`,
     body: bodyArray.join("\n"),
   });
+  //#endregion
+
+  //#region Wait for CI to validate the released commit.
+  await retry(
+    async (bail) => {
+      const releaseCheck = await octokit.rest.checks.listForRef({
+        owner: REPO_OWNER,
+        repo: REPO_NAME,
+        ref: commit.data.sha,
+        status: "completed",
+        filter: "latest",
+      });
+      if (releaseCheck.data.check_runs.length === 0) {
+        throw "No checks detected yet";
+      }
+      if (releaseCheck.data.check_runs[0].conclusion !== "success") {
+        bail(new Error("Check unsuccessful"));
+      }
+    },
+    { retries: 30 }
+  );
+  //#endregion
+
+  //#region Set `main` to the proper release.
+  // Push local main to remote. The app does need to be included in the 'Allow specified actors to bypass required pull requests' list of the protected branch.
+  gitCheckoutBranch(mainBranchName);
+  gitPush("origin", mainBranchName);
+  // Finally, delete the temp branch.
+  gitDeleteRemoteBranch("origin", tempBranchName);
   //#endregion
 })();
