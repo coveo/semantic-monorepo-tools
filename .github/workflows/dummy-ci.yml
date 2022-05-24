@@ -1,0 +1,11 @@
+# https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/defining-the-mergeability-of-pull-requests/troubleshooting-required-status-checks#handling-skipped-but-required-checks
+name: CI
+on:
+  release:
+
+jobs:
+  CI:
+    runs-on: ubuntu-latest
+    name: CI
+    steps:
+      - run: 'echo "No build required" '
