@@ -162,6 +162,7 @@ import retry from "async-retry";
         status: "completed",
         filter: "latest",
       });
+      console.log(JSON.stringify(releaseCheck));
       if (releaseCheck.data.check_runs.length === 0) {
         throw "No checks detected yet";
       }
