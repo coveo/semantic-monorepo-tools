@@ -175,7 +175,9 @@ import retry from "async-retry";
 
   //#region Set `main` to the proper release.
   // Push local main to remote. The app does need to be included in the 'Allow specified actors to bypass required pull requests' list of the protected branch.
-  gitPush("origin", mainBranchName);
+  const pushps = gitPush("origin", mainBranchName);
+  console.log(pushps.stdout);
+  console.log(pushps.stderr);
   // Finally, delete the temp branch.
   gitDeleteRemoteBranch("origin", tempBranchName);
   //#endregion
