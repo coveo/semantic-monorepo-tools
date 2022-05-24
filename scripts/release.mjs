@@ -177,7 +177,8 @@ import retry from "async-retry";
   await octokit.rest.git.updateRef({
     owner: REPO_OWNER,
     repo: REPO_NAME,
-    sha: "ref/heads/main",
+    ref: "ref/heads/main",
+    sha: commit.data.sha,
   });
   // Finally, delete the temp branch.
   gitDeleteRemoteBranch("origin", tempBranchName);
