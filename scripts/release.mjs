@@ -174,10 +174,11 @@ import retry from "async-retry";
   //#endregion
 
   //#region Set `main` to the proper release.
-  // Push local main to remote. The app does need to be included in the 'Allow specified actors to bypass required pull requests' list of the protected branch.
-  const pushps = gitPush("origin", mainBranchName);
-  console.log(pushps.stdout);
-  console.log(pushps.stderr);
+  await octokit.rest.git.updateRef({
+    owner: REPO_OWNER,
+    repo: REPO_NAME,
+    sha: "ref/heads/main",
+  });
   // Finally, delete the temp branch.
   gitDeleteRemoteBranch("origin", tempBranchName);
   //#endregion
