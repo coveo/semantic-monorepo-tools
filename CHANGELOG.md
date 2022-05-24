@@ -1,3 +1,12 @@
+## 0.4.11 (2022-05-24)
+
+
+### Reverts
+
+* Revert "ci: remove ssh remote & deploy key (#32)" ([0c91555](https://github.com/coveo/semantic-monorepo-tools/commits/0c91555823344cfc016d734fdba49b58ad13cac1)), closes [#32](https://github.com/coveo/semantic-monorepo-tools/issues/32)
+
+
+
 ## 0.4.1 (2022-05-24)
 
 
