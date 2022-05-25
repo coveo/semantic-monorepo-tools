@@ -8,7 +8,7 @@ const getSnykCodeAlerts = () => {
   return octokit.rest.codeScanning.listAlertsForRepo({
     owner,
     repo,
-    ref: "master",
+    ref: "main",
     tool_name: "SnykCode",
     state: "open",
   });
