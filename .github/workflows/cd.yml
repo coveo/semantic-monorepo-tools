@@ -18,6 +18,8 @@ jobs:
           fetch-depth: 0
       - uses: ./.github/actions/setup
       - uses: ./.github/actions/lint
+      - name: Prepare Snyk
+        run: mkdir sarifs
       - name: Snyk Monitor
         if: ${{ github.event_name != 'pull_request' }}
         continue-on-error: false
