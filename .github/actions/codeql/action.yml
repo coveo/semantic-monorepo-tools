@@ -16,6 +16,3 @@ runs:
 
     - name: Perform CodeQL Analysis
       uses: github/codeql-action/analyze@v2
-
-    - name: Snyk Scans
-      uses: ./.github/actions/snykScan
