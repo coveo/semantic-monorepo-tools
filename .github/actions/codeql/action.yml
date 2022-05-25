@@ -12,7 +12,7 @@ runs:
     - name: Initialize CodeQL
       uses: github/codeql-action/init@v2
       with:
-        languages: ${{ input.language }}
+        languages: ${{ inputs.language }}
 
     - name: Perform CodeQL Analysis
       uses: github/codeql-action/analyze@v2
