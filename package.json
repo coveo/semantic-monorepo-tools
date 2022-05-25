@@ -34,6 +34,7 @@
   "author": "Coveo",
   "license": "Apache-2.0",
   "devDependencies": {
+    "@actions/github": "^5.0.3",
     "@coveo/semantic-monorepo-tools": "file:.",
     "@octokit/auth-app": "3.6.1",
     "@types/conventional-changelog-writer": "4.0.1",
