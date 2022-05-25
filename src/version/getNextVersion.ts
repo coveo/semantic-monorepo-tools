@@ -13,9 +13,9 @@ function getNextVersion(version: SemVer, bumpInfo: BumpInfoWithType): string;
 
 function getNextVersion(version: SemVer, bumpInfo: BumpInfo) {
   if ("level" in bumpInfo) {
-    return inc(version.version, VERSION_LEVEL[bumpInfo.level]);
+    return inc(version, VERSION_LEVEL[bumpInfo.level]);
   } else {
-    return inc(version.version, bumpInfo.type, bumpInfo.preid);
+    return inc(version, bumpInfo.type, bumpInfo.preid);
   }
 }
 
