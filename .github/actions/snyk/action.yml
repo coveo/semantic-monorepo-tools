@@ -1,0 +1,46 @@
+name: "Snyk"
+description: "Scan with Snyk"
+
+inputs:
+  fail-on-error:
+    description: "If true, will fail on error"
+    required: true
+  SNYK_TOKEN:
+    description: "The Snyk Token"
+    required: true
+
+runs:
+  using: composite
+  steps:
+    - name: Prepare Snyk
+      run: mkdir sarifs
+      shell: bash
+      continue-on-error: ${{ !inputs.fail-on-vuln }}
+    - name: Snyk Monitor
+      if: ${{ github.event_name != 'pull_request' }}
+      continue-on-error: ${{ !inputs.fail-on-vuln }}
+      env:
+        SNYK_TOKEN: ${{ inputs.SNYK_TOKEN }}
+      run: npx snyk monitor
+      shell: bash
+
+    - name: Snyk Test
+      continue-on-error: ${{ !inputs.fail-on-vuln }}
+      env:
+        SNYK_TOKEN: ${{ inputs.SNYK_TOKEN }}
+      run: npx snyk test --dev --sarif-file-output=./sarifs/snyk.sarif
+      shell: bash
+    - name: Snyk Code
+      continue-on-error: ${{ !inputs.fail-on-vuln }}
+      env:
+        SNYK_TOKEN: ${{ inputs.SNYK_TOKEN }}
+      run: npx snyk code test    --dev --sarif > ./sarifs/snyk-code.sarif
+      shell: bash
+    - name: Upload result to GitHub Code Scanning
+      uses: github/codeql-action/upload-sarif@a3a6c128d771b6b9bdebb1c9d0583ebd2728a108 # tag=v2
+      with:
+        sarif_file: ./sarifs
+    - name: Check SnykCode vuln
+      if: ${{ inputs.fail-on-vuln }}
+      run: node ./scripts/get-scan-results.js
+      shell: bash

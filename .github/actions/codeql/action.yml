@@ -1,0 +1,18 @@
+name: "CodeQL"
+description: "Scan with CodeQL"
+
+inputs:
+  language:
+    description: "Language to scan"
+    required: true
+
+runs:
+  using: composite
+  steps:
+    - name: Initialize CodeQL
+      uses: github/codeql-action/init@a3a6c128d771b6b9bdebb1c9d0583ebd2728a108 # tag=v2
+      with:
+        languages: ${{ inputs.language }}
+
+    - name: Perform CodeQL Analysis
+      uses: github/codeql-action/analyze@a3a6c128d771b6b9bdebb1c9d0583ebd2728a108 # tag=v2
