@@ -5,7 +5,7 @@ import { chmodSync, mkdirSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
 import { homedir } from "node:os";
 
-export default function (
+export default async function (
   REPO_OWNER: string,
   REPO_NAME: string,
   sshKey: string,
@@ -25,7 +25,7 @@ export default function (
   IdentityFile ${pemPath}`
   );
 
-  spawnSync(
+  await spawnSync(
     "git",
     [
       "remote",

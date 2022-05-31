@@ -12,7 +12,7 @@ import pnpmLogger from "./utils/pnpmLogger.js";
  * @param forcePackages also bump the version in those packages
  * @param excludePackages filter out the specified packages/directory from the output
  */
-export default function (
+export default async function (
   since: string,
   tag?: string,
   branch?: string,
@@ -30,5 +30,5 @@ export default function (
     getOptionalArgument("--tag", tag),
     getOptionalArgument("--publish-branch", branch)
   );
-  return spawnSync("pnpm", pnpmArgs, pnpmLogger);
+  await spawnSync("pnpm", pnpmArgs, pnpmLogger);
 }

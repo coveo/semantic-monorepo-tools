@@ -1,27 +1,43 @@
+import type { Readable } from "node:stream";
+import { spawn, ChildProcess } from "node:child_process";
+import { EventEmitter } from "node:events";
 import refreshPackageLock from "../doRefreshPackageLock.js";
+import appendCmdIfWindows from "../utils/appendCmdIfWindows.js";
 
-import { spawnSync } from "node:child_process";
 jest.mock("node:child_process");
-const mockedSpawnSync = jest.mocked(spawnSync, true);
+const mockedSpawn = jest.mocked(spawn, true);
 
-import { appendCmdIfWindows } from "../utils/appendCmdIfWindows.js";
 jest.mock("../utils/appendCmdIfWindows.js");
 jest
   .mocked(appendCmdIfWindows, true)
   .mockImplementation((string: string) => string);
 
+const doMockDummySpawn = () => {
+  mockedSpawn.mockImplementation(() => {
+    const cpEventEmitter: ChildProcess = new EventEmitter() as ChildProcess;
+    const stdoutEventEmitter = new EventEmitter();
+    const stderrEventEmitter = new EventEmitter();
+    cpEventEmitter.stdout = stdoutEventEmitter as Readable;
+    cpEventEmitter.stderr = stderrEventEmitter as Readable;
+    setTimeout(() => {
+      cpEventEmitter.emit("close", 0);
+    }, 0);
+    return cpEventEmitter;
+  });
+};
 describe("refreshPackageLock()", () => {
   beforeEach(() => {
     jest.resetAllMocks();
+    doMockDummySpawn();
   });
 
-  it("calls `npm i --package-lock-only`", () => {
-    refreshPackageLock("somepath");
+  it("calls `npm i --package-lock-only`", async () => {
+    await refreshPackageLock("somepath");
 
-    expect(mockedSpawnSync).toHaveBeenCalledWith(
+    expect(mockedSpawn).toHaveBeenCalledWith(
       appendCmdIfWindows`npm`,
       ["install", "--package-lock-only"],
-      { encoding: "utf-8", cwd: "somepath" }
+      { cwd: "somepath" }
     );
   });
 });

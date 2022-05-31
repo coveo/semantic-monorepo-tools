@@ -6,15 +6,12 @@ import { runOnChanged } from "./utils/runOnChanged.js";
  * @param excludePackages filter out the specified packages/directory from the output
  * @return an array representing the output of the command in each changed package
  */
-export default function (
+export default async function (
   since: string,
   excludePackages: string[] = []
-): string[] {
-  const out = runOnChanged(
-    "printenv PNPM_PACKAGE_NAME",
-    since,
-    [],
-    excludePackages
+): Promise<string[]> {
+  const out = (
+    await runOnChanged("printenv PNPM_PACKAGE_NAME", since, [], excludePackages)
   ).stdout.trim();
   if (out.includes("No projects matched the filters in")) {
     return [];

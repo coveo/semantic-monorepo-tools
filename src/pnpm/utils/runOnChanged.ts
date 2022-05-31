@@ -4,14 +4,14 @@ import getExclusionFilters from "./getExclusionFilters.js";
 import getIncludeFilters from "./getIncludeFilters.js";
 import pnpmLogger from "./pnpmLogger.js";
 
-export const runOnChanged = (
+export const runOnChanged = async (
   cmd: string,
   since: string,
   forcePackages: string[],
   excludePackages: string[]
 ) => {
   const pnpmVersion = semver.parse(
-    spawnSync("pnpm", ["--version"], pnpmLogger).stdout.trim()
+    (await spawnSync("pnpm", ["--version"], pnpmLogger)).stdout.trim()
   );
   const pnpmArgs = [
     "--recursive",

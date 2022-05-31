@@ -1,2 +1,3 @@
-export const appendCmdIfWindows = (cmd) =>
-  `${cmd}${process.platform === "win32" ? ".cmd" : ""}`;
+export default function appendCmdIfWindows(cmd) {
+  return `${cmd}${process.platform === "win32" ? ".cmd" : ""}`;
+}

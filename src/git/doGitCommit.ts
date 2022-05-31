@@ -1,8 +1,8 @@
 import spawnSync from "../utils/spawnSync.js";
 import gitLogger from "./utils/gitLogger.js";
 
-export default function (message: string, PATH: string) {
-  spawnSync("git", ["add", PATH], gitLogger);
+export default async function (message: string, PATH: string) {
+  await spawnSync("git", ["add", PATH], gitLogger);
 
-  return spawnSync("git", ["commit", "-m", message], gitLogger);
+  await spawnSync("git", ["commit", "-m", message], gitLogger);
 }

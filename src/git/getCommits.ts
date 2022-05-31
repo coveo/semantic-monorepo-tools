@@ -1,4 +1,3 @@
-import type { SpawnSyncReturns } from "child_process";
 import { randomBytes } from "node:crypto";
 import spawnSync from "../utils/spawnSync.js";
 import gitLogger from "./utils/gitLogger.js";
@@ -10,11 +9,11 @@ import gitLogger from "./utils/gitLogger.js";
  * @param to last commit to consider, defaults to HEAD
  * @return an array containing the commits and the process that was spawned
  */
-export default function (
+export default async function (
   projectPath: string,
   from: string,
   to = "HEAD"
-): [string[], SpawnSyncReturns<string>] {
+): Promise<string[]> {
   const delimiter = `<--- ${randomBytes(64).toString("hex")} --->`;
   const gitParams = [
     "log",
@@ -23,11 +22,13 @@ export default function (
     `${from}..${to}`,
     projectPath,
   ];
-  const gitPs = spawnSync("git", gitParams, gitLogger, { encoding: "ascii" });
+  const gitPs = await spawnSync("git", gitParams, gitLogger, {
+    encoding: "ascii",
+  });
   const commits = gitPs.stdout
     .split(delimiter)
     .map((str) => str.trim())
     .filter((str) => Boolean(str));
 
-  return [commits, gitPs];
+  return commits;
 }

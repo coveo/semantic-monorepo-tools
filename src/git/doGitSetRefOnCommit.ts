@@ -1,12 +1,12 @@
 import spawnSync from "../utils/spawnSync.js";
 import gitLogger from "./utils/gitLogger.js";
 
-export default function (
+export default async function (
   remote: string,
   completeRef: string,
   commitSha1: string
 ) {
-  return spawnSync(
+  await spawnSync(
     "git",
     ["fetch", remote, `${commitSha1}:${completeRef}`],
     gitLogger
