@@ -1,6 +1,6 @@
-import spawnSync from "../utils/spawnSync.js";
+import spawn from "../utils/spawn.js";
 import gitLogger from "./utils/gitLogger.js";
 
 export default async function () {
-  return (await spawnSync("git", ["remote"], gitLogger)).stdout.trim();
+  return (await spawn("git", ["remote"], gitLogger)).stdout.trim();
 }

@@ -1,6 +1,6 @@
-import spawnSync from "../utils/spawnSync.js";
+import spawn from "../utils/spawn.js";
 import gitLogger from "./utils/gitLogger.js";
 
 export default async function (remote = "origin", ...refs: string[]) {
-  await spawnSync("git", ["push", remote, ...refs], gitLogger);
+  await spawn("git", ["push", remote, ...refs], gitLogger);
 }

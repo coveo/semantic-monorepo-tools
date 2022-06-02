@@ -1,5 +1,5 @@
 import semver from "semver";
-import spawnSync from "../../utils/spawnSync.js";
+import spawn from "../../utils/spawn.js";
 import getExclusionFilters from "./getExclusionFilters.js";
 import getIncludeFilters from "./getIncludeFilters.js";
 import pnpmLogger from "./pnpmLogger.js";
@@ -11,7 +11,7 @@ export const runOnChanged = async (
   excludePackages: string[]
 ) => {
   const pnpmVersion = semver.parse(
-    (await spawnSync("pnpm", ["--version"], pnpmLogger)).stdout.trim()
+    (await spawn("pnpm", ["--version"], pnpmLogger)).stdout.trim()
   );
   const pnpmArgs = [
     "--recursive",
@@ -23,7 +23,7 @@ export const runOnChanged = async (
     ...(pnpmVersion.major === 6 ? ["--"] : []),
     cmd,
   ];
-  return spawnSync("pnpm", pnpmArgs, pnpmLogger, {
+  return spawn("pnpm", pnpmArgs, pnpmLogger, {
     shell: true,
   });
 };

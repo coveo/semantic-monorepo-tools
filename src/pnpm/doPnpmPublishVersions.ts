@@ -1,4 +1,4 @@
-import spawnSync from "../utils/spawnSync.js";
+import spawn from "../utils/spawn.js";
 import getOptionalArgument from "../utils/getOptionalArgument.js";
 import getExclusionFilters from "./utils/getExclusionFilters.js";
 import getIncludeFilters from "./utils/getIncludeFilters.js";
@@ -30,5 +30,5 @@ export default async function (
     getOptionalArgument("--tag", tag),
     getOptionalArgument("--publish-branch", branch)
   );
-  await spawnSync("pnpm", pnpmArgs, pnpmLogger);
+  await spawn("pnpm", pnpmArgs, pnpmLogger);
 }

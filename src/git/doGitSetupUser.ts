@@ -1,4 +1,4 @@
-import spawnSync from "../utils/spawnSync.js";
+import spawn from "../utils/spawn.js";
 import gitLogger from "./utils/gitLogger.js";
 
 export default async function (name?: string, email?: string) {
@@ -11,9 +11,5 @@ export default async function (name?: string, email?: string) {
 }
 
 async function setUserProperty(key: string, value: string) {
-  await spawnSync(
-    "git",
-    ["config", "--global", `user.${key}`, value],
-    gitLogger
-  );
+  await spawn("git", ["config", "--global", `user.${key}`, value], gitLogger);
 }

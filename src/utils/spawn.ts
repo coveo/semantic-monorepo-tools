@@ -6,7 +6,7 @@ interface Options extends SpawnOptions {
   encoding?: "ascii" | "utf8" | "utf-8";
 }
 
-type SpawnSyncOutputs = {
+type spawnOutputs = {
   stdout: string;
   stderr: string;
 };
@@ -23,7 +23,7 @@ export default function (
   let stderr = "";
   const { encoding, ...spawnOptions } = { encoding: "utf-8", ...options };
 
-  return new Promise<SpawnSyncOutputs>((resolve, reject) => {
+  return new Promise<spawnOutputs>((resolve, reject) => {
     const childProcess = spawn(command, args, spawnOptions);
 
     childProcess.stdout.on("data", (data) => {

@@ -1,5 +1,5 @@
 import { randomBytes } from "node:crypto";
-import spawnSync from "../utils/spawnSync.js";
+import spawn from "../utils/spawn.js";
 import gitLogger from "./utils/gitLogger.js";
 
 /**
@@ -22,7 +22,7 @@ export default async function (
     `${from}..${to}`,
     projectPath,
   ];
-  const gitPs = await spawnSync("git", gitParams, gitLogger, {
+  const gitPs = await spawn("git", gitParams, gitLogger, {
     encoding: "ascii",
   });
   const commits = gitPs.stdout

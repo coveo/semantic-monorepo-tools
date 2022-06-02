@@ -1,5 +1,5 @@
 import getOptionalArgument from "../utils/getOptionalArgument.js";
-import spawnSync from "../utils/spawnSync.js";
+import spawn from "../utils/spawn.js";
 import gitLogger from "./utils/gitLogger.js";
 
 export default async function (
@@ -8,7 +8,7 @@ export default async function (
   message?: string
 ) {
   return (
-    await spawnSync(
+    await spawn(
       "git",
       ["commit-tree", tree].concat(
         getOptionalArgument("-p", parent),

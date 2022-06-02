@@ -1,6 +1,6 @@
-import spawnSync from "../utils/spawnSync.js";
+import spawn from "../utils/spawn.js";
 import gitLogger from "./utils/gitLogger.js";
 
 export default async function (tag: string) {
-  await spawnSync(`git`, ["tag", tag], gitLogger);
+  await spawn(`git`, ["tag", tag], gitLogger);
 }

@@ -1,4 +1,4 @@
-import spawnSync from "../utils/spawnSync.js";
+import spawn from "../utils/spawn.js";
 import gitLogger from "./utils/gitLogger.js";
 
 /**
@@ -11,7 +11,7 @@ export default async function (prefix?: string): Promise<string> {
   if (prefix) {
     gitParams.push(`--match=${prefix}*`);
   }
-  const gitPs = await spawnSync("git", gitParams, gitLogger);
+  const gitPs = await spawn("git", gitParams, gitLogger);
 
   return gitPs.stdout.trim();
 }

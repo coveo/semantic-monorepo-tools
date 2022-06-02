@@ -1,4 +1,4 @@
-import spawnSync from "../utils/spawnSync.js";
+import spawn from "../utils/spawn.js";
 import gitLogger from "./utils/gitLogger.js";
 
 import { chmodSync, mkdirSync, writeFileSync } from "node:fs";
@@ -25,7 +25,7 @@ export default async function (
   IdentityFile ${pemPath}`
   );
 
-  await spawnSync(
+  await spawn(
     "git",
     [
       "remote",
