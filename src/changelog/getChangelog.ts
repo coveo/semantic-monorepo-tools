@@ -4,10 +4,15 @@ import changelogWriter, {
 } from "conventional-changelog-writer";
 import type { Commit } from "conventional-commits-parser";
 
+interface WriterContext extends Context {
+  currentTag: string;
+  previousTag: string;
+}
+
 export default function (
   parsedCommits: Array<Commit>,
   newVersion: string,
-  writerContext: Partial<Context> = {},
+  writerContext: Partial<WriterContext> = {},
   writerOpts: Options = {}
 ) {
   const ctx = {

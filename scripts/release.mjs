@@ -69,8 +69,8 @@ import { createAppAuth } from "@octokit/auth-app";
   //#endregion
 
   //#region Find current and new versions
-  const lastTag = getLastTag(VERSION_PREFIX)[0];
-  const commits = getCommits(PATH, lastTag)[0];
+  const lastTag = await getLastTag(VERSION_PREFIX)[0];
+  const commits = await getCommits(PATH, lastTag);
   const parsedCommits = parseCommits(commits, CONVENTION.parserOpts);
   const bumpInfo = CONVENTION.recommendedBumpOpts.whatBump(parsedCommits);
   const currentVersion = getCurrentVersion(PATH);
@@ -79,11 +79,11 @@ import { createAppAuth } from "@octokit/auth-app";
   //#endregion
 
   // Bump the NPM version.
-  npmBumpVersion(newVersion, PATH);
+  await npmBumpVersion(newVersion, PATH);
 
   //#region Generate changelog if needed
   let changelog = "";
-  if (parseCommits.length > 0) {
+  if (parsedCommits.length > 0) {
     changelog = await generateChangelog(
       parsedCommits,
       newVersion,
@@ -103,23 +103,23 @@ import { createAppAuth } from "@octokit/auth-app";
 
   //#region Commit changelog, tag version and push
   const tempBranchName = `release/${newVersion}`;
-  const mainBranchName = getCurrentBranchName();
-  const mainBranchCurrentSHA = getSHA1fromRef(mainBranchName);
+  const mainBranchName = await getCurrentBranchName();
+  const mainBranchCurrentSHA = await getSHA1fromRef(mainBranchName);
 
   // Create a temporary branch and check it out.
-  gitCreateBranch(tempBranchName);
-  gitCheckoutBranch(tempBranchName);
+  await gitCreateBranch(tempBranchName);
+  await gitCheckoutBranch(tempBranchName);
   // Stage all the changes (mainly the changelog)...
-  gitAdd(".");
+  await gitAdd(".");
 
   //... and create a Git tree object with the changes).
-  const treeSHA = gitWriteTree();
+  const treeSHA = await gitWriteTree();
   // Create a new commit that references the Git tree object.
-  const commitTree = gitCommitTree(treeSHA, tempBranchName, "tempcommit");
+  const commitTree = await gitCommitTree(treeSHA, tempBranchName, "tempcommit");
 
   // Update the HEAD of the temp branch to point to the new commit, then publish the temp branch.
-  gitUpdateRef("HEAD", commitTree);
-  gitPublishBranch("origin", tempBranchName);
+  await gitUpdateRef("HEAD", commitTree);
+  await gitPublishBranch("origin", tempBranchName);
 
   /**
    * Once we pushed the temp branch, the tree object is then known to the remote repository.
@@ -135,26 +135,26 @@ import { createAppAuth } from "@octokit/auth-app";
     parents: [mainBranchCurrentSHA],
   });
   // Forcefully reset `main` to the commit we just created with the GitHub API.
-  gitSetRefOnCommit(
+  await gitSetRefOnCommit(
     GIT_SSH_REMOTE,
     `refs/heads/${mainBranchName}`,
     commit.data.sha
   );
 
   // Push the branch using the SSH remote to bypass any GitHub checks.
-  gitCheckoutBranch(mainBranchName);
-  gitPush(GIT_SSH_REMOTE, mainBranchName);
+  await gitCheckoutBranch(mainBranchName);
+  await gitPush(GIT_SSH_REMOTE, mainBranchName);
   // Finally, delete the temp branch.
-  gitDeleteRemoteBranch(GIT_SSH_REMOTE, tempBranchName);
+  await gitDeleteRemoteBranch(GIT_SSH_REMOTE, tempBranchName);
   //#endregion
 
   //#region Create & push tag
-  gitTag(newVersionTag);
-  gitPushTags();
+  await gitTag(newVersionTag);
+  await gitPushTags();
   //#endregion
 
   // Publish the new version on NPM
-  npmPublish(PATH);
+  await npmPublish(PATH);
 
   //#region Create GitHub Release on last tag
   const [, ...bodyArray] = changelog.split("\n");
