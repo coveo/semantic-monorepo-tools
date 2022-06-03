@@ -18,5 +18,6 @@ jobs:
       - uses: ./.github/actions/codeql
       - name: Unit tests
         run: npm test
+      - uses: ./.github/actions/build
       - name: CD type checks
         run: npx tsc --allowJs --checkJs --skipLibCheck --noEmit ./scripts/release.mjs
