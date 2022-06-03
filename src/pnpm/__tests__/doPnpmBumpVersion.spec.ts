@@ -1,21 +1,54 @@
-import { spawnSync, SpawnSyncReturns } from "node:child_process";
+import type { Readable } from "node:stream";
+import { spawn, ChildProcess } from "node:child_process";
+import { EventEmitter } from "node:events";
 import bump from "../doPnpmBumpVersion.js";
 
 jest.mock("node:child_process");
-const mockedSpawnSync = jest.mocked(spawnSync, true);
+const mockedSpawn = jest.mocked(spawn, true);
 
 describe("doPnpmBumpVersion", () => {
+  const doMockSpawnWithStdout = (mockedStdout?: string) => {
+    mockedSpawn.mockImplementationOnce(() => {
+      const cpEventEmitter: ChildProcess = new EventEmitter() as ChildProcess;
+      const stdoutEventEmitter = new EventEmitter();
+      const stderrEventEmitter = new EventEmitter();
+      cpEventEmitter.stdout = stdoutEventEmitter as Readable;
+      cpEventEmitter.stderr = stderrEventEmitter as Readable;
+      setTimeout(() => {
+        if (mockedStdout) {
+          stdoutEventEmitter.emit("data", mockedStdout);
+        }
+        cpEventEmitter.emit("close", 0);
+      }, 0);
+      return cpEventEmitter;
+    });
+  };
+
+  const doMockDummySpawn = () => {
+    mockedSpawn.mockImplementation(() => {
+      const cpEventEmitter: ChildProcess = new EventEmitter() as ChildProcess;
+      const stdoutEventEmitter = new EventEmitter();
+      const stderrEventEmitter = new EventEmitter();
+      cpEventEmitter.stdout = stdoutEventEmitter as Readable;
+      cpEventEmitter.stderr = stderrEventEmitter as Readable;
+      setTimeout(() => {
+        cpEventEmitter.emit("close", 0);
+      }, 0);
+      return cpEventEmitter;
+    });
+  };
+
   beforeEach(() => {
     jest.resetAllMocks();
-    mockedSpawnSync.mockReturnValueOnce({
-      stdout: "7.0.0",
-    } as SpawnSyncReturns<string>);
+    doMockDummySpawn();
+    doMockSpawnWithStdout("7.0.0");
   });
 
-  it("bumps the version recursively", () => {
-    bump("v1.0.0", "v0.0.0");
+  it("bumps the version recursively", async () => {
+    await bump("v1.0.0", "v0.0.0");
 
-    expect(mockedSpawnSync).toHaveBeenCalledWith(
+    expect(mockedSpawn).toHaveBeenNthCalledWith(
+      2,
       "pnpm",
       [
         "--recursive",
@@ -23,14 +56,14 @@ describe("doPnpmBumpVersion", () => {
         "exec",
         "pnpm version v1.0.0 --no-git-tag-version",
       ],
-      { encoding: "utf-8", shell: true }
+      { shell: true }
     );
   });
 
-  it("filters in the forced packages", () => {
-    bump("v1.0.0", "v0.0.0", ["@org/package-a", "@org/package-b"]);
+  it("filters in the forced packages", async () => {
+    await bump("v1.0.0", "v0.0.0", ["@org/package-a", "@org/package-b"]);
 
-    expect(mockedSpawnSync).toHaveBeenCalledWith(
+    expect(mockedSpawn).toHaveBeenCalledWith(
       "pnpm",
       [
         "--recursive",
@@ -40,14 +73,14 @@ describe("doPnpmBumpVersion", () => {
         "exec",
         "pnpm version v1.0.0 --no-git-tag-version",
       ],
-      { encoding: "utf-8", shell: true }
+      { shell: true }
     );
   });
 
-  it("filters out the excluded packages", () => {
-    bump("v1.0.0", "v0.0.0", [], ["@org/package-a", "@org/package-b"]);
+  it("filters out the excluded packages", async () => {
+    await bump("v1.0.0", "v0.0.0", [], ["@org/package-a", "@org/package-b"]);
 
-    expect(mockedSpawnSync).toHaveBeenCalledWith(
+    expect(mockedSpawn).toHaveBeenCalledWith(
       "pnpm",
       [
         "--recursive",
@@ -57,19 +90,19 @@ describe("doPnpmBumpVersion", () => {
         "exec",
         "pnpm version v1.0.0 --no-git-tag-version",
       ],
-      { encoding: "utf-8", shell: true }
+      { shell: true }
     );
   });
 
-  it("combines all the options", () => {
-    bump(
+  it("combines all the options", async () => {
+    await bump(
       "v1.0.0",
       "v1.0.0-rc.1",
       ["package-a", "package-b"],
       ["package-c", "package-d"]
     );
 
-    expect(mockedSpawnSync).toHaveBeenCalledWith(
+    expect(mockedSpawn).toHaveBeenCalledWith(
       "pnpm",
       [
         "--recursive",
@@ -83,24 +116,18 @@ describe("doPnpmBumpVersion", () => {
         "exec",
         "pnpm version v1.0.0 --no-git-tag-version",
       ],
-      { encoding: "utf-8", shell: true }
+      { shell: true }
     );
   });
 
-  it("returns the spawned process", () => {
-    const returned = bump("v2.0.0", "v1.0.0");
-    expect(returned).toBe(mockedSpawnSync.mock.results[1].value);
-  });
+  it("separates the command with dashes on pnpm@6", async () => {
+    mockedSpawn.mockRestore();
+    doMockDummySpawn();
+    doMockSpawnWithStdout("6.31.0");
 
-  it("separates the command with dashes on pnpm@6", () => {
-    mockedSpawnSync.mockRestore();
-    mockedSpawnSync.mockReturnValueOnce({
-      stdout: "6.31.0",
-    } as SpawnSyncReturns<string>);
+    await bump("v1.0.0", "v0.0.0");
 
-    bump("v1.0.0", "v0.0.0");
-
-    expect(mockedSpawnSync).toHaveBeenCalledWith(
+    expect(mockedSpawn).toHaveBeenCalledWith(
       "pnpm",
       [
         "--recursive",
@@ -109,7 +136,7 @@ describe("doPnpmBumpVersion", () => {
         "--",
         "pnpm version v1.0.0 --no-git-tag-version",
       ],
-      { encoding: "utf-8", shell: true }
+      { shell: true }
     );
   });
 });

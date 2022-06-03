@@ -1,10 +1,8 @@
-import spawnSync from "../utils/spawnSync.js";
+import spawn from "../utils/spawn.js";
 import gitLogger from "./utils/gitLogger.js";
 
-export default function () {
-  return spawnSync(
-    "git",
-    ["rev-parse", "--abbrev-ref", "HEAD"],
-    gitLogger
+export default async function () {
+  return (
+    await spawn("git", ["rev-parse", "--abbrev-ref", "HEAD"], gitLogger)
   ).stdout.trim();
 }

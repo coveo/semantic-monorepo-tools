@@ -7,13 +7,13 @@ import { runOnChanged } from "./utils/runOnChanged.js";
  * @param forcePackages also bump the version in those packages
  * @param excludePackages filter out the specified packages/directory from the output
  */
-export default function (
+export default async function (
   newVersion: string,
   since: string,
   forcePackages: string[] = [],
   excludePackages: string[] = []
 ) {
-  return runOnChanged(
+  await runOnChanged(
     `pnpm version ${newVersion} --no-git-tag-version`,
     since,
     forcePackages,

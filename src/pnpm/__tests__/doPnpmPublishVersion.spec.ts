@@ -1,43 +1,62 @@
-import { spawnSync } from "node:child_process";
+import type { Readable } from "node:stream";
+import { spawn, ChildProcess } from "node:child_process";
+import { EventEmitter } from "node:events";
 import publish from "../doPnpmPublishVersions.js";
 
 jest.mock("node:child_process");
-const mockedSpawnSync = jest.mocked(spawnSync, true);
+const mockedSpawn = jest.mocked(spawn, true);
 
 describe("doPnpmPublishVersions", () => {
+  const doMockDummySpawn = () => {
+    mockedSpawn.mockImplementation(() => {
+      const cpEventEmitter: ChildProcess = new EventEmitter() as ChildProcess;
+      const stdoutEventEmitter = new EventEmitter();
+      const stderrEventEmitter = new EventEmitter();
+      cpEventEmitter.stdout = stdoutEventEmitter as Readable;
+      cpEventEmitter.stderr = stderrEventEmitter as Readable;
+      setTimeout(() => {
+        cpEventEmitter.emit("close", 0);
+      }, 0);
+      return cpEventEmitter;
+    });
+  };
   beforeEach(() => {
     jest.resetAllMocks();
+    doMockDummySpawn();
   });
 
   it.each(["v1.0.0", "release-42"])(
     `publishes recursively with the since %s filter`,
-    (since) => {
-      publish(since);
+    async (since) => {
+      await publish(since);
 
-      expect(mockedSpawnSync).toHaveBeenCalledWith(
+      expect(mockedSpawn).toHaveBeenCalledWith(
         "pnpm",
         ["--recursive", "--filter", `...[${since}]`, "publish"],
-        { encoding: "utf-8" }
+        {}
       );
     }
   );
 
-  it.each(["next", "alpha", "latest"])("publishes with the %s tag", (tag) => {
-    publish("v1.0.0", tag);
+  it.each(["next", "alpha", "latest"])(
+    "publishes with the %s tag",
+    async (tag) => {
+      await publish("v1.0.0", tag);
 
-    expect(mockedSpawnSync).toHaveBeenCalledWith(
-      "pnpm",
-      ["--recursive", "--filter", "...[v1.0.0]", "publish", "--tag", tag],
-      { encoding: "utf-8" }
-    );
-  });
+      expect(mockedSpawn).toHaveBeenCalledWith(
+        "pnpm",
+        ["--recursive", "--filter", "...[v1.0.0]", "publish", "--tag", tag],
+        {}
+      );
+    }
+  );
 
   it.each(["main", "master", "release-1.0"])(
     "publishes on the %s branch",
-    (branch) => {
-      publish("v1.0.0", "", branch);
+    async (branch) => {
+      await publish("v1.0.0", "", branch);
 
-      expect(mockedSpawnSync).toHaveBeenCalledWith(
+      expect(mockedSpawn).toHaveBeenCalledWith(
         "pnpm",
         [
           "--recursive",
@@ -47,15 +66,15 @@ describe("doPnpmPublishVersions", () => {
           "--publish-branch",
           branch,
         ],
-        { encoding: "utf-8" }
+        {}
       );
     }
   );
 
-  it("filters in the forced packages", () => {
-    publish("v1.0.0", "", "", ["@org/package-a", "@org/package-b"]);
+  it("filters in the forced packages", async () => {
+    await publish("v1.0.0", "", "", ["@org/package-a", "@org/package-b"]);
 
-    expect(mockedSpawnSync).toHaveBeenCalledWith(
+    expect(mockedSpawn).toHaveBeenCalledWith(
       "pnpm",
       [
         "--recursive",
@@ -65,14 +84,14 @@ describe("doPnpmPublishVersions", () => {
         '--filter="@org/package-b"',
         "publish",
       ],
-      { encoding: "utf-8" }
+      {}
     );
   });
 
-  it("filters out the excluded packages", () => {
-    publish("v1.0.0", "", "", [], ["@org/package-a", "@org/package-b"]);
+  it("filters out the excluded packages", async () => {
+    await publish("v1.0.0", "", "", [], ["@org/package-a", "@org/package-b"]);
 
-    expect(mockedSpawnSync).toHaveBeenCalledWith(
+    expect(mockedSpawn).toHaveBeenCalledWith(
       "pnpm",
       [
         "--recursive",
@@ -82,12 +101,12 @@ describe("doPnpmPublishVersions", () => {
         '--filter="!@org/package-b"',
         "publish",
       ],
-      { encoding: "utf-8" }
+      {}
     );
   });
 
-  it("combines all the options", () => {
-    publish(
+  it("combines all the options", async () => {
+    await publish(
       "v1.0.0-next.1",
       "next",
       "next-branch",
@@ -95,7 +114,7 @@ describe("doPnpmPublishVersions", () => {
       ["package-c", "package-d"]
     );
 
-    expect(mockedSpawnSync).toHaveBeenCalledWith(
+    expect(mockedSpawn).toHaveBeenCalledWith(
       "pnpm",
       [
         "--recursive",
@@ -113,12 +132,7 @@ describe("doPnpmPublishVersions", () => {
         "--publish-branch",
         "next-branch",
       ],
-      { encoding: "utf-8" }
+      {}
     );
-  });
-
-  it("returns the spawned process", () => {
-    const returned = publish("v1.0.0");
-    expect(returned).toBe(mockedSpawnSync.mock.results[0].value);
   });
 });

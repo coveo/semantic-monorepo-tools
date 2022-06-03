@@ -1,5 +1,4 @@
-import type { SpawnSyncReturns } from "child_process";
-import spawnSync from "../utils/spawnSync.js";
+import spawn from "../utils/spawn.js";
 import gitLogger from "./utils/gitLogger.js";
 
 /**
@@ -7,12 +6,12 @@ import gitLogger from "./utils/gitLogger.js";
  * @param prefix only consider tag that has this prefix. Will return the last tag of the current branch by default.
  * @return an array containing the last tag and the process that was spawned
  */
-export default function (prefix?: string): [string, SpawnSyncReturns<string>] {
+export default async function (prefix?: string): Promise<string> {
   const gitParams = ["describe", "--tags", "--abbrev=0"];
   if (prefix) {
     gitParams.push(`--match=${prefix}*`);
   }
-  const gitPs = spawnSync("git", gitParams, gitLogger);
+  const gitPs = await spawn("git", gitParams, gitLogger);
 
-  return [gitPs.stdout.trim(), gitPs];
+  return gitPs.stdout.trim();
 }
