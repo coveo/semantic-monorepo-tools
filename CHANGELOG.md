@@ -1,3 +1,12 @@
+# 0.5.0 (2022-06-04)
+
+
+### Features
+
+* log outputs of subprocesses ([#40](https://github.com/coveo/semantic-monorepo-tools/issues/40)) ([83a0c90](https://github.com/coveo/semantic-monorepo-tools/commits/83a0c9089af79757edd6150fba99db16e4bb06ab))
+
+
+
 ## 0.4.18 (2022-05-30)
 
 
