@@ -1,3 +1,12 @@
+# 0.6.0 (2022-06-06)
+
+
+### Features
+
+* **pnpm:** remove support for pnpm6 ([#45](https://github.com/coveo/semantic-monorepo-tools/issues/45)) ([d5b4c6d](https://github.com/coveo/semantic-monorepo-tools/commits/d5b4c6d8c2bfe25f13fc716f548a677ba935b419))
+
+
+
 ## 0.5.4 (2022-06-06)
 
 
