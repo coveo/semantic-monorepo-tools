@@ -1,5 +1,5 @@
 import spawn from "../utils/spawn.js";
-import getOptionalArgument from "../utils/getOptionalArgument.js";
+import getOptionalFlagArgument from "../utils/getOptionalFlagArgument.js";
 import getExclusionFilters from "./utils/getExclusionFilters.js";
 import getIncludeFilters from "./utils/getIncludeFilters.js";
 import pnpmLogger from "./utils/pnpmLogger.js";
@@ -27,8 +27,8 @@ export default async function (
     ...getExclusionFilters(excludePackages),
     "publish",
   ].concat(
-    getOptionalArgument("--tag", tag),
-    getOptionalArgument("--publish-branch", branch)
+    getOptionalFlagArgument("--tag", tag),
+    getOptionalFlagArgument("--publish-branch", branch)
   );
   await spawn("pnpm", pnpmArgs, pnpmLogger);
 }
