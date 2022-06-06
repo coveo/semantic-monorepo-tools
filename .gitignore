@@ -3,5 +3,5 @@ dist
 coverage
 
 # Snyk stuff
-.ddcache
+.dccache
 sarifs
