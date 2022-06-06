@@ -47,8 +47,7 @@ describe("doPnpmBumpVersion", () => {
   it("bumps the version recursively", async () => {
     await bump("v1.0.0", "v0.0.0");
 
-    expect(mockedSpawn).toHaveBeenNthCalledWith(
-      2,
+    expect(mockedSpawn).toHaveBeenCalledWith(
       "pnpm",
       [
         "--recursive",
@@ -114,26 +113,6 @@ describe("doPnpmBumpVersion", () => {
         '--filter="!package-c"',
         '--filter="!package-d"',
         "exec",
-        "pnpm version v1.0.0 --no-git-tag-version",
-      ],
-      { shell: true }
-    );
-  });
-
-  it("separates the command with dashes on pnpm@6", async () => {
-    mockedSpawn.mockRestore();
-    doMockDummySpawn();
-    doMockSpawnWithStdout("6.31.0");
-
-    await bump("v1.0.0", "v0.0.0");
-
-    expect(mockedSpawn).toHaveBeenCalledWith(
-      "pnpm",
-      [
-        "--recursive",
-        '--filter="...[v0.0.0]"',
-        "exec",
-        "--",
         "pnpm version v1.0.0 --no-git-tag-version",
       ],
       { shell: true }
