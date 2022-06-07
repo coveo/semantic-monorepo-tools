@@ -1,3 +1,12 @@
+# 0.7.0 (2022-06-07)
+
+
+### Features
+
+* **git:** allow empty commits to be listed ([#48](https://github.com/coveo/semantic-monorepo-tools/issues/48)) ([9653e54](https://github.com/coveo/semantic-monorepo-tools/commits/9653e54d053154887be5dc480905ec8c615ddd50))
+
+
+
 # 0.6.0 (2022-06-06)
 
 
