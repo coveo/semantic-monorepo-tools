@@ -1,3 +1,15 @@
+# 1.0.0 (2022-06-07)
+
+
+* chore!: freeze specs to v1 (#49) ([0fce790](https://github.com/coveo/semantic-monorepo-tools/commits/0fce790d8f1ab796c18108256b33d7dc1e15b9e9)), closes [#49](https://github.com/coveo/semantic-monorepo-tools/issues/49)
+
+
+### BREAKING CHANGES
+
+* Freeze specifications for V1. Huzzah! p	
+
+
+
 # 0.7.0 (2022-06-07)
 
 
