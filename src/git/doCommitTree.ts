@@ -1,4 +1,4 @@
-import getOptionalArgument from "../utils/getOptionalArgument.js";
+import getOptionalFlagArgument from "../utils/getOptionalFlagArgument.js";
 import spawn from "../utils/spawn.js";
 import gitLogger from "./utils/gitLogger.js";
 
@@ -11,8 +11,8 @@ export default async function (
     await spawn(
       "git",
       ["commit-tree", tree].concat(
-        getOptionalArgument("-p", parent),
-        getOptionalArgument("-m", message)
+        getOptionalFlagArgument("-p", parent),
+        getOptionalFlagArgument("-m", message)
       ),
       gitLogger
     )

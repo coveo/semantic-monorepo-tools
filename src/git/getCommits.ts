@@ -1,6 +1,7 @@
 import { randomBytes } from "node:crypto";
 import spawn from "../utils/spawn.js";
 import gitLogger from "./utils/gitLogger.js";
+import getOptionalPositionalArgument from "../utils/getOptionalPositionalArgument.js";
 
 /**
  * Get the commits for a specific path between from and to
@@ -20,8 +21,8 @@ export default async function (
     `--pretty=format:%B%n-hash-%n%H ${delimiter}`,
     "--dense",
     `${from}..${to}`,
-    projectPath,
-  ];
+  ].concat(getOptionalPositionalArgument(projectPath));
+
   const gitPs = await spawn("git", gitParams, gitLogger, {
     encoding: "ascii",
   });
