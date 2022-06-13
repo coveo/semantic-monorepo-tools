@@ -1,6 +1,6 @@
 {
   "name": "@coveo/semantic-monorepo-tools",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A library of helper functions to do SemVer2 compliant releases from Conventional Commits in monorepos",
   "homepage": "https://github.com/coveo/semantic-monorepo-tools#readme",
   "repository": {
