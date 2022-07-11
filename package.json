@@ -36,7 +36,7 @@
   "devDependencies": {
     "@actions/github": "5.0.3",
     "@coveo/semantic-monorepo-tools": "file:.",
-    "@octokit/auth-app": "3.6.1",
+    "@octokit/auth-app": "4.0.4",
     "@types/conventional-changelog-writer": "4.0.1",
     "@types/conventional-commits-parser": "3.0.2",
     "@types/debug": "4.1.7",
@@ -50,7 +50,7 @@
     "husky": "8.0.1",
     "jest": "28.1.2",
     "lint-staged": "13.0.3",
-    "octokit": "1.8.1",
+    "octokit": "2.0.3",
     "prettier": "2.7.1",
     "ts-jest": "28.0.5",
     "ts-node": "10.8.2",
