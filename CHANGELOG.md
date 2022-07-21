@@ -1,3 +1,12 @@
+# 1.1.0 (2022-07-21)
+
+
+### Features
+
+* **pnpm:** make filter optional for publish ([#63](https://github.com/coveo/semantic-monorepo-tools/issues/63)) ([4f052fb](https://github.com/coveo/semantic-monorepo-tools/commits/4f052fbde41b2991b09f58aa34f9b3d8e43c0d0e))
+
+
+
 ## 1.0.12 (2022-07-18)
 
 
