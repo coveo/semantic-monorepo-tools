@@ -19,8 +19,10 @@ export default async function (
   forcePackages: string[] = [],
   excludePackages: string[] = []
 ) {
+  const filters = since ? `...[${since}]` : undefined;
+
   const pnpmArgs = ["--recursive"].concat(
-    getOptionalFlagArgument("--filter", `...[${since}]`),
+    getOptionalFlagArgument("--filter", filters),
     ...getIncludeFilters(forcePackages),
     ...getExclusionFilters(excludePackages),
     "publish",
