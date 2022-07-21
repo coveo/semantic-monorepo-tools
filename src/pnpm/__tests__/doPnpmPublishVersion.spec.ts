@@ -26,7 +26,7 @@ describe("doPnpmPublishVersions", () => {
   });
 
   it.each(["v1.0.0", "release-42"])(
-    `publishes recursively with the since %s filter`,
+    `publishes recursively with the since %s filter if defined`,
     async (since) => {
       await publish(since);
 
@@ -37,6 +37,16 @@ describe("doPnpmPublishVersions", () => {
       );
     }
   );
+
+  it(`publishes recursively without the since %s filter if not defined`, async () => {
+    await publish();
+
+    expect(mockedSpawn).toHaveBeenCalledWith(
+      "pnpm",
+      ["--recursive", "publish"],
+      {}
+    );
+  });
 
   it.each(["next", "alpha", "latest"])(
     "publishes with the %s tag",

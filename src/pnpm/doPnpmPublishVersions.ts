@@ -13,20 +13,19 @@ import pnpmLogger from "./utils/pnpmLogger.js";
  * @param excludePackages filter out the specified packages/directory from the output
  */
 export default async function (
-  since: string,
+  since?: string,
   tag?: string,
   branch?: string,
   forcePackages: string[] = [],
   excludePackages: string[] = []
 ) {
-  const pnpmArgs = [
-    "--recursive",
-    "--filter",
-    `...[${since}]`,
+  const filters = since ? `...[${since}]` : undefined;
+
+  const pnpmArgs = ["--recursive"].concat(
+    getOptionalFlagArgument("--filter", filters),
     ...getIncludeFilters(forcePackages),
     ...getExclusionFilters(excludePackages),
     "publish",
-  ].concat(
     getOptionalFlagArgument("--tag", tag),
     getOptionalFlagArgument("--publish-branch", branch)
   );
