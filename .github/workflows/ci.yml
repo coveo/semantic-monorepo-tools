@@ -11,11 +11,6 @@ jobs:
       - uses: actions/checkout@2541b1294d2704b0964813337f33b291d3f8596b # tag=v3
       - uses: ./.github/actions/setup
       - uses: ./.github/actions/lint
-      - uses: ./.github/actions/snyk
-        with:
-          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
-          fail-on-error: false
-      - uses: ./.github/actions/codeql
       - name: Unit tests
         run: npm test
       - uses: ./.github/actions/build
