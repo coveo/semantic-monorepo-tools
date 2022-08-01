@@ -3,6 +3,11 @@ name: "Recurring Security Scan"
 on:
   schedule:
     - cron: "17 2 * * 2"
+  workflow_run:
+    workflows:
+      - CD
+    types:
+      - completed
 
 jobs:
   codeql:
