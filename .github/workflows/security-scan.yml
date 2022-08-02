@@ -1,4 +1,4 @@
-name: "Recurring Security Scan"
+name: "Security Scan"
 
 on:
   schedule:
@@ -8,6 +8,9 @@ on:
       - CD
     types:
       - completed
+  pull_request:
+    branches: [main]
+    types: [opened, edited, synchronize, reopened]
 
 jobs:
   codeql:
