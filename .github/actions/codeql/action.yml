@@ -10,9 +10,9 @@ runs:
   using: composite
   steps:
     - name: Initialize CodeQL
-      uses: github/codeql-action/init@2ca79b6fa8d3ec278944088b4aa5f46912db5d63 # tag=v2
+      uses: github/codeql-action/init@7fee4ca032ac341c12486c4c06822c5221c76533 # tag=v2
       with:
         languages: ${{ inputs.language }}
 
     - name: Perform CodeQL Analysis
-      uses: github/codeql-action/analyze@2ca79b6fa8d3ec278944088b4aa5f46912db5d63 # tag=v2
+      uses: github/codeql-action/analyze@7fee4ca032ac341c12486c4c06822c5221c76533 # tag=v2
