@@ -7,7 +7,7 @@ interface NpmOptions {
   /**
    * If you ask npm to install a package and don't tell it a specific version, then it will install the specified tag.
    *  When no explicit tag is given, the tag added to the `package@version` is specified by the npm tag command
-   * When used by the npm diff command, this is the tag used to fetch the tarball that will be compared with the local files by default.
+   * This tag is used to fetch the tarball that will be compared with the local files when using the npm diff command 
    * @default "latest"
    * @see {@link https://docs.npmjs.com/cli/v8/commands/npm-publish#tag}
    */
