@@ -1,3 +1,12 @@
+# 1.2.0 (2022-08-30)
+
+
+### Features
+
+* **npm:** add tag flag support for npm publish ([#79](https://github.com/coveo/semantic-monorepo-tools/issues/79)) ([fe404dd](https://github.com/coveo/semantic-monorepo-tools/commits/fe404ddb6d4166d0615fee1d6edeeac35e80835f))
+
+
+
 ## 1.1.13 (2022-08-29)
 
 
