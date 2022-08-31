@@ -1,3 +1,12 @@
+# 1.3.0 (2022-08-31)
+
+
+### Features
+
+* **npm-version:** support workspace update ([#80](https://github.com/coveo/semantic-monorepo-tools/issues/80)) ([751ed7f](https://github.com/coveo/semantic-monorepo-tools/commits/751ed7fa78b314014bc63f7c06b32be24c4bd8b3))
+
+
+
 # 1.2.0 (2022-08-30)
 
 
