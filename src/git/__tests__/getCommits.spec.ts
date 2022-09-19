@@ -7,8 +7,8 @@ import getCommits from "../getCommits.js";
 jest.mock("node:child_process");
 jest.mock("node:crypto");
 
-const mockedSpawn = jest.mocked(spawn, true);
-const mockedRandomBytes = jest.mocked(randomBytes, true);
+const mockedSpawn = jest.mocked(spawn);
+const mockedRandomBytes = jest.mocked(randomBytes);
 
 const doMockDummySpawn = () => {
   mockedSpawn.mockImplementation(() => {

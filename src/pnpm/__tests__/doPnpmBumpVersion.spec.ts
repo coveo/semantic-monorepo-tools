@@ -4,7 +4,7 @@ import { EventEmitter } from "node:events";
 import bump from "../doPnpmBumpVersion.js";
 
 jest.mock("node:child_process");
-const mockedSpawn = jest.mocked(spawn, true);
+const mockedSpawn = jest.mocked(spawn);
 
 describe("doPnpmBumpVersion", () => {
   const doMockSpawnWithStdout = (mockedStdout?: string) => {

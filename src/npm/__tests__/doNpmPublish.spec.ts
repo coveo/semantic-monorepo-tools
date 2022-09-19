@@ -5,12 +5,10 @@ import npmPublish from "../doNpmPublish.js";
 import appendCmdIfWindows from "../utils/appendCmdIfWindows.js";
 
 jest.mock("node:child_process");
-const mockedSpawn = jest.mocked(spawn, true);
+const mockedSpawn = jest.mocked(spawn);
 
 jest.mock("../utils/appendCmdIfWindows.js");
-jest
-  .mocked(appendCmdIfWindows, true)
-  .mockImplementation((string: string) => string);
+jest.mocked(appendCmdIfWindows).mockImplementation((string: string) => string);
 
 const doMockDummySpawn = () => {
   mockedSpawn.mockImplementation(() => {
