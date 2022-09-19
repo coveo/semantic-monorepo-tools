@@ -4,7 +4,7 @@ import { EventEmitter } from "node:events";
 import publish from "../doPnpmPublishVersions.js";
 
 jest.mock("node:child_process");
-const mockedSpawn = jest.mocked(spawn, true);
+const mockedSpawn = jest.mocked(spawn);
 
 describe("doPnpmPublishVersions", () => {
   const doMockDummySpawn = () => {
