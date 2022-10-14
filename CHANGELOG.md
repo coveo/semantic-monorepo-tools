@@ -1,3 +1,12 @@
+## 1.3.13 (2022-10-14)
+
+
+### Bug Fixes
+
+* **git:** properly decode emojis ([#93](https://github.com/coveo/semantic-monorepo-tools/issues/93)) ([760aafb](https://github.com/coveo/semantic-monorepo-tools/commits/760aafbdf8aa7fdde0b81fc3a06136fac98fce37))
+
+
+
 ## 1.3.12 (2022-10-11)
 
 
