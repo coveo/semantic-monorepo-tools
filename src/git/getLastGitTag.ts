@@ -11,7 +11,10 @@ export default async function (prefix?: string): Promise<string> {
   if (prefix) {
     gitParams.push(`--match='${prefix}*'`);
   }
-  const gitPs = await spawn("git", gitParams, gitLogger);
+  console.log(process.cwd());
+  const gitPs = await spawn("git", gitParams, gitLogger, {
+    cwd: process.cwd(),
+  });
 
   return gitPs.stdout.trim();
 }
