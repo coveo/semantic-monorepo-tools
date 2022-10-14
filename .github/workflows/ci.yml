@@ -24,9 +24,9 @@ jobs:
       - run: git describe --tags --abbrev=0 --match "v*"
         continue-on-error: true
       - uses: ./.github/actions/setup
-      - uses: ./.github/actions/lint
-      - name: Unit tests
-        run: npm test
+      # - uses: ./.github/actions/lint
+      # - name: Unit tests
+      #   run: npm test
       - uses: ./.github/actions/build
       - run: node scripts/foo.mjs
         env:
