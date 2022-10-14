@@ -24,7 +24,7 @@ const doMockDummySpawn = () => {
   });
 };
 
-describe("npmPublish()", () => {
+describe("npmBump()", () => {
   beforeEach(() => {
     jest.resetAllMocks();
     doMockDummySpawn();
