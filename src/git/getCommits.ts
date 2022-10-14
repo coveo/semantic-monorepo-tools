@@ -24,7 +24,7 @@ export default async function (
   ].concat(getOptionalPositionalArgument(projectPath));
 
   const gitPs = await spawn("git", gitParams, gitLogger, {
-    encoding: "ascii",
+    encoding: "utf-8",
   });
   const commits = gitPs.stdout
     .split(delimiter)
