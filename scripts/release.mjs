@@ -44,13 +44,13 @@ import { createAppAuth } from "@octokit/auth-app";
   //#endregion
 
   // #region Setup Git
-  gitSetupSshRemote(
+  await gitSetupSshRemote(
     REPO_OWNER,
     REPO_NAME,
     process.env.DEPLOY_KEY,
     GIT_SSH_REMOTE
   );
-  gitSetupUser(GIT_USERNAME, GIT_EMAIL);
+  await gitSetupUser(GIT_USERNAME, GIT_EMAIL);
   // #endregion
 
   //#region GitHub authentication
