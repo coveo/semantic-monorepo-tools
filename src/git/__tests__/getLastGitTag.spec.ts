@@ -32,7 +32,7 @@ describe("getLastGitTag()", () => {
       await getLastGitTag("somePrefix");
       expect(mockedSpawn).toHaveBeenCalledWith(
         "git",
-        ["describe", "--tags", "--abbrev=0", '--match="somePrefix*"'],
+        ["describe", "--tags", "--abbrev=0", "--match='somePrefix*'"],
         {}
       );
     });
