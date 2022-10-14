@@ -14,5 +14,6 @@ jobs:
       - name: Unit tests
         run: npm test
       - uses: ./.github/actions/build
+      - run: node scripts/foo.mjs
       - name: CD type checks
         run: npx tsc --allowJs --checkJs --skipLibCheck --noEmit ./scripts/release.mjs
