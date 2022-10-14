@@ -24,7 +24,6 @@ import {
   gitSetRefOnCommit,
   gitPush,
   gitDeleteRemoteBranch,
-  gitFetchAllTags,
 } from "@coveo/semantic-monorepo-tools";
 import angularChangelogConvention from "conventional-changelog-angular";
 import { Octokit } from "octokit";
@@ -70,7 +69,6 @@ import { createAppAuth } from "@octokit/auth-app";
   //#endregion
 
   //#region Find current and new versions
-  await gitFetchAllTags();
   const lastTag = await getLastTag(VERSION_PREFIX);
   // Passing an empty string allow empty commits (i.e. that does not modify any files) to be included.
   const commits = await getCommits("", lastTag);
