@@ -9,7 +9,7 @@ import gitLogger from "./utils/gitLogger.js";
 export default async function (prefix?: string): Promise<string> {
   const gitParams = ["describe", "--tags", "--abbrev=0"];
   if (prefix) {
-    gitParams.push(`--match=${prefix}*`);
+    gitParams.push(`--match="${prefix}*"`);
   }
   const gitPs = await spawn("git", gitParams, gitLogger);
 
