@@ -1,3 +1,12 @@
+## 1.5.2 (2022-11-07)
+
+
+### Bug Fixes
+
+* **npm:** export new func ([#110](https://github.com/coveo/semantic-monorepo-tools/issues/110)) ([b9f938d](https://github.com/coveo/semantic-monorepo-tools/commits/b9f938dcc0f9f6dec7d25bef61debed43670f703))
+
+
+
 ## 1.5.1 (2022-11-07)
 
 
