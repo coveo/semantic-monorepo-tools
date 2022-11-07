@@ -1,3 +1,16 @@
+## 1.4.1 (2022-11-07)
+
+
+
+# 1.4.0 (2022-11-07)
+
+
+### Features
+
+* **version:** augment conventional bump with a pre option ([#105](https://github.com/coveo/semantic-monorepo-tools/issues/105)) ([44b4774](https://github.com/coveo/semantic-monorepo-tools/commits/44b477409a27bd8dc7025d127dff1c07083b54c8))
+
+
+
 ## 1.3.20 (2022-11-04)
 
 
