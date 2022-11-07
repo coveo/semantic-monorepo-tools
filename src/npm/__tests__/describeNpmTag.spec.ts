@@ -36,7 +36,7 @@ describe("describeNpmTag()", () => {
 
       expect(mockedSpawn).toHaveBeenCalledWith(
         appendCmdIfWindows`npm`,
-        ["show", "somepackage@latest", "version"],
+        ["view", "somepackage@latest", "version"],
         {}
       );
     });
@@ -48,7 +48,7 @@ describe("describeNpmTag()", () => {
 
       expect(mockedSpawn).toHaveBeenCalledWith(
         appendCmdIfWindows`npm`,
-        ["show", "somepackage@sometag", "version"],
+        ["view", "somepackage@sometag", "version"],
         {}
       );
     });
