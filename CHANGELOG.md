@@ -1,3 +1,12 @@
+# 1.5.0 (2022-11-07)
+
+
+### Features
+
+* **npm:** add describeNpmTag function ([#106](https://github.com/coveo/semantic-monorepo-tools/issues/106)) ([17b4ba6](https://github.com/coveo/semantic-monorepo-tools/commits/17b4ba60f7bdf5348d0ce95fa9a655eabcb1a0c2))
+
+
+
 ## 1.4.1 (2022-11-07)
 
 
