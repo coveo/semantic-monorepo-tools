@@ -1,33 +1,20 @@
-import type { Readable } from "node:stream";
-import { spawn, ChildProcess } from "node:child_process";
-import { EventEmitter } from "node:events";
+import spawn from "../../utils/spawn.js";
 import appendCmdIfWindows from "../utils/appendCmdIfWindows.js";
+import npmLogger from "../utils/npmLogger.js";
 import describeNpmTag from "../describeNpmTag.js";
 
-jest.mock("node:child_process");
+jest.mock("../../utils/spawn.js");
+jest.mock("../utils/npmLogger.js");
+jest.mock("../utils/appendCmdIfWindows.js");
+
 const mockedSpawn = jest.mocked(spawn);
 
-jest.mock("../utils/appendCmdIfWindows.js");
 jest.mocked(appendCmdIfWindows).mockImplementation((string: string) => string);
-
-const doMockDummySpawn = () => {
-  mockedSpawn.mockImplementation(() => {
-    const cpEventEmitter: ChildProcess = new EventEmitter() as ChildProcess;
-    const stdoutEventEmitter = new EventEmitter();
-    const stderrEventEmitter = new EventEmitter();
-    cpEventEmitter.stdout = stdoutEventEmitter as Readable;
-    cpEventEmitter.stderr = stderrEventEmitter as Readable;
-    setTimeout(() => {
-      cpEventEmitter.emit("close", 0);
-    }, 0);
-    return cpEventEmitter;
-  });
-};
 
 describe("describeNpmTag()", () => {
   beforeEach(() => {
     jest.resetAllMocks();
-    doMockDummySpawn();
+    mockedSpawn.mockResolvedValue({ stdout: "", stderr: "" });
   });
 
   describe("when no tag is given", () => {
@@ -37,7 +24,7 @@ describe("describeNpmTag()", () => {
       expect(mockedSpawn).toHaveBeenCalledWith(
         appendCmdIfWindows`npm`,
         ["view", "somepackage@latest", "version"],
-        {}
+        npmLogger
       );
     });
   });
@@ -49,8 +36,14 @@ describe("describeNpmTag()", () => {
       expect(mockedSpawn).toHaveBeenCalledWith(
         appendCmdIfWindows`npm`,
         ["view", "somepackage@sometag", "version"],
-        {}
+        npmLogger
       );
     });
+  });
+
+  it("trim the output", async () => {
+    mockedSpawn.mockResolvedValue({ stdout: "1.2.3\n ", stderr: "" });
+
+    expect(await describeNpmTag("foo")).toBe("1.2.3");
   });
 });
