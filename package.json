@@ -20,6 +20,7 @@
     "prettier:check": "prettier --check .",
     "eslint:fix": "eslint --fix .",
     "prettier:fix": "prettier --write .",
+    "prepare": "husky install",
     "pre-commit": "lint-staged"
   },
   "keywords": [
