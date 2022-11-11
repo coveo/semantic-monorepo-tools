@@ -1,3 +1,12 @@
+## 1.5.3 (2022-11-11)
+
+
+### Bug Fixes
+
+* **npm:** describeNpmTag, trim output ([#111](https://github.com/coveo/semantic-monorepo-tools/issues/111)) ([5d99669](https://github.com/coveo/semantic-monorepo-tools/commits/5d996692e27925a1e6615963529d77d64d60fda7))
+
+
+
 ## 1.5.2 (2022-11-07)
 
 
