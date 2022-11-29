@@ -37,7 +37,7 @@ runs:
       run: npx snyk code test    --dev --sarif > ./sarifs/snyk-code.sarif
       shell: bash
     - name: Upload result to GitHub Code Scanning
-      uses: github/codeql-action/upload-sarif@678fc3afe258fb2e0cdc165ccf77b85719de7b3c # v2
+      uses: github/codeql-action/upload-sarif@312e093a1892bd801f026f1090904ee8e460b9b6 # v2
       with:
         sarif_file: ./sarifs
     - name: Check SnykCode vuln
