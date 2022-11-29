@@ -1,3 +1,12 @@
+## 1.5.6 (2022-11-29)
+
+
+### Bug Fixes
+
+* **git:** sanitize input ([#115](https://github.com/coveo/semantic-monorepo-tools/issues/115)) ([7de6c12](https://github.com/coveo/semantic-monorepo-tools/commits/7de6c1299de8f572ff3866cfd03df08cd90ce976))
+
+
+
 ## 1.5.5 (2022-11-21)
 
 
