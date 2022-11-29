@@ -1,0 +1,9 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`doGitSetRef() with invalid params should throw when called with a bad commitSHA1 1`] = `"invalid param:a,a,--upload-pack"`;
+
+exports[`doGitSetRef() with invalid params should throw when called with a bad commitSHA1 2`] = `"invalid param:a,a,--whatever --upload-pack"`;
+
+exports[`doGitSetRef() with invalid params should throw when called with a bad remote 1`] = `"invalid param:--upload-pack,a,b"`;
+
+exports[`doGitSetRef() with invalid params should throw when called with a bad remote 2`] = `"invalid param:--whatever --upload-pack,a,b"`;
