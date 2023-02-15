@@ -26,3 +26,4 @@ It is also used for the release processes of several monorepos at Coveo, you can
 
 - [`coveo/cli`](https://github.com/coveo/cli/blob/master/scripts/releaseV2)
 - [`coveo/plasma`](https://github.com/coveo/plasma/blob/master/build/publishNewVersion.mjs)
+
