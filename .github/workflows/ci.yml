@@ -15,4 +15,4 @@ jobs:
         run: npm test
       - uses: ./.github/actions/build
       - name: CD type checks
-        run: npx tsc --allowJs --checkJs --skipLibCheck --noEmit ./scripts/release.mjs
+        run: tsc -p tsconfig.sancheck.json

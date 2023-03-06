@@ -1,0 +1,15 @@
+{
+  "compilerOptions": {
+    "module": "Node16",
+    "target": "ESNext",
+    "moduleResolution": "Node16",
+    "esModuleInterop": true,
+    "sourceMap": false,
+    "allowJs": true,
+    "noEmit": true,
+    "checkJs": true
+  },
+  "files": ["scripts/release.mjs"],
+  "include": ["src"],
+  "exclude": ["node_modules"]
+}
