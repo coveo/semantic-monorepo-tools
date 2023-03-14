@@ -1,3 +1,12 @@
+## 1.5.25 (2023-03-14)
+
+
+### Bug Fixes
+
+* **deps:** update dependency tempfile to v5 ([#133](https://github.com/coveo/semantic-monorepo-tools/issues/133)) ([6f1eaae](https://github.com/coveo/semantic-monorepo-tools/commits/6f1eaae49f105cdc5a10652029fc0e826d4c19a3))
+
+
+
 ## 1.5.24 (2023-03-06)
 
 
