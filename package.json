@@ -63,7 +63,7 @@
   },
   "dependencies": {
     "@comparison-sorting/insertion-sort": "2.1.0",
-  	"json-logic-js": "2.0.0
+  	"json-logic-js": "2.0.0",
     "conventional-changelog-writer": "^5.0.1",
     "conventional-commits-parser": "^3.2.4",
     "debug": "^4.3.3",
