@@ -27,7 +27,7 @@ jobs:
         language: ["javascript"]
 
     steps:
-      - uses: actions/checkout@ac593985615ec2ede58e132d2e21d2b1cbd6127c # v3
+      - uses: actions/checkout@24cb9080177205b6e8c946b17badbe402adc938f # v3
       - name: CodeQL
         uses: ./.github/actions/codeql
         with:
@@ -38,7 +38,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@ac593985615ec2ede58e132d2e21d2b1cbd6127c # v3
+      - uses: actions/checkout@24cb9080177205b6e8c946b17badbe402adc938f # v3
       - uses: ./.github/actions/setup
       - uses: ./.github/actions/snyk
         with:
