@@ -5,6 +5,7 @@ export { default as getSHA1fromRef } from "./git/getSHA1FromRef.js";
 export { default as getCurrentBranchName } from "./git/getCurrentBranchName.js";
 
 export { default as gitPush } from "./git/doGitPush.js";
+export { default as gitPull } from "./git/doGitPull.js";
 export { default as gitPushTags } from "./git/doGitPushTags.js";
 export { default as gitCommit } from "./git/doGitCommit.js";
 export { default as gitTag } from "./git/doGitTag.js";
