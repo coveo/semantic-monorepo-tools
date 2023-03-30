@@ -1,3 +1,37 @@
+## 1.6.1 (2023-03-27)
+
+
+
+# 1.6.0 (2023-03-27)
+
+
+### Features
+
+* **git:** add git pull ([#144](https://github.com/coveo/semantic-monorepo-tools/issues/144)) ([75ea695](https://github.com/coveo/semantic-monorepo-tools/commits/75ea695f9c443e0cfac1c50e917596b15d4ae876))
+* **git:** add support for ref tagging ([#143](https://github.com/coveo/semantic-monorepo-tools/issues/143)) ([b79b26a](https://github.com/coveo/semantic-monorepo-tools/commits/b79b26a591fbde89d9a0457a0d1a91ccc2b207d3))
+
+
+
+## 1.5.31 (2023-03-27)
+
+
+
+## 1.5.30 (2023-03-23)
+
+
+
+## 1.5.29 (2023-03-21)
+
+
+
+## 1.5.28 (2023-03-20)
+
+
+
+## 1.5.27 (2023-03-20)
+
+
+
 ## 1.5.26 (2023-03-14)
 
 

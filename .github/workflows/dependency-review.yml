@@ -1,14 +1,14 @@
-name: 'Dependency Review'
+name: "Dependency Review"
 on:
   pull_request:
-    branches: [ "main" ]
+    branches: ["main"]
 
 permissions:
   contents: read
 
 jobs:
-    dependency-Review:
-      uses: coveo/public-actions/.github/workflows/dependency-review.yml@7f2ab95b65b5127f636dbbe1759796793ab58c76
-      with:
-        public: true
-        distributed: true
+  dependency-Review:
+    uses: coveo/public-actions/.github/workflows/dependency-review.yml@7f2ab95b65b5127f636dbbe1759796793ab58c76
+    with:
+      public: true
+      distributed: true
