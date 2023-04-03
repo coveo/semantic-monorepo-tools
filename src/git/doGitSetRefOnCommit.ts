@@ -4,7 +4,8 @@ import gitLogger from "./utils/gitLogger.js";
 export default async function (
   remote: string,
   completeRef: string,
-  commitSha1: string
+  commitSha1: string,
+  force = false
 ) {
   const refPair = `${commitSha1}:${completeRef}`;
   if (refPair.startsWith("--") || remote.startsWith("--")) {
@@ -12,5 +13,9 @@ export default async function (
       `invalid param:${[remote, completeRef, commitSha1].join(",")}`
     );
   }
-  await spawn("git", ["fetch", remote, refPair], gitLogger);
+  await spawn(
+    "git",
+    ["fetch", remote, refPair].concat(force ? ["--force"] : []),
+    gitLogger
+  );
 }
