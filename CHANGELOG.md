@@ -1,3 +1,12 @@
+# 1.7.0 (2023-04-04)
+
+
+### Features
+
+* **git:** allow force flag on gitSetRef ([#148](https://github.com/coveo/semantic-monorepo-tools/issues/148)) ([662f4ed](https://github.com/coveo/semantic-monorepo-tools/commits/662f4ed2a9c42d2a8bd0a8ef61ebb4e6e52ec9be))
+
+
+
 ## 1.6.2 (2023-04-03)
 
 
