@@ -144,7 +144,7 @@ import { createAppAuth } from "@octokit/auth-app";
 
   // Push the branch using the SSH remote to bypass any GitHub checks.
   await gitCheckoutBranch(mainBranchName);
-  await gitPush(GIT_SSH_REMOTE, mainBranchName);
+  await gitPush({ remote: GIT_SSH_REMOTE, refs: [mainBranchName] });
   // Finally, delete the temp branch.
   await gitDeleteRemoteBranch(GIT_SSH_REMOTE, tempBranchName);
   //#endregion
