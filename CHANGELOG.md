@@ -1,3 +1,21 @@
+# 2.0.0 (2023-04-11)
+
+
+* feat(git)!: add support for push-force (#149) ([1322ca8](https://github.com/coveo/semantic-monorepo-tools/commits/1322ca8995d9c25d756f186f2db5cbf6b6d789b1)), closes [#149](https://github.com/coveo/semantic-monorepo-tools/issues/149)
+
+
+### BREAKING CHANGES
+
+* Add front parameter to better reflect git doc and not break refspec spread param.
+
+* ci: update usage
+
+* apply review
+
+* jsdoc
+
+
+
 ## 1.7.2 (2023-04-11)
 
 
