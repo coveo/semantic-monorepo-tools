@@ -1,4 +1,3 @@
-import getOptionalBooleanFlagArgument from "../utils/getOptionalBooleanFlagArgument.js";
 import spawn from "../utils/spawn.js";
 import gitLogger from "./utils/gitLogger.js";
 
@@ -16,9 +15,7 @@ export default async function (
   }
   await spawn(
     "git",
-    ["fetch", remote, refPair].concat(
-      getOptionalBooleanFlagArgument("--force", force)
-    ),
+    ["fetch", remote, refPair].concat(force ? ["--force"] : []),
     gitLogger
   );
 }

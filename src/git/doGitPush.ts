@@ -1,22 +1,22 @@
-import getOptionalBooleanFlagArgument from "../utils/getOptionalBooleanFlagArgument.js";
 import spawn from "../utils/spawn.js";
 import gitLogger from "./utils/gitLogger.js";
 
-type GitPushFlags = {
-  force: boolean;
-};
+interface GitPushParams {
+  force?: boolean;
+  remote?: string;
+  refs?: string[];
+}
 
-const defaultGitPushFlag = { force: false };
-export default async function (
-  { force }: GitPushFlags | undefined = defaultGitPushFlag,
-  remote = "origin",
-  ...refs: string[]
-) {
+const defaultGitPushParams: GitPushParams = {
+  force: false,
+  remote: "origin",
+  refs: [],
+};
+export default async function (opts: GitPushParams = defaultGitPushParams) {
+  const { force, remote, refs } = { ...defaultGitPushParams, ...opts };
   await spawn(
     "git",
-    ["push"]
-      .concat(getOptionalBooleanFlagArgument("--force", force))
-      .concat([remote, ...refs]),
+    ["push"].concat(force ? ["--force"] : []).concat([remote, ...refs]),
     gitLogger
   );
 }
