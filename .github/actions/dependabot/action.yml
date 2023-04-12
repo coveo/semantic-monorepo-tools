@@ -1,0 +1,8 @@
+name: "Setup"
+description: "Check for unaddressed Dependabot vulnerabilities"
+runs:
+  using: composite
+  steps:
+    - name: Check Dependabot vulnerabilities
+      run: node ./scripts/get-scan-results.mjs
+      shell: bash
