@@ -14,7 +14,7 @@ inputs:
     description: GitHub App Client Secret
     required: true
   installationId:
-    description: GitHub Installation ID
+    description: GitHub App Installation ID
     required: true
 runs:
   using: composite
@@ -23,8 +23,8 @@ runs:
       run: node ./scripts/get-scan-results.mjs
       shell: bash
       env:
-        RELEASER_APP_ID: ${{ inputs.RELEASER_APP_ID }}
-        RELEASER_PRIVATE_KEY: ${{ inputs.RELEASER_PRIVATE_KEY }}
-        RELEASER_CLIENT_ID: ${{ inputs.RELEASER_CLIENT_ID }}
-        RELEASER_CLIENT_SECRET: ${{ inputs.RELEASER_CLIENT_SECRET }}
-        RELEASER_INSTALLATION_ID: ${{ inputs.RELEASER_INSTALLATION_ID }}
+        RELEASER_APP_ID: ${{ inputs.appId }}
+        RELEASER_PRIVATE_KEY: ${{ inputs.privateKey }}
+        RELEASER_CLIENT_ID: ${{ inputs.clientId }}
+        RELEASER_CLIENT_SECRET: ${{ inputs.clientSecret }}
+        RELEASER_INSTALLATION_ID: ${{ inputs.installationId }}
