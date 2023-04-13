@@ -1,5 +1,5 @@
-name: "Dependabot"
-description: "Check for unaddressed Dependabot vulnerabilities"
+name: "SBOM Compliance"
+description: "Check for SBOM compliance"
 inputs:
   appId:
     description: GitHub App ID
@@ -19,8 +19,13 @@ inputs:
 runs:
   using: composite
   steps:
-    - name: Check Dependabot vulnerabilities
-      run: node ./scripts/get-scan-results.mjs
+    - name: Checkout licenses
+      uses: actions/checkout@v3
+      with:
+        repository: coveo/dependency-allowed-licenses
+        path: coveo-dependency-allowed-licenses
+    - name: Check SBOM compliance
+      run: node ./scripts/check-sbom.mjs
       shell: bash
       env:
         RELEASER_APP_ID: ${{ inputs.appId }}
@@ -28,3 +33,8 @@ runs:
         RELEASER_CLIENT_ID: ${{ inputs.clientId }}
         RELEASER_CLIENT_SECRET: ${{ inputs.clientSecret }}
         RELEASER_INSTALLATION_ID: ${{ inputs.installationId }}
+        public: "true"
+        distributed: "true"
+    - name: Clean licenses repo
+      run: rm -rf coveo-dependency-allowed-licenses
+      shell: bash
