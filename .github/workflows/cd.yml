@@ -20,6 +20,12 @@ jobs:
       - uses: ./.github/actions/lint
       - name: Dependabot
         uses: ./.github/actions/dependabot
+        with:
+          appId: ${{ secrets.RELEASER_APP_ID }}
+          privateKey: ${{ secrets.RELEASER_PRIVATE_KEY }}
+          clientId: ${{ secrets.RELEASER_CLIENT_ID }}
+          clientSecret: ${{ secrets.RELEASER_CLIENT_SECRET }}
+          installationId: ${{ secrets.RELEASER_INSTALLATION_ID }}
       - name: CodeQL
         uses: ./.github/actions/codeql
       - uses: ./.github/actions/build

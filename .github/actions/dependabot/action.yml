@@ -1,8 +1,30 @@
 name: "Setup"
 description: "Check for unaddressed Dependabot vulnerabilities"
+inputs:
+  appId:
+    description: GitHub App ID
+    required: true
+  privateKey:
+    description: GitHub App Private Key
+    required: true
+  clientId:
+    description: GitHub App Client Id
+    required: true
+  clientSecret:
+    description: GitHub App Client Secret
+    required: true
+  installationId:
+    description: GitHub Installation ID
+    required: true
 runs:
   using: composite
   steps:
     - name: Check Dependabot vulnerabilities
       run: node ./scripts/get-scan-results.mjs
       shell: bash
+      env:
+        RELEASER_APP_ID: ${{ inputs.RELEASER_APP_ID }}
+        RELEASER_PRIVATE_KEY: ${{ inputs.RELEASER_PRIVATE_KEY }}
+        RELEASER_CLIENT_ID: ${{ inputs.RELEASER_CLIENT_ID }}
+        RELEASER_CLIENT_SECRET: ${{ inputs.RELEASER_CLIENT_SECRET }}
+        RELEASER_INSTALLATION_ID: ${{ inputs.RELEASER_INSTALLATION_ID }}
