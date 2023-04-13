@@ -1,4 +1,5 @@
 import { Octokit } from "octokit";
+import { createAppAuth } from "@octokit/auth-app";
 
 const owner = "coveo";
 const repo = "semantic-monorepo-tools";
