@@ -46,7 +46,7 @@ const allowedLicenses = yamlParse(
 )["allow-licenses"];
 
 for (const dependency of sbom.packages) {
-  if (!allowedLicenses.include(dependency.licenseConcluded)) {
+  if (!allowedLicenses.includes(dependency.licenseConcluded)) {
     process.exit(1);
   }
 }
