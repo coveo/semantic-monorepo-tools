@@ -11,7 +11,9 @@ interface NpmOptions {
    */
   tag?: string;
   /**
-   *
+   * Indicates that a provenance statement should be generated.
+   * @default false
+   * @see {@link https://docs.npmjs.com/cli/v8/commands/npm-publish#provenance}
    */
   provenance?: boolean;
 }
