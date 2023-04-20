@@ -18,8 +18,6 @@ jobs:
           fetch-depth: 0
       - uses: ./.github/actions/setup
       - uses: ./.github/actions/lint
-      - name: SBOM
-        uses: ./.github/actions/sbom
         with:
           appId: ${{ secrets.RELEASER_APP_ID }}
           privateKey: ${{ secrets.RELEASER_PRIVATE_KEY }}
