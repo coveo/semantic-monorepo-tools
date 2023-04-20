@@ -9,13 +9,28 @@ interface NpmOptions {
    * @default "latest"
    * @see {@link https://docs.npmjs.com/cli/v8/commands/npm-publish#tag}
    */
-  tag: string;
+  tag?: string;
+  /**
+   *
+   */
+  provenance?: boolean;
 }
 
 export default async function (PATH: string, npmOpts?: NpmOptions) {
   const params = ["publish"];
-  for (const opt in npmOpts) {
-    params.push(...getOptionalFlagArgument(`--${opt}`, npmOpts[opt]));
+  for (const optKey in npmOpts) {
+    const optValue = npmOpts[optKey];
+    switch (typeof optValue) {
+      case "boolean":
+        if (optValue) {
+          params.push(`--${optKey}`);
+        }
+        break;
+      case "string":
+      case "number":
+        params.push(...getOptionalFlagArgument(`--${optKey}`, npmOpts[optKey]));
+        break;
+    }
   }
   await spawn(appendCmdIfWindows`npm`, params, npmLogger, {
     cwd: PATH,
