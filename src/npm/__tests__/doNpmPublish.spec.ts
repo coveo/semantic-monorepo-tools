@@ -31,7 +31,7 @@ describe("npmPublish()", () => {
   });
 
   describe("when no npmOpts is given", () => {
-    it("calls `npm publish`", async () => {
+    it("calls `npm publish` without any flags", async () => {
       await npmPublish("somepath");
 
       expect(mockedSpawn).toHaveBeenCalledWith(
@@ -49,6 +49,30 @@ describe("npmPublish()", () => {
       expect(mockedSpawn).toHaveBeenCalledWith(
         appendCmdIfWindows`npm`,
         ["publish", "--tag", "sometag"],
+        { cwd: "somepath" }
+      );
+    });
+  });
+
+  describe("when npmOpts.provenance is set to true", () => {
+    it("calls `npm publish` with the --provenance flag", async () => {
+      await npmPublish("somepath", { provenance: true });
+
+      expect(mockedSpawn).toHaveBeenCalledWith(
+        appendCmdIfWindows`npm`,
+        ["publish", "--provenance"],
+        { cwd: "somepath" }
+      );
+    });
+  });
+
+  describe("when npmOpts.provenance is set to false", () => {
+    it("calls `npm publish` without the --provenance flag", async () => {
+      await npmPublish("somepath", { provenance: false });
+
+      expect(mockedSpawn).toHaveBeenCalledWith(
+        appendCmdIfWindows`npm`,
+        ["publish"],
         { cwd: "somepath" }
       );
     });
