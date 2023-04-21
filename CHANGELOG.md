@@ -1,3 +1,12 @@
+# 2.1.0 (2023-04-21)
+
+
+### Features
+
+* **npm:** add support for provenance ([#156](https://github.com/coveo/semantic-monorepo-tools/issues/156)) ([3620283](https://github.com/coveo/semantic-monorepo-tools/commits/36202833b2a87094818db06e7b3bcd70c85be9f5))
+
+
+
 ## 2.0.1 (2023-04-13)
 
 
