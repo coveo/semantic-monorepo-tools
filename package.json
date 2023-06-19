@@ -41,7 +41,7 @@
   "license": "Apache-2.0",
   "devDependencies": {
     "@actions/github": "5.1.1",
-    "@octokit/auth-app": "4.0.13",
+    "@octokit/auth-app": "5.0.5",
     "@types/conventional-changelog-writer": "4.0.3",
     "@types/conventional-commits-parser": "3.0.3",
     "@types/debug": "4.1.8",
