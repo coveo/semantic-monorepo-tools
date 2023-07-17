@@ -1,3 +1,12 @@
+## 2.1.8 (2023-07-17)
+
+
+### Bug Fixes
+
+* **deps:** update dependency semver to v7.5.2 [security] ([d7e6630](https://github.com/coveo/semantic-monorepo-tools/commits/d7e66307847c78bbe12adc7b844487cfc89b0c5a))
+
+
+
 ## 2.1.7 (2023-06-19)
 
 
