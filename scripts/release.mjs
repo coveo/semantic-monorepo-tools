@@ -155,7 +155,7 @@ import { createAppAuth } from "@octokit/auth-app";
   //#endregion
 
   // Publish the new version on NPM
-  await npmPublish(PATH);
+  await npmPublish(PATH, { provenance: true });
 
   //#region Create GitHub Release on last tag
   const [, ...bodyArray] = changelog.split("\n");
