@@ -6,6 +6,6 @@ export default async function (tag: string, commitSHA?: string) {
   await spawn(
     `git`,
     ["tag", tag].concat(getOptionalPositionalArgument(commitSHA)),
-    gitLogger
+    gitLogger,
   );
 }

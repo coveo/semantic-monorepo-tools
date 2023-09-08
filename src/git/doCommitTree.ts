@@ -5,16 +5,16 @@ import gitLogger from "./utils/gitLogger.js";
 export default async function (
   tree: string,
   parent?: string,
-  message?: string
+  message?: string,
 ) {
   return (
     await spawn(
       "git",
       ["commit-tree", tree].concat(
         getOptionalFlagArgument("-p", parent),
-        getOptionalFlagArgument("-m", message)
+        getOptionalFlagArgument("-m", message),
       ),
-      gitLogger
+      gitLogger,
     )
   ).stdout.trim();
 }

@@ -35,7 +35,7 @@ describe("refreshPackageLock()", () => {
     expect(mockedSpawn).toHaveBeenCalledWith(
       appendCmdIfWindows`npm`,
       ["install", "--package-lock-only"],
-      { cwd: "somepath" }
+      { cwd: "somepath" },
     );
   });
 });

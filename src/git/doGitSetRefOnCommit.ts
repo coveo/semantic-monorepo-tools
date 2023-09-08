@@ -5,17 +5,17 @@ export default async function (
   remote: string,
   completeRef: string,
   commitSha1: string,
-  force = false
+  force = false,
 ) {
   const refPair = `${commitSha1}:${completeRef}`;
   if (refPair.startsWith("--") || remote.startsWith("--")) {
     throw new Error(
-      `invalid param:${[remote, completeRef, commitSha1].join(",")}`
+      `invalid param:${[remote, completeRef, commitSha1].join(",")}`,
     );
   }
   await spawn(
     "git",
     ["fetch", remote, refPair].concat(force ? ["--force"] : []),
-    gitLogger
+    gitLogger,
   );
 }

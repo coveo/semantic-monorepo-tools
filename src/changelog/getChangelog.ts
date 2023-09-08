@@ -13,7 +13,7 @@ export default function (
   parsedCommits: Array<Commit>,
   newVersion: string,
   writerContext: Partial<WriterContext> = {},
-  writerOpts: Options = {}
+  writerOpts: Options = {},
 ) {
   const ctx = {
     ...writerContext,
@@ -25,6 +25,6 @@ export default function (
   parsedCommits.forEach((commit) => changelogStream.write(commit));
   changelogStream.end();
   return new Promise<string>((resolve) =>
-    changelogStream.on("finish", () => resolve(changelog))
+    changelogStream.on("finish", () => resolve(changelog)),
   );
 }

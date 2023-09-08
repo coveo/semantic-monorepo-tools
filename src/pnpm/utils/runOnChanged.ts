@@ -7,7 +7,7 @@ export const runOnChanged = async (
   cmd: string,
   since: string,
   forcePackages: string[],
-  excludePackages: string[]
+  excludePackages: string[],
 ) => {
   const pnpmArgs = [
     "--recursive",

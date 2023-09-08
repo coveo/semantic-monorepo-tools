@@ -15,7 +15,7 @@ function getNextVersion(version: SemVer, bumpInfo: BumpInfo) {
   if ("level" in bumpInfo) {
     return inc(
       version,
-      `${bumpInfo.isPrerelease ? "pre" : ""}${VERSION_LEVEL[bumpInfo.level]}`
+      `${bumpInfo.isPrerelease ? "pre" : ""}${VERSION_LEVEL[bumpInfo.level]}`,
     );
   } else {
     return inc(version, bumpInfo.type, bumpInfo.preid);

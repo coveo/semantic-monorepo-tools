@@ -24,7 +24,7 @@ describe("describeNpmTag()", () => {
       expect(mockedSpawn).toHaveBeenCalledWith(
         appendCmdIfWindows`npm`,
         ["view", "somepackage@latest", "version"],
-        npmLogger
+        npmLogger,
       );
     });
   });
@@ -36,7 +36,7 @@ describe("describeNpmTag()", () => {
       expect(mockedSpawn).toHaveBeenCalledWith(
         appendCmdIfWindows`npm`,
         ["view", "somepackage@sometag", "version"],
-        npmLogger
+        npmLogger,
       );
     });
   });

@@ -11,12 +11,12 @@ export default async function (
   newVersion: string,
   since: string,
   forcePackages: string[] = [],
-  excludePackages: string[] = []
+  excludePackages: string[] = [],
 ) {
   await runOnChanged(
     `pnpm version ${newVersion} --no-git-tag-version`,
     since,
     forcePackages,
-    excludePackages
+    excludePackages,
   );
 }

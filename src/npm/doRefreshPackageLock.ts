@@ -9,6 +9,6 @@ export default async function (PATH: string) {
     npmLogger,
     {
       cwd: PATH,
-    }
+    },
   );
 }

@@ -27,7 +27,7 @@ describe("getNextVersion()", () => {
       (params, expectedBumpInfo) => {
         getNextVersion(initialTestVersion, params);
         expect(mockedInc).toBeCalledWith(initialTestVersion, expectedBumpInfo);
-      }
+      },
     );
   });
 
@@ -37,7 +37,7 @@ describe("getNextVersion()", () => {
       expect(mockedInc).toBeCalledWith(
         initialTestVersion,
         "patch",
-        "foobarbaz"
+        "foobarbaz",
       );
     });
   });

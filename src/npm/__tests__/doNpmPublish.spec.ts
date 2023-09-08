@@ -37,7 +37,7 @@ describe("npmPublish()", () => {
       expect(mockedSpawn).toHaveBeenCalledWith(
         appendCmdIfWindows`npm`,
         ["publish"],
-        { cwd: "somepath" }
+        { cwd: "somepath" },
       );
     });
   });
@@ -49,7 +49,7 @@ describe("npmPublish()", () => {
       expect(mockedSpawn).toHaveBeenCalledWith(
         appendCmdIfWindows`npm`,
         ["publish", "--tag", "sometag"],
-        { cwd: "somepath" }
+        { cwd: "somepath" },
       );
     });
   });
@@ -61,7 +61,7 @@ describe("npmPublish()", () => {
       expect(mockedSpawn).toHaveBeenCalledWith(
         appendCmdIfWindows`npm`,
         ["publish", "--provenance"],
-        { cwd: "somepath" }
+        { cwd: "somepath" },
       );
     });
   });
@@ -73,7 +73,7 @@ describe("npmPublish()", () => {
       expect(mockedSpawn).toHaveBeenCalledWith(
         appendCmdIfWindows`npm`,
         ["publish"],
-        { cwd: "somepath" }
+        { cwd: "somepath" },
       );
     });
   });

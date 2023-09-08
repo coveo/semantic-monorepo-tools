@@ -9,7 +9,7 @@ export default async function (
   REPO_OWNER: string,
   REPO_NAME: string,
   sshKey: string,
-  remoteName: string
+  remoteName: string,
 ) {
   const sshDirPath = join(homedir(), ".ssh");
   const pemPath = join(sshDirPath, "id_rsa");
@@ -22,7 +22,7 @@ export default async function (
     `Host ${remoteName}
   Hostname github.com
   PreferredAuthentications publickey
-  IdentityFile ${pemPath}`
+  IdentityFile ${pemPath}`,
   );
 
   await spawn(
@@ -33,6 +33,6 @@ export default async function (
       remoteName,
       `git@${remoteName}:${REPO_OWNER}/${REPO_NAME}.git`,
     ],
-    gitLogger
+    gitLogger,
   );
 }
