@@ -13,9 +13,8 @@ export default async function (PATH: string, changelog: string) {
   const changelogPath = join(PATH, "CHANGELOG.md");
   ensureChangelogExist(changelogPath);
 
-  const previousChangelogReadable = await getPreviousChangelogStream(
-    changelogPath
-  );
+  const previousChangelogReadable =
+    await getPreviousChangelogStream(changelogPath);
 
   truncateSync(changelogPath);
   const changelogWritable = createWriteStream(changelogPath);

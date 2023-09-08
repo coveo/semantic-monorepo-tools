@@ -35,6 +35,6 @@ export default async function (opts: GitPushParams = defaultGitPushParams) {
   await spawn(
     "git",
     ["push"].concat(force ? ["--force"] : []).concat([remote, ...refs]),
-    gitLogger
+    gitLogger,
   );
 }

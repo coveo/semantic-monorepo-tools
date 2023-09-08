@@ -15,7 +15,7 @@ export default function (
   command: string,
   args: string[],
   logger: Debugger = defaultLogger,
-  options: Options = {}
+  options: Options = {},
 ): Promise<{ stdout: string; stderr: string }> {
   const loggableArgs = args.join(" ");
   logger?.('executing "%s %s"', command, loggableArgs);
@@ -38,7 +38,7 @@ export default function (
 
     childProcess.on("close", (code, signal) => {
       logger?.(
-        `${command} ${loggableArgs} finished with code ${code} and signal '${signal}'`
+        `${command} ${loggableArgs} finished with code ${code} and signal '${signal}'`,
       );
       if (code) {
         reject({ stdout, stderr });

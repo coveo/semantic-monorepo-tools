@@ -22,12 +22,12 @@ interface Options {
 export default async function (
   newVersion: string,
   PATH: string,
-  options?: Options
+  options?: Options,
 ) {
   const completeOptions: Required<Options> = { ...DefaultOptions, ...options };
 
   const npmArgs = ["version", newVersion, "--git-tag-version=false"].concat(
-    computeFlagsFromOptions(completeOptions)
+    computeFlagsFromOptions(completeOptions),
   );
 
   await spawn(appendCmdIfWindows`npm`, npmArgs, npmLogger, {

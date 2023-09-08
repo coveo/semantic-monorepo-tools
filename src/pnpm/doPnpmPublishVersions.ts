@@ -17,7 +17,7 @@ export default async function (
   tag?: string,
   branch?: string,
   forcePackages: string[] = [],
-  excludePackages: string[] = []
+  excludePackages: string[] = [],
 ) {
   const filters = since ? `...[${since}]` : undefined;
 
@@ -27,7 +27,7 @@ export default async function (
     ...getExclusionFilters(excludePackages),
     "publish",
     getOptionalFlagArgument("--tag", tag),
-    getOptionalFlagArgument("--publish-branch", branch)
+    getOptionalFlagArgument("--publish-branch", branch),
   );
   await spawn("pnpm", pnpmArgs, pnpmLogger);
 }

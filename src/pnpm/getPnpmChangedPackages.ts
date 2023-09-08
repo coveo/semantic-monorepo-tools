@@ -8,7 +8,7 @@ import { runOnChanged } from "./utils/runOnChanged.js";
  */
 export default async function (
   since: string,
-  excludePackages: string[] = []
+  excludePackages: string[] = [],
 ): Promise<string[]> {
   const out = (
     await runOnChanged("printenv PNPM_PACKAGE_NAME", since, [], excludePackages)

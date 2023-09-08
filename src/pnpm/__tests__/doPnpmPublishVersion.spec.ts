@@ -33,9 +33,9 @@ describe("doPnpmPublishVersions", () => {
       expect(mockedSpawn).toHaveBeenCalledWith(
         "pnpm",
         ["--recursive", "--filter", `...[${since}]`, "publish"],
-        {}
+        {},
       );
-    }
+    },
   );
 
   it(`publishes recursively without the since %s filter if not defined`, async () => {
@@ -44,7 +44,7 @@ describe("doPnpmPublishVersions", () => {
     expect(mockedSpawn).toHaveBeenCalledWith(
       "pnpm",
       ["--recursive", "publish"],
-      {}
+      {},
     );
   });
 
@@ -56,9 +56,9 @@ describe("doPnpmPublishVersions", () => {
       expect(mockedSpawn).toHaveBeenCalledWith(
         "pnpm",
         ["--recursive", "--filter", "...[v1.0.0]", "publish", "--tag", tag],
-        {}
+        {},
       );
-    }
+    },
   );
 
   it.each(["main", "master", "release-1.0"])(
@@ -76,9 +76,9 @@ describe("doPnpmPublishVersions", () => {
           "--publish-branch",
           branch,
         ],
-        {}
+        {},
       );
-    }
+    },
   );
 
   it("filters in the forced packages", async () => {
@@ -94,7 +94,7 @@ describe("doPnpmPublishVersions", () => {
         '--filter="@org/package-b"',
         "publish",
       ],
-      {}
+      {},
     );
   });
 
@@ -111,7 +111,7 @@ describe("doPnpmPublishVersions", () => {
         '--filter="!@org/package-b"',
         "publish",
       ],
-      {}
+      {},
     );
   });
 
@@ -121,7 +121,7 @@ describe("doPnpmPublishVersions", () => {
       "next",
       "next-branch",
       ["package-a", "package-b"],
-      ["package-c", "package-d"]
+      ["package-c", "package-d"],
     );
 
     expect(mockedSpawn).toHaveBeenCalledWith(
@@ -142,7 +142,7 @@ describe("doPnpmPublishVersions", () => {
         "--publish-branch",
         "next-branch",
       ],
-      {}
+      {},
     );
   });
 });

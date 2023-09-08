@@ -48,7 +48,7 @@ import { createAppAuth } from "@octokit/auth-app";
     REPO_OWNER,
     REPO_NAME,
     process.env.DEPLOY_KEY,
-    GIT_SSH_REMOTE
+    GIT_SSH_REMOTE,
   );
   await gitSetupUser(GIT_USERNAME, GIT_EMAIL);
   // #endregion
@@ -96,7 +96,7 @@ import { createAppAuth } from "@octokit/auth-app";
         currentTag: newVersionTag,
         previousTag: lastTag,
       },
-      CONVENTION.writerOpts
+      CONVENTION.writerOpts,
     );
     await writeChangelog(PATH, changelog);
   }
@@ -139,7 +139,7 @@ import { createAppAuth } from "@octokit/auth-app";
   await gitSetRefOnCommit(
     GIT_SSH_REMOTE,
     `refs/heads/${mainBranchName}`,
-    commit.data.sha
+    commit.data.sha,
   );
 
   // Push the branch using the SSH remote to bypass any GitHub checks.

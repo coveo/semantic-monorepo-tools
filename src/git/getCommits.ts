@@ -13,7 +13,7 @@ import getOptionalPositionalArgument from "../utils/getOptionalPositionalArgumen
 export default async function (
   projectPath: string,
   from: string,
-  to = "HEAD"
+  to = "HEAD",
 ): Promise<string[]> {
   const delimiter = `<--- ${randomBytes(64).toString("hex")} --->`;
   const gitParams = [

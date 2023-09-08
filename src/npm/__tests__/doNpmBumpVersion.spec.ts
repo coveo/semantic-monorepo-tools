@@ -37,7 +37,7 @@ describe("npmPublish()", () => {
       expect(mockedSpawn).toHaveBeenCalledWith(
         appendCmdIfWindows`npm`,
         ["version", "0.1.2", "--git-tag-version=false"],
-        { cwd: "somepath" }
+        { cwd: "somepath" },
       );
     });
   });
@@ -51,7 +51,7 @@ describe("npmPublish()", () => {
       expect(mockedSpawn).toHaveBeenCalledWith(
         appendCmdIfWindows`npm`,
         ["version", "0.1.2", "--git-tag-version=false"],
-        { cwd: "somepath" }
+        { cwd: "somepath" },
       );
     });
   });
@@ -65,7 +65,7 @@ describe("npmPublish()", () => {
       expect(mockedSpawn).toHaveBeenCalledWith(
         appendCmdIfWindows`npm`,
         ["version", "0.1.2", "--git-tag-version=false", "--save"],
-        { cwd: "somepath" }
+        { cwd: "somepath" },
       );
     });
   });
@@ -79,7 +79,7 @@ describe("npmPublish()", () => {
       expect(mockedSpawn).toHaveBeenCalledWith(
         appendCmdIfWindows`npm`,
         ["version", "0.1.2", "--git-tag-version=false", "--save", "-E"],
-        { cwd: "somepath" }
+        { cwd: "somepath" },
       );
     });
   });

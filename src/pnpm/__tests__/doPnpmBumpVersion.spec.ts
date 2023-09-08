@@ -55,7 +55,7 @@ describe("doPnpmBumpVersion", () => {
         "exec",
         "pnpm version v1.0.0 --no-git-tag-version",
       ],
-      { shell: true }
+      { shell: true },
     );
   });
 
@@ -72,7 +72,7 @@ describe("doPnpmBumpVersion", () => {
         "exec",
         "pnpm version v1.0.0 --no-git-tag-version",
       ],
-      { shell: true }
+      { shell: true },
     );
   });
 
@@ -89,7 +89,7 @@ describe("doPnpmBumpVersion", () => {
         "exec",
         "pnpm version v1.0.0 --no-git-tag-version",
       ],
-      { shell: true }
+      { shell: true },
     );
   });
 
@@ -98,7 +98,7 @@ describe("doPnpmBumpVersion", () => {
       "v1.0.0",
       "v1.0.0-rc.1",
       ["package-a", "package-b"],
-      ["package-c", "package-d"]
+      ["package-c", "package-d"],
     );
 
     expect(mockedSpawn).toHaveBeenCalledWith(
@@ -115,7 +115,7 @@ describe("doPnpmBumpVersion", () => {
         "exec",
         "pnpm version v1.0.0 --no-git-tag-version",
       ],
-      { shell: true }
+      { shell: true },
     );
   });
 });

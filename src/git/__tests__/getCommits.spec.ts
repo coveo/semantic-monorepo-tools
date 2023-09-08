@@ -48,7 +48,7 @@ describe("getCommits()", () => {
         "someTag..HEAD",
         "somePath",
       ],
-      {}
+      {},
     );
   });
 
@@ -62,7 +62,7 @@ describe("getCommits()", () => {
         "--dense",
         "someTag..HEAD",
       ],
-      {}
+      {},
     );
   });
 });

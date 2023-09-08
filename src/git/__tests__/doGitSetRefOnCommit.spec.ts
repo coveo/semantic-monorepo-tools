@@ -17,15 +17,15 @@ describe("doGitSetRef()", () => {
     (remote) => {
       it("should throw when called with a bad remote", () => {
         expect(
-          gitSetRef(remote, "a", "b")
+          gitSetRef(remote, "a", "b"),
         ).rejects.toThrowErrorMatchingSnapshot();
       });
       it("should throw when called with a bad commitSHA1", () => {
         expect(
-          gitSetRef("a", "a", remote)
+          gitSetRef("a", "a", remote),
         ).rejects.toThrowErrorMatchingSnapshot();
       });
-    }
+    },
   );
 
   it("should append --force when force=true", async () => {
