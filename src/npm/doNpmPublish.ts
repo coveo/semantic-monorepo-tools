@@ -16,6 +16,12 @@ interface NpmOptions {
    * @see {@link https://docs.npmjs.com/cli/v8/commands/npm-publish#provenance}
    */
   provenance?: boolean;
+  /**
+   * Specify the registry to publish to, overriding the default registry.
+   * @default undefined
+   * @see {@link https://docs.npmjs.com/cli/v9/using-npm/config#registry}
+   */
+  registry?: string;
 }
 
 export default async function (PATH: string, npmOpts?: NpmOptions) {
