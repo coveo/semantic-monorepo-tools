@@ -19,6 +19,7 @@ interface NpmOptions {
   /**
    * Specify the registry to publish to, overriding the default registry.
    * @default undefined
+   * @see {@link https://docs.npmjs.com/cli/v9/using-npm/config#registry}
    */
   registry?: string;
 }
