@@ -34,7 +34,7 @@ import { createAppAuth } from "@octokit/auth-app";
   //#region Constants
   const PATH = ".";
   const VERSION_PREFIX = "v";
-  const CONVENTION = await angularChangelogConvention;
+  const CONVENTION = await angularChangelogConvention();
   const REPO_OWNER = "coveo";
   const REPO_NAME = "semantic-monorepo-tools";
   const GIT_USERNAME = "developer-experience-bot[bot]";
