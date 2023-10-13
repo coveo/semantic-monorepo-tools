@@ -1,3 +1,17 @@
+# 2.2.0 (2023-10-13)
+
+
+### Bug Fixes
+
+* **deps:** update all dependencies ([0cbe88c](https://github.com/coveo/semantic-monorepo-tools/commits/0cbe88c25b63e3a59101b88433881e57befc7613))
+
+
+### Features
+
+* add support the registry option when publishing NPM packages ([#189](https://github.com/coveo/semantic-monorepo-tools/issues/189)) ([ebc6a55](https://github.com/coveo/semantic-monorepo-tools/commits/ebc6a556d6f6aecaacdaaea448bd85cbcd81db2c))
+
+
+
 ## 2.1.20 (2023-09-07)
 
 
