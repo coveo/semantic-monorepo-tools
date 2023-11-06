@@ -1,3 +1,12 @@
+# 2.3.0 (2023-11-06)
+
+
+### Features
+
+* git reset ([#198](https://github.com/coveo/semantic-monorepo-tools/issues/198)) ([b5a8a6a](https://github.com/coveo/semantic-monorepo-tools/commits/b5a8a6a10401b63248e833ca02122e91c09b6bed))
+
+
+
 ## 2.2.3 (2023-10-30)
 
 
