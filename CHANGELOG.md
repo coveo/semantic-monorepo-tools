@@ -1,3 +1,12 @@
+## 2.3.3 (2023-11-17)
+
+
+### Bug Fixes
+
+* export gitReset ([478792f](https://github.com/coveo/semantic-monorepo-tools/commits/478792fb97237418fc4ebbb2795e7c06e6deffd0))
+
+
+
 ## 2.3.2 (2023-11-14)
 
 
