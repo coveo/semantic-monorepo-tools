@@ -1,3 +1,12 @@
+# 2.4.0 (2023-11-29)
+
+
+### Features
+
+* add git diff command ([#201](https://github.com/coveo/semantic-monorepo-tools/issues/201)) ([551b98e](https://github.com/coveo/semantic-monorepo-tools/commits/551b98e14dfbf7c4d23a3344c6c80b2efca75ce6))
+
+
+
 ## 2.3.4 (2023-11-24)
 
 
