@@ -21,6 +21,7 @@ export { default as gitSetRefOnCommit } from "./git/doGitSetRefOnCommit.js";
 export { default as gitDeleteRemoteBranch } from "./git/doGitPushDelete.js";
 export { default as gitPublishBranch } from "./git/doGitPublishBranch.js";
 export { default as gitReset } from "./git/doGitReset.js";
+export { default as gitDiff } from "./git/doGitDiff.js";
 
 export { default as npmBumpVersion } from "./npm/doNpmBumpVersion.js";
 export { default as npmPublish } from "./npm/doNpmPublish.js";
