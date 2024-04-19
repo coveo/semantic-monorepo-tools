@@ -1,3 +1,3 @@
 export default function appendCmdIfWindows(cmd) {
-  return `${cmd}${process.platform === "win32" ? ".cmd" : ""}`;
+  return `${cmd}${process.platform === "win32" ? ".ps1" : ""}`;
 }
