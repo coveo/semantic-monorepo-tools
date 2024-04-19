@@ -23,8 +23,8 @@ export default function (
   let stderr = "";
   const { encoding, ...spawnOptions } = {
     encoding: "utf-8",
-    ...options,
     shell: process.platform === "win32" ? "powershell" : undefined,
+    ...options,
   };
 
   return new Promise<spawnOutputs>((resolve, reject) => {
