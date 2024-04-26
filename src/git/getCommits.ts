@@ -15,10 +15,10 @@ export default async function (
   from: string,
   to = "HEAD",
 ): Promise<string[]> {
-  const delimiter = `"<--- ${randomBytes(64).toString("hex")} --->"`;
+  const delimiter = `<--- ${randomBytes(64).toString("hex")} --->`;
   const gitParams = [
     "log",
-    `--pretty=format:%B%n-hash-%n%H ${delimiter}`,
+    `--pretty="format:%B%n-hash-%n%H ${delimiter}"`,
     "--dense",
     `${from}..${to}`,
   ].concat(getOptionalPositionalArgument(projectPath));

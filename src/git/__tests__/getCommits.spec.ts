@@ -43,7 +43,7 @@ describe("getCommits()", () => {
       "git",
       [
         "log",
-        "--pretty=format:%B%n-hash-%n%H <--- 23 --->",
+        '--pretty="format:%B%n-hash-%n%H <--- 23 --->"',
         "--dense",
         "someTag..HEAD",
         "somePath",
@@ -58,7 +58,7 @@ describe("getCommits()", () => {
       "git",
       [
         "log",
-        "--pretty=format:%B%n-hash-%n%H <--- 23 --->",
+        '--pretty="format:%B%n-hash-%n%H <--- 23 --->"',
         "--dense",
         "someTag..HEAD",
       ],
