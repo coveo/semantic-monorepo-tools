@@ -21,7 +21,11 @@ export default function (
   logger?.('executing "%s %s"', command, loggableArgs);
   let stdout = "";
   let stderr = "";
-  const { encoding, ...spawnOptions } = { encoding: "utf-8", ...options };
+  const { encoding, ...spawnOptions } = {
+    encoding: "utf-8",
+    shell: process.platform === "win32" ? "powershell" : undefined,
+    ...options,
+  };
 
   return new Promise<spawnOutputs>((resolve, reject) => {
     const childProcess = spawn(command, args, spawnOptions);
