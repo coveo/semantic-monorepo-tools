@@ -10,7 +10,15 @@ export { default as gitPushTags } from "./git/doGitPushTags.js";
 export { default as gitCommit } from "./git/doGitCommit.js";
 export { default as gitTag } from "./git/doGitTag.js";
 export { default as gitCreateBranch } from "./git/doCreateGitBranch.js";
-export { default as gitCheckoutBranch } from "./git/doGitCheckoutBranch.js";
+import { default as gitCheckoutBranchFn } from "./git/doGitSwitchBranch.js";
+
+/**
+ * @deprecated use {@link gitSwitchBranch} instead
+ * @see https://github.blog/2019-08-16-highlights-from-git-2-23/
+ */
+export const gitCheckoutBranch = gitCheckoutBranchFn;
+
+export { default as gitSwitchBranch } from "./git/doGitSwitchBranch.js";
 export { default as gitAdd } from "./git/doGitAdd.js";
 export { default as gitCommitTree } from "./git/doCommitTree.js";
 export { default as gitWriteTree } from "./git/doGitWriteTree.js";
