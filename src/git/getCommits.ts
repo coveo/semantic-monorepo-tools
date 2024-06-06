@@ -18,7 +18,7 @@ export default async function (
   const delimiter = `<--- ${randomBytes(64).toString("hex")} --->`;
   const gitParams = [
     "log",
-    `--pretty="format:%B%n-hash-%n%H ${delimiter}"`,
+    `--format=%B%n-hash-%n%H%n${delimiter}`,
     "--dense",
     `${from}..${to}`,
   ].concat(getOptionalPositionalArgument(projectPath));
