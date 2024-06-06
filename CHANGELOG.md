@@ -1,3 +1,12 @@
+## 2.4.34 (2024-06-06)
+
+
+### Bug Fixes
+
+* remove double quotes ([#240](https://github.com/coveo/semantic-monorepo-tools/issues/240)) ([863ee45](https://github.com/coveo/semantic-monorepo-tools/commits/863ee458ea1860896db8fe89b0b19f933d7b292f))
+
+
+
 ## 2.4.33 (2024-05-31)
 
 
