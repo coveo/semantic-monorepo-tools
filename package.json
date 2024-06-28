@@ -41,7 +41,7 @@
   "license": "Apache-2.0",
   "devDependencies": {
     "@actions/github": "6.0.0",
-    "@octokit/auth-app": "6.1.1",
+    "@octokit/auth-app": "7.1.0",
     "@types/conventional-changelog-writer": "4.0.10",
     "@types/conventional-commits-parser": "5.0.0",
     "@types/debug": "4.1.12",
@@ -50,12 +50,12 @@
     "@types/semver": "7.5.8",
     "@typescript-eslint/eslint-plugin": "7.14.1",
     "@typescript-eslint/parser": "7.14.1",
-    "conventional-changelog-angular": "7.0.0",
-    "eslint": "8.57.0",
+    "conventional-changelog-angular": "8.0.0",
+    "eslint": "9.6.0",
     "husky": "9.0.11",
     "jest": "29.7.0",
     "lint-staged": "15.2.7",
-    "octokit": "3.2.1",
+    "octokit": "4.0.2",
     "prettier": "3.3.2",
     "ts-jest": "29.1.5",
     "ts-node": "10.9.2",
@@ -63,10 +63,10 @@
     "yaml": "^2.2.1"
   },
   "dependencies": {
-    "conventional-changelog-writer": "^7.0.0",
-    "conventional-commits-parser": "^5.0.0",
+    "conventional-changelog-writer": "^8.0.0",
+    "conventional-commits-parser": "^6.0.0",
     "debug": "^4.3.3",
-    "git-raw-commits": "^4.0.0",
+    "git-raw-commits": "^5.0.0",
     "semver": "^7.3.7",
     "tempfile": "^5.0.0"
   },
