@@ -7,7 +7,6 @@ import npmLogger from "./utils/npmLogger.js";
  * @param packageName The name of the package to update
  * @param version The version to use for the update
  * @param tag Th tag to update
- * @returns
  */
 export default async function (
   packageName: string,
