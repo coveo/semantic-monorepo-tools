@@ -1,3 +1,12 @@
+# 2.5.0 (2024-10-23)
+
+
+### Features
+
+* **npm:** add fn to Update a package's tag in the npm registry to a specific version ([#267](https://github.com/coveo/semantic-monorepo-tools/issues/267)) ([6fbb84b](https://github.com/coveo/semantic-monorepo-tools/commits/6fbb84bc8b8fb793a4777dcde772062a92b179d0))
+
+
+
 ## 2.4.61 (2024-10-21)
 
 
