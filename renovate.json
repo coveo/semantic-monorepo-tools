@@ -4,7 +4,7 @@
     ":semanticPrefixFixDepsChoreOthers",
     "helpers:pinGitHubActionDigests",
     "schedule:earlyMondays",
-    "github>coveo-platform/renovate-presets//auto-merge.json"
+    "github>coveo/renovate-presets//auto-merge.json"
   ],
   "packageRules": [
     {
