@@ -46,7 +46,7 @@
     "@types/conventional-commits-parser": "5.0.0",
     "@types/debug": "4.1.12",
     "@types/git-raw-commits": "2.0.4",
-    "@types/jest": "29.5.13",
+    "@types/jest": "29.5.14",
     "@types/semver": "7.5.8",
     "@typescript-eslint/eslint-plugin": "7.18.0",
     "@typescript-eslint/parser": "7.18.0",
