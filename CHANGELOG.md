@@ -1,3 +1,12 @@
+# 2.6.0 (2024-12-03)
+
+
+### Features
+
+* **git:** allow additional args on gitDiff and getSHA1FromRef ([#277](https://github.com/coveo/semantic-monorepo-tools/issues/277)) ([504db98](https://github.com/coveo/semantic-monorepo-tools/commits/504db98e546bc4776c36197abebead7aa9ec4184))
+
+
+
 ## 2.5.9 (2024-12-02)
 
 
