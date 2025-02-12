@@ -17,7 +17,7 @@
   "type": "module",
   "scripts": {
     "build": "tsc -b",
-    "test": "jest",
+    "test": "jest && npm run test",
     "prestart": "npm run build",
     "start": "node --experimental-specifier-resolution=node dist",
     "predebug": "npm run build",
