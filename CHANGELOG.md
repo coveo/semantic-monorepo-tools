@@ -1,3 +1,13 @@
+## 2.6.5 (2025-05-20)
+
+
+### Bug Fixes
+
+* **deps:** update all dependencies ([#287](https://github.com/coveo/semantic-monorepo-tools/issues/287)) ([a8cde52](https://github.com/coveo/semantic-monorepo-tools/commits/a8cde521fd10da439c00d28ed0ae1e0c2e249ac2))
+* **deps:** update all dependencies ([#294](https://github.com/coveo/semantic-monorepo-tools/issues/294)) ([aafc7cd](https://github.com/coveo/semantic-monorepo-tools/commits/aafc7cd4420bf56be87e75f9540dd3301da4051e))
+
+
+
 ## 2.6.4 (2025-01-06)
 
 
