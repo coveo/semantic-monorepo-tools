@@ -57,7 +57,7 @@
     "lint-staged": "15.5.2",
     "octokit": "3.2.2",
     "prettier": "3.6.2",
-    "ts-jest": "29.4.1",
+    "ts-jest": "29.4.2",
     "ts-node": "10.9.2",
     "typescript": "5.9.2",
     "yaml": "^2.2.1"
