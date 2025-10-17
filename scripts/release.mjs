@@ -72,7 +72,7 @@ import { createAppAuth } from "@octokit/auth-app";
   const lastTag = await getLastTag({ prefix: VERSION_PREFIX });
   // Passing an empty string allow empty commits (i.e. that does not modify any files) to be included.
   const commits = await getCommits("", lastTag);
-  const parsedCommits = parseCommits(commits, CONVENTION.parserOpts);
+  const parsedCommits = await parseCommits(commits, CONVENTION.parserOpts);
   const bumpInfo = CONVENTION.recommendedBumpOpts.whatBump(parsedCommits);
   const currentVersion = getCurrentVersion(PATH);
   const newVersion = getNextVersion(currentVersion, bumpInfo);

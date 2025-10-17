@@ -1,4 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`doGitSetRef() with invalid params should throw when called with a bad commitSHA1 1`] = `"invalid param:a,a,--upload-pack"`;
 

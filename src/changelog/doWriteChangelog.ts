@@ -20,7 +20,7 @@ export default async function (PATH: string, changelog: string) {
   const changelogWritable = createWriteStream(changelogPath);
   changelogWritable.write(changelog);
 
-  return new Promise((resolve) => {
+  return new Promise<void>((resolve) => {
     previousChangelogReadable.pipe(changelogWritable).once("finish", resolve);
   });
 }

@@ -26,7 +26,10 @@ describe("getNextVersion()", () => {
       "should call semver.inc with the good ReleaseType",
       (params, expectedBumpInfo) => {
         getNextVersion(initialTestVersion, params);
-        expect(mockedInc).toBeCalledWith(initialTestVersion, expectedBumpInfo);
+        expect(mockedInc).toHaveBeenCalledWith(
+          initialTestVersion,
+          expectedBumpInfo,
+        );
       },
     );
   });
@@ -34,7 +37,7 @@ describe("getNextVersion()", () => {
   describe("when called with BumpInfoWithType", () => {
     it("should just act as proxy  to semver.inc", () => {
       getNextVersion(initialTestVersion, { type: "patch", preid: "foobarbaz" });
-      expect(mockedInc).toBeCalledWith(
+      expect(mockedInc).toHaveBeenCalledWith(
         initialTestVersion,
         "patch",
         "foobarbaz",
