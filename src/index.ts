@@ -39,6 +39,10 @@ export { default as describeNpmTag } from "./npm/describeNpmTag.js";
 
 export { default as pnpmBumpVersion } from "./pnpm/doPnpmBumpVersion.js";
 export { default as pnpmPublish } from "./pnpm/doPnpmPublishVersions.js";
+export { default as pnpmPublishPackage } from "./pnpm/doPnpmPublish.js";
+export { default as pnpmSetTag } from "./pnpm/doPnpmSetTag.js";
+export { default as describePnpmTag } from "./pnpm/describePnpmTag.js";
+export { default as refreshPnpmLockfile } from "./pnpm/doRefreshPnpmLockfile.js";
 
 export { default as pnpmGetChangedPackages } from "./pnpm/getPnpmChangedPackages.js";
 
