@@ -1,3 +1,12 @@
+# 2.7.0 (2025-10-17)
+
+
+### Features
+
+* add missing pnpm functions ([#309](https://github.com/coveo/semantic-monorepo-tools/issues/309)) ([890c529](https://github.com/coveo/semantic-monorepo-tools/commits/890c52939f3d0f6d98f366a0a4730a8289b75bfc))
+
+
+
 ## 2.6.19 (2025-10-14)
 
 
