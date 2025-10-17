@@ -41,6 +41,7 @@
   "license": "Apache-2.0",
   "devDependencies": {
     "@actions/github": "6.0.1",
+    "@eslint/js": "^9.37.0",
     "@octokit/auth-app": "8.1.1",
     "@types/conventional-changelog-writer": "4.0.10",
     "@types/conventional-commits-parser": "5.0.1",
@@ -51,7 +52,8 @@
     "@typescript-eslint/eslint-plugin": "8.46.0",
     "@typescript-eslint/parser": "8.46.0",
     "conventional-changelog-angular": "8.0.0",
-    "eslint": "9.37.0",
+    "eslint": "^9.37.0",
+    "globals": "^16.4.0",
     "husky": "9.1.7",
     "jest": "30.2.0",
     "lint-staged": "16.2.3",
@@ -59,7 +61,8 @@
     "prettier": "3.6.2",
     "ts-jest": "29.4.4",
     "ts-node": "10.9.2",
-    "typescript": "5.9.3",
+    "typescript": "^5.9.3",
+    "typescript-eslint": "^8.46.1",
     "yaml": "^2.2.1"
   },
   "dependencies": {
