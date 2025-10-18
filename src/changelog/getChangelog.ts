@@ -1,6 +1,7 @@
-import changelogWriter, {
+import {
   Context,
   Options,
+  writeChangelogStream as changelogWriter,
 } from "conventional-changelog-writer";
 import type { Commit } from "conventional-commits-parser";
 
