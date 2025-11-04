@@ -42,8 +42,8 @@
   "devDependencies": {
     "@actions/github": "6.0.1",
     "@octokit/auth-app": "6.1.4",
-    "@types/conventional-changelog-writer": "4.0.10",
-    "@types/conventional-commits-parser": "5.0.1",
+    "@types/conventional-changelog-writer": "4.0.11",
+    "@types/conventional-commits-parser": "5.0.2",
     "@types/debug": "4.1.12",
     "@types/git-raw-commits": "2.0.4",
     "@types/jest": "29.5.14",
@@ -57,7 +57,7 @@
     "lint-staged": "15.5.2",
     "octokit": "3.2.2",
     "prettier": "3.6.2",
-    "ts-jest": "29.4.4",
+    "ts-jest": "29.4.5",
     "ts-node": "10.9.2",
     "typescript": "5.9.3",
     "yaml": "^2.2.1"
