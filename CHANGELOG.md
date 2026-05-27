@@ -1,3 +1,92 @@
+## 2.7.1 (2025-11-04)
+
+
+
+# 2.7.0 (2025-10-17)
+
+
+### Features
+
+* add missing pnpm functions ([#309](https://github.com/coveo/semantic-monorepo-tools/issues/309)) ([890c529](https://github.com/coveo/semantic-monorepo-tools/commits/890c52939f3d0f6d98f366a0a4730a8289b75bfc))
+
+
+
+## 2.6.19 (2025-10-14)
+
+
+
+## 2.6.18 (2025-10-10)
+
+
+
+## 2.6.17 (2025-09-30)
+
+
+
+## 2.6.16 (2025-09-23)
+
+
+### Bug Fixes
+
+* **deps:** update all dependencies ([#305](https://github.com/coveo/semantic-monorepo-tools/issues/305)) ([8a9e009](https://github.com/coveo/semantic-monorepo-tools/commits/8a9e00911a56a6b6eb079f1a6de71b814bacc4ea))
+
+
+
+## 2.6.15 (2025-09-16)
+
+
+
+## 2.6.14 (2025-08-19)
+
+
+
+## 2.6.13 (2025-08-11)
+
+
+
+## 2.6.12 (2025-07-29)
+
+
+
+## 2.6.11 (2025-07-22)
+
+
+
+## 2.6.10 (2025-07-08)
+
+
+
+## 2.6.9 (2025-06-30)
+
+
+
+## 2.6.8 (2025-06-23)
+
+
+
+## 2.6.7 (2025-06-02)
+
+
+
+## 2.6.6 (2025-05-27)
+
+
+### Bug Fixes
+
+* **deps:** update all dependencies ([#295](https://github.com/coveo/semantic-monorepo-tools/issues/295)) ([39742ca](https://github.com/coveo/semantic-monorepo-tools/commits/39742cabe4015b7e1c87b7c4c9895e13fb07608b))
+
+
+
+## 2.6.5 (2025-05-20)
+
+
+### Bug Fixes
+
+* **deps:** update all dependencies ([#287](https://github.com/coveo/semantic-monorepo-tools/issues/287)) ([a8cde52](https://github.com/coveo/semantic-monorepo-tools/commits/a8cde521fd10da439c00d28ed0ae1e0c2e249ac2))
+* **deps:** update all dependencies ([#294](https://github.com/coveo/semantic-monorepo-tools/issues/294)) ([aafc7cd](https://github.com/coveo/semantic-monorepo-tools/commits/aafc7cd4420bf56be87e75f9540dd3301da4051e))
+
+
+
 ## 2.6.4 (2025-01-06)
 
 

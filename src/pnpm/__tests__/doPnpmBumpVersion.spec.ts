@@ -1,46 +1,23 @@
-import type { Readable } from "node:stream";
-import { spawn, ChildProcess } from "node:child_process";
-import { EventEmitter } from "node:events";
+import { spawn } from "node:child_process";
 import bump from "../doPnpmBumpVersion.js";
+import {
+  mockSpawnSuccess,
+  mockSpawnSuccessOnce,
+} from "../../test-helpers/mockSpawn.js";
 
 jest.mock("node:child_process");
 const mockedSpawn = jest.mocked(spawn);
 
 describe("doPnpmBumpVersion", () => {
   const doMockSpawnWithStdout = (mockedStdout?: string) => {
-    mockedSpawn.mockImplementationOnce(() => {
-      const cpEventEmitter: ChildProcess = new EventEmitter() as ChildProcess;
-      const stdoutEventEmitter = new EventEmitter();
-      const stderrEventEmitter = new EventEmitter();
-      cpEventEmitter.stdout = stdoutEventEmitter as Readable;
-      cpEventEmitter.stderr = stderrEventEmitter as Readable;
-      setTimeout(() => {
-        if (mockedStdout) {
-          stdoutEventEmitter.emit("data", mockedStdout);
-        }
-        cpEventEmitter.emit("close", 0);
-      }, 0);
-      return cpEventEmitter;
-    });
-  };
-
-  const doMockDummySpawn = () => {
-    mockedSpawn.mockImplementation(() => {
-      const cpEventEmitter: ChildProcess = new EventEmitter() as ChildProcess;
-      const stdoutEventEmitter = new EventEmitter();
-      const stderrEventEmitter = new EventEmitter();
-      cpEventEmitter.stdout = stdoutEventEmitter as Readable;
-      cpEventEmitter.stderr = stderrEventEmitter as Readable;
-      setTimeout(() => {
-        cpEventEmitter.emit("close", 0);
-      }, 0);
-      return cpEventEmitter;
+    mockSpawnSuccessOnce(mockedSpawn, {
+      stdoutData: mockedStdout ? [mockedStdout] : [],
     });
   };
 
   beforeEach(() => {
     jest.resetAllMocks();
-    doMockDummySpawn();
+    mockSpawnSuccess(mockedSpawn);
     doMockSpawnWithStdout("7.0.0");
   });
 
