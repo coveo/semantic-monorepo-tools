@@ -25,4 +25,4 @@ The goal is to make abstractions of the inner working of the tools (e.g. `git`, 
 It is also used for the release processes of several monorepos at Coveo, you can find implementations examples on some of our repository:
 
 - [`coveo/cli`](https://github.com/coveo/cli/blob/master/scripts/releaseV2)
-- [`coveo/plasma`](https://github.com/coveo/plasma/blob/master/build/publishNewVersion.mjs)
+- [`coveo/plasma`](https://github.com/coveo/plasma/blob/master/.github/actions/publish/index.mjs)
