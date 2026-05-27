@@ -14,7 +14,7 @@ export default async function (
   excludePackages: string[] = [],
 ) {
   await runOnChanged(
-    `pnpm version ${newVersion} --no-git-tag-version`,
+    `pnpm version ${newVersion} --no-git-tag-version --no-git-checks`,
     since,
     forcePackages,
     excludePackages,
