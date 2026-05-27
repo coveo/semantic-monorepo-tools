@@ -30,7 +30,7 @@ describe("doPnpmBumpVersion", () => {
         "--recursive",
         '--filter="...[v0.0.0]"',
         "exec",
-        "pnpm version v1.0.0 --no-git-tag-version",
+        "pnpm version v1.0.0 --no-git-tag-version --no-git-checks",
       ],
       { shell: true },
     );
@@ -47,7 +47,7 @@ describe("doPnpmBumpVersion", () => {
         '--filter="@org/package-a"',
         '--filter="@org/package-b"',
         "exec",
-        "pnpm version v1.0.0 --no-git-tag-version",
+        "pnpm version v1.0.0 --no-git-tag-version --no-git-checks",
       ],
       { shell: true },
     );
@@ -64,7 +64,7 @@ describe("doPnpmBumpVersion", () => {
         '--filter="!@org/package-a"',
         '--filter="!@org/package-b"',
         "exec",
-        "pnpm version v1.0.0 --no-git-tag-version",
+        "pnpm version v1.0.0 --no-git-tag-version --no-git-checks",
       ],
       { shell: true },
     );
@@ -90,7 +90,7 @@ describe("doPnpmBumpVersion", () => {
         '--filter="!package-c"',
         '--filter="!package-d"',
         "exec",
-        "pnpm version v1.0.0 --no-git-tag-version",
+        "pnpm version v1.0.0 --no-git-tag-version --no-git-checks",
       ],
       { shell: true },
     );

@@ -7,7 +7,9 @@
     "sourceMap": false,
     "allowJs": true,
     "noEmit": true,
-    "checkJs": true
+    "checkJs": true,
+    "strict": false,
+    "types": ["jest"]
   },
   "files": ["scripts/release.mjs"],
   "include": ["src"],
